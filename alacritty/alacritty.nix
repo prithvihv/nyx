@@ -65,7 +65,7 @@ in
       italic = {
         family = "JetBrains Mono";
       };
-      size = 8.0;
+      size = 12.0;
     };
     selection = {
       save_to_clipboard = true;

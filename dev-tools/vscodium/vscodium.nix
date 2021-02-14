@@ -40,6 +40,16 @@ let
         }
     ]);
 
+    haskellExt = (with pkgs.vscode-extensions;[
+        haskell.haskell
+    ]) ++ (pkgs.vscode-utils.extensionsFromVscodeMarketplace [{
+            name = "language-haskell";
+            publisher = "justusadam";
+            version = "3.3.0";
+            sha256 = "dab96899ce2a8dc6b532fe65c604ffe00011cee1bc7b8920b2189e96905e0589";
+        }
+    ]);
+
     elmExt = (with pkgs.vscode-extensions;[
 	    elmtooling.elm-ls-vscode
     ]);
@@ -81,6 +91,9 @@ let
 
     misc = (with pkgs.vscode-extensions; [
        WakaTime.vscode-wakatime
+       # needs node to be installed, programs attribute in the resulting attr has it
+       # need to change .vscode-server/xxxxx/bin/server.sh to use global node instead of local
+       ms-vscode-remote.remote-ssh
     ]);
 
     allExtensions = 
@@ -94,9 +107,16 @@ let
         ++ fishExt
         ++ GolangExt
         ++ elixirExt
-        ++ erlangExt;
+        ++ erlangExt
+        ++ haskellExt;
 in {
-    enable = true;
-    package = pkgs.vscodium;
-    extensions = allExtensions;
+    config = {
+      enable = true;
+      package = pkgs.vscodium;
+      extensions = allExtensions;
+    };
+
+    programs = with pkgs;[
+    	nodejs-12_x
+    ];
 }
