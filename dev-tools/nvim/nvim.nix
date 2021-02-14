@@ -17,11 +17,12 @@ in {
 
     plug.plugins = with pkgs.vimPlugins; [
       # misc
-      dracula-vim
+      dracula-vim # theme
       YouCompleteMe
-      vim-wakatime
-      vim-watchdogs
-      vim-lastplace
+      vim-wakatime # waka time log
+      vim-watchdogs # watch and correct code
+      vim-lastplace # spawn cursor at last edited location
+      vim-over # view text file serach and replace
     ] ++ [
       # language support
       rust-vim

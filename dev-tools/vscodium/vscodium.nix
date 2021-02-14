@@ -95,6 +95,8 @@ let
        # need to change .vscode-server/xxxxx/bin/server.sh to use global node instead of local
        ms-vscode-remote.remote-ssh
     ]);
+    
+    configJSON = import ./config.nix;
 
     allExtensions = 
        nixExt 
@@ -114,6 +116,7 @@ in {
       enable = true;
       package = pkgs.vscodium;
       extensions = allExtensions;
+      userSettings = configJSON;
     };
 
     programs = with pkgs;[
