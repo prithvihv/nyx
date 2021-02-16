@@ -11,6 +11,7 @@ import qualified Data.Map.Strict as M
 
 -- terminal
 myTerminal = "alacritty"
+myGUILuncher = "rofi -show drun"
 
 -- xmonad
 myBorderWidth = 1
@@ -21,17 +22,16 @@ myFocusedBorderColor = "#ffaa00"
 -- Config Section End
 -----------------------------------------------------------------
 
---          ((modKey, xK_b), sendMessage ToggleStruts)
-myKeys baseConfig@XConfig {modMask = modKey} =
-    keys def baseConfig
-      <> M.fromList
-        [ ((modKey, xK_q), restart "/run/current-system/sw/bin/xmonad" True),
-          ((modKey, xK_f), spawn "screenshot")
-        ]
+myKeys baseConfig@XConfig {XMonad.modMask = modMask} =
+    M.fromList
+      [ ((modMask, xK_q), restart "~/.nix-profiles/bin/xmonad" True)
+        , ((modMask, xK_p), spawn myGUILuncher)
+        , ((modMask, xK_a), spawn "screenshot")
+      ] <> keys def baseConfig
 
 main = xmonad def
-	{ modMask = mod4Mask
-        , terminal = myTerminal
-        , borderWidth = myBorderWidth
-        , keys = myKeys
-	}
+  { modMask = mod4Mask
+  , terminal = myTerminal
+  , borderWidth = myBorderWidth
+  , keys = myKeys
+  }
