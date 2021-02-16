@@ -11,6 +11,8 @@ in {
     vimPlugins.vim-plug
   ];
 
+  package = pkgs.neovim-unwrapped;
+
   configure  = {
     
     customRC = builtins.readFile ./config.vim ;
@@ -19,7 +21,8 @@ in {
       # misc
       dracula-vim # theme
       YouCompleteMe
-      vim-wakatime # waka time log
+      # rplugin.vim issue with this package!
+      # vim-wakatime # waka time log 
       vim-watchdogs # watch and correct code
       vim-lastplace # spawn cursor at last edited location
       vim-over # view text file serach and replace
