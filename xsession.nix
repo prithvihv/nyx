@@ -1,14 +1,15 @@
 { pkgs }:
-    let xmonadPhv = import ./xmonad-phv/xmonad.nix { inherit pkgs;};
+let xmonadPhv = import ./xmonad-phv/default.nix;
 in {
     xsession = {
         enable = true;
-        windowManager.xmonad = {
-            enable  = true;
-            enableContribAndExtras = true;
-            config  = xmonadPhv.xmonadHs; 
-        };
+        windowManager.command = "${xmonadPhv}/bin/xmonad";
+        # xmonad = {
+        #     enable  = true;
+        #     enableContribAndExtras = true;
+        #     config  = xmonadPhv.xmonadHs; 
+        # };
     };
 
-    extraPkgs = [ ] ++ xmonadPhv.programs;
+    extraPkgs = [ ] ;
 }

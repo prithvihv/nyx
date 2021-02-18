@@ -21,7 +21,7 @@ in {
       # misc
       dracula-vim # theme
       YouCompleteMe
-      # rplugin.vim issue with this package!
+      # FIXME: rplugin.vim issue with this package!
       # vim-wakatime # waka time log 
       vim-watchdogs # watch and correct code
       vim-lastplace # spawn cursor at last edited location

@@ -1,5 +1,7 @@
 import XMonad
 import qualified Data.Map.Strict as M
+import XMonad.Hooks.ManageDocks(avoidStruts,manageDocks,docksEventHook)
+import XMonad.Layout.NoBorders(smartBorders)
 
 -----------------------------------------------------------------
 
@@ -12,6 +14,11 @@ import qualified Data.Map.Strict as M
 -- terminal
 myTerminal = "alacritty"
 myGUILuncher = "rofi -show drun"
+
+myWorkspaces =
+  ["1:term", "2:web", "3:code", "4:comms", "5:web2.0"]
+    ++ map show [6 .. 8]
+    ++ ["9:config"]
 
 -- xmonad
 myBorderWidth = 1
@@ -30,8 +37,12 @@ myKeys baseConfig@XConfig {XMonad.modMask = modMask} =
       ] <> keys def baseConfig
 
 main = xmonad def
-  { modMask = mod4Mask
+  { modMask = mod4Mask  
   , terminal = myTerminal
   , borderWidth = myBorderWidth
+  , workspaces = myWorkspaces
   , keys = myKeys
+  , layoutHook = avoidStruts $ (smartBorders $ (layoutHook def))
+  , manageHook = manageDocks
+  , handleEventHook    = docksEventHook
   }

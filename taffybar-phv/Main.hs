@@ -40,7 +40,7 @@ cfg =
         ],
       endWidgets =
         [ clockW,
-          batteryW,
+          -- batteryW,
           -- scratchW,
           -- FIXME: doesn't work
           -- menuWidgetNew Nothing,
@@ -56,8 +56,8 @@ workspacesW = workspacesNew defaultWorkspacesConfig
 clockW :: TaffyIO Widget
 clockW = textClockNewWith defaultClockConfig
 
-batteryW :: TaffyIO Widget
-batteryW = batteryIconNew
+-- batteryW :: TaffyIO Widget
+-- batteryW = batteryIconNew
 
 scratchW :: TaffyIO Widget
 scratchW = commandRunnerNew 1.0 "uname" [] "Cmd failed"
@@ -81,6 +81,6 @@ enableDebugLogging = do
     =<< sequence
       [ getLogger "",
         getLogger "System.Taffybar",
-        getLogger "StatusNotifier.Tray",
-        getLogger "System.Taffybar.Widget.Battery"
+        getLogger "StatusNotifier.Tray"
+        -- getLogger "System.Taffybar.Widget.Battery"
       ]
