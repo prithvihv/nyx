@@ -11,34 +11,31 @@ in {
     vimPlugins.vim-plug
   ];
 
-  package = pkgs.neovim-unwrapped;
+  package = pkgs.neovim-nightly;
 
-  configure  = {
-    
-    customRC = builtins.readFile ./config.vim ;
+  extraConfig = builtins.readFile ./config.vim ;
 
-    plug.plugins = with pkgs.vimPlugins; [
-      # misc
-      dracula-vim # theme
-      YouCompleteMe
-      # FIXME: rplugin.vim issue with this package!
-      # vim-wakatime # waka time log 
-      vim-watchdogs # watch and correct code
-      vim-lastplace # spawn cursor at last edited location
-      vim-over # view text file serach and replace
-    ] ++ [
-      # language support
-      rust-vim
-      elm-vim
-      vim-go
-      vim-nix
-      vim-elixir
-      vim-fish
-      vim-javascript
-    ] ++ [
-      # data representations
-      vim-json
-      vim-yaml
-    ];
-  };
+  plugins = with pkgs.vimPlugins; [
+    # misc
+    dracula-vim # theme
+    YouCompleteMe
+    # FIXME: rplugin.vim issue with this package!
+    # vim-wakatime # waka time log 
+    vim-watchdogs # watch and correct code
+    vim-lastplace # spawn cursor at last edited location
+    vim-over # view text file serach and replace
+  ] ++  [
+    # language support
+    rust-vim
+    elm-vim
+    vim-go
+    vim-nix
+    vim-elixir
+    vim-fish
+    vim-javascript
+  ] ++ [
+    # data representations
+    vim-json
+    vim-yaml
+  ];
 }
