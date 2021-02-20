@@ -8,11 +8,6 @@ in rec {
   programs = with pkgs;[
     rofi
     clipmenu
-
-    # for taffy
-    at-spi2-core # https://gist.github.com/jeffcogswell/62395900725acef1c0a5a608f7eb7a05
-    hicolor-icon-theme
-    # rofi-
   ];
 
   # alacritty is handled by home-nix.

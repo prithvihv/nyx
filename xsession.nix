@@ -11,5 +11,9 @@ in {
         # };
     };
 
-    extraPkgs = [ ] ;
+    extraPkgs = with pkgs;[
+        rofi
+        clipmenu
+        # picom
+    ];
 }

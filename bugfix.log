@@ -1,1 +1,7 @@
 https://github.com/nix-community/home-manager/issues/705 env-manifest issue
+
+sudo rm /nix/var/nix/profiles/per-user/phv/profile
+sudo rm /nix/var/nix/profiles/per-user/phv/profile-*-link
+
+
+nix-shell '<home-manager>' -A install

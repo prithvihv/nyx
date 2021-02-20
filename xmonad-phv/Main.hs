@@ -1,6 +1,7 @@
 import XMonad
 import qualified Data.Map.Strict as M
-import XMonad.Hooks.ManageDocks(avoidStruts,manageDocks,docksEventHook)
+import XMonad.Hooks.ManageDocks(avoidStruts,manageDocks,docksEventHook,docks)
+import XMonad.Hooks.EwmhDesktops (ewmh)
 import XMonad.Layout.NoBorders(smartBorders)
 
 -----------------------------------------------------------------
@@ -36,7 +37,7 @@ myKeys baseConfig@XConfig {XMonad.modMask = modMask} =
         , ((modMask, xK_a), spawn "screenshot")
       ] <> keys def baseConfig
 
-main = xmonad def
+main = xmonad . docks . ewmh $ def
   { modMask = mod4Mask  
   , terminal = myTerminal
   , borderWidth = myBorderWidth

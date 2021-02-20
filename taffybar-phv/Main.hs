@@ -26,11 +26,13 @@ import System.Taffybar.Widget.Layout
   ( defaultLayoutConfig,
     layoutNew,
   )
+import System.Taffybar.Example (exampleTaffybarConfig)
 
 main :: IO ()
 main = do
   -- enableDebugLogging
-  startTaffybar $ toTaffyConfig cfg
+  -- startTaffybar $ toTaffyConfig cfg
+  startTaffybar exampleTaffybarConfig
 
 cfg :: SimpleTaffyConfig
 cfg =
