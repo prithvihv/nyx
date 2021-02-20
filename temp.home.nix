@@ -9,6 +9,7 @@ let
       inherit fish;
     };
     taffyConfig = import ../../nyx/taffybar-phv/taffybar.nix { inherit pkgs; };
+    gitConfig = pkgs.callPackages ../../nyx/dev-tools/git.nix {  };
     vscodium = import ../../nyx/dev-tools/vscodium/vscodium.nix { inherit pkgs; };
 in
 {
@@ -25,6 +26,7 @@ in
       url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
     }))
   ];
+
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -51,6 +53,7 @@ in
   programs.alacritty = alacrittyConfig;
   programs.vscode = vscodium.config;
   programs.neovim = nvimConfig;
+  programs.git = gitConfig;
 
   
   # FIXME: enabling is manual right now
