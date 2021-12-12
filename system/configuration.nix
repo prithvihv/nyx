@@ -70,7 +70,8 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.phv = {
     isNormalUser = true;
-    initialPassword = "qwerty123";
+    # initialPassword = "qwerty123";
+    hashedPassword = "$6$iA.Ln4D87zK1nWpa$tS7r6fQE3a7kQs0PgAaO5UntgHRHB9c9GQ2Dw1LkqSDLD8Buv2Bs4Hdf3XmpS0HmGEhKC.A6YIIQ00AMUbUwr1";
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
