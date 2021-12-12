@@ -5,10 +5,9 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # nix flakes
   nix.package = pkgs.nixFlakes;
@@ -16,13 +15,12 @@
     experimental-features = nix-command flakes
   '';
   nixpkgs.config.allowUnfree = true;
-  
+
   security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = true;
   security.sudo.extraConfig = ''
     phv ALL=(ALL) NOPASSWD: ALL
   '';
-
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -31,7 +29,6 @@
   networking.hostName = "nyx"; # Define your hostname.
   networking.networkmanager.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
 
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
@@ -55,7 +52,6 @@
 
   # Enable the X11 windowing system.
 
-
   # Enable the GNOME Desktop Environment.
   # services.xserver.enable = true;
   # services.xserver.displayManager.gdm.enable = true;
@@ -69,13 +65,11 @@
     displayManager = {
       defaultSession = "xsession";
       lightdm.enable = true;
-      session = [
-        {
-          manage = "desktop";
-          name = "xsession";
-          start = ''exec $HOME/.xsession'';
-        }
-      ];
+      session = [{
+        manage = "desktop";
+        name = "xsession";
+        start = "exec $HOME/.xsession";
+      }];
     };
   };
   services.upower.enable = true;
@@ -98,18 +92,23 @@
   users.users.phv = {
     isNormalUser = true;
     # initialPassword = "qwerty123";
-    hashedPassword = "$6$iA.Ln4D87zK1nWpa$tS7r6fQE3a7kQs0PgAaO5UntgHRHB9c9GQ2Dw1LkqSDLD8Buv2Bs4Hdf3XmpS0HmGEhKC.A6YIIQ00AMUbUwr1";
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    hashedPassword =
+      "$6$iA.Ln4D87zK1nWpa$tS7r6fQE3a7kQs0PgAaO5UntgHRHB9c9GQ2Dw1LkqSDLD8Buv2Bs4Hdf3XmpS0HmGEhKC.A6YIIQ00AMUbUwr1";
+    extraGroups =
+      [ "wheel" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-     wget vim
-     git hello
-     firefox
+    #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
+    vim
+    git
+    hello
+    firefox
   ];
+  virtualisation.docker.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

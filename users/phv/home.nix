@@ -1,10 +1,15 @@
 { config, pkgs, ... }:
 
 let
-  alacrittyConfig = import ../../pkgs/alacritty.nix { };
   taffyConfig = import ../../pkgs/taffybar-phv/taffybar.nix { inherit pkgs; };
   dunstConfig = import ../../pkgs/dunst.nix { inherit pkgs; };
   xsessionPhv = import ./xsession.nix { inherit pkgs; };
+
+  alacrittyConfig = import ../../pkgs/alacritty.nix { };
+  vsCodeConfig = import ../../pkgs/vscode.nix { inherit pkgs; };
+  fishConfig = import ../../pkgs/fish.nix { inherit pkgs; };
+  tmuxConfig = import ../../pkgs/tmux.nix { inherit pkgs; };
+  golangTools = import ../../pkgs/languages/golang.nix { inherit pkgs; };
 
   # configs
   configPassStore = "/home/phv/.password-store";
@@ -22,76 +27,70 @@ in {
   # systemctl --user enable taffybar 
   services.taffybar = taffyConfig;
 
-  home.packages = with pkgs; [
-    taffyConfig.package
-    gnumake
-    nix-diff
-    nixfmt
-  ] ++ [ # comms
-    slack
-    discord
-  ] ++ [ # fonts
-    jetbrains-mono
-  ] ++ xsessionPhv.extraPkgs;
+  home.packages = with pkgs;
+    [ taffyConfig.package gnumake nix-diff nixfmt ] ++ [ # comms
+      slack
+      discord
+    ] ++ [ # fonts
+      jetbrains-mono
+    ] ++ [ postman ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs;
 
   programs.git = {
     enable = true;
     userName = "prithvihv";
     userEmail = "hvprithvi09@gmail.com";
+    extraConfig = {
+      url = { "git@github.com:" = { insteadOf = "https://github.com/"; }; };
+    };
   };
 
   programs.ssh = {
     enable = true;
     matchBlocks = {
-       "gz_jump" = {
-         hostname = "13.234.205.34";
-         user = "prithvi";
-         identityFile = "/home/phv/.keybox/.ssh/skadi/id_rsa";
-       };
+      "gz_jump" = {
+        hostname = "13.234.205.34";
+        user = "prithvi";
+        identityFile = "/home/phv/.keybox/.ssh/skadi/id_rsa";
+      };
     };
   };
 
-  programs.gpg = {
-    enable = true;
-  };
+  programs.gpg = { enable = true; };
 
   services.gpg-agent = {
     enable = true;
     pinentryFlavor = "qt";
   };
-  
+
   programs.password-store = {
     enable = true;
-    settings = {
-      PASSWORD_STORE_DIR= configPassStore;
+    settings = { PASSWORD_STORE_DIR = configPassStore; };
+  };
+
+  programs.rofi = {
+    enable = true;
+    pass = {
+      enable = true;
+      stores = [ configPassStore ];
     };
   };
-  
-  programs.rofi = {
-   enable = true;
-   pass = {
-     enable = true;
-     stores = [
-       configPassStore
-     ];
-   };
-  };
-  
-  programs.vscode = {
-    enable = true;
-  };
+
+  programs.vscode = vsCodeConfig;
   programs.alacritty = alacrittyConfig;
+  programs.fish = fishConfig;
+  programs.tmux = tmuxConfig;
   xsession = xsessionPhv.xsession;
 
-  services.picom = {
-    enable = true;
-  };
+  services.picom = { enable = true; };
+  services.udiskie.enable = true;
 
   # consider ddead-notification in haskell
   services.dunst = dunstConfig;
 
   # uses upower
   services.poweralertd.enable = true;
+
+  services.clipmenu.enable = true;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

@@ -25,6 +25,7 @@ in {
         arandr
         libnotify
         scrot
+        dmenu
         # picom
     ];
 }

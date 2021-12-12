@@ -21,6 +21,7 @@ import           Graphics.X11.ExtraTypes.XF86
 myTerminal = "alacritty"
 myGUILuncher = "rofi -show drun"
 myPasswordLuncher = "rofi-pass"
+myClipboardLuncher = "clipmenu"
 
 -- xmonad
 myBorderWidth = 1
@@ -55,6 +56,7 @@ myKeys baseConfig@XConfig {XMonad.modMask = modMask} =
         , ((modMask, xK_q), restart pathToBinary True)
         , ((modMask, xK_p), spawn myGUILuncher)
         , ((modMask .|. shiftMask, xK_p), spawn myPasswordLuncher)
+        , ((modMask, xK_c), spawn myClipboardLuncher)
         , ((modMask, xK_a), spawn "screenshot")
         ]
       -- DELL XPS
