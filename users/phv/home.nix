@@ -2,6 +2,8 @@
 
 let
   alacrittyConfig = import ../../pkgs/alacritty.nix { };
+  taffyConfig = import ../../pkgs/taffybar-phv/taffybar.nix { inherit pkgs; };
+  xsessionPhv = import ./xsession.nix { inherit pkgs; };
 in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -11,15 +13,19 @@ in {
   # This will, for example, allow fontconfig to discover fonts and configurations installed through home.packages and nix-env. 
   fonts.fontconfig.enable = true;
 
+  # FIXME: enabling is manual right now
+  # systemctl --user enable taffybar 
+  services.taffybar = taffyConfig;
+
   home.packages = with pkgs; [
-    xclip
-    pinentry_qt
+    # xclip
+    # pinentry_qt
   ] ++ [ # comms
     slack
     discord
   ] ++ [ # fonts
     jetbrains-mono
-  ];
+  ] ++ xsessionPhv.extraPkgs;
 
   programs.git = {
     enable = true;
@@ -65,6 +71,7 @@ in {
     enable = true;
   };
   programs.alacritty = alacrittyConfig;
+  xsession = xsessionPhv.xsession;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

@@ -29,7 +29,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nyx"; # Define your hostname.
+  networking.networkmanager.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
 
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
@@ -52,12 +54,18 @@
   # };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
 
 
   # Enable the GNOME Desktop Environment.
+  services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+#  services.xserver = {
+#    enable = true;
+#    displayManager = {
+#      lightdm.enable = true;
+#    };    
+#  };
   
 
   # Configure keymap in X11
@@ -79,7 +87,7 @@
     isNormalUser = true;
     # initialPassword = "qwerty123";
     hashedPassword = "$6$iA.Ln4D87zK1nWpa$tS7r6fQE3a7kQs0PgAaO5UntgHRHB9c9GQ2Dw1LkqSDLD8Buv2Bs4Hdf3XmpS0HmGEhKC.A6YIIQ00AMUbUwr1";
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile. To search, run:
