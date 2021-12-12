@@ -1,6 +1,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 import XMonad
--- import XMonad.Core
+import XMonad.Core
 -- import           XMonad.Util.Run                ( spawnPipe )
 import qualified Data.Map.Strict as M
 import XMonad.Hooks.ManageDocks(avoidStruts,manageDocks,docksEventHook,docks)
@@ -47,10 +47,12 @@ keyboardVolumeMute = "pactl set-sink-volume 0 "  ++ "0"
 myKeys baseConfig@XConfig {XMonad.modMask = modMask} =
     M.fromList  myConfig <> keys def baseConfig
     where 
+      scrotParams = "-e 'xclip -selection clipboard -t image/png -i  $f && mv $f ~/Pictures/sshots'"
       -- FIXME: make more generic
       pathToBinary = "/etc/profiles/per-user/phv/bin/xmonad-x86_64-linux"
       myConfig = 
-        [ ((modMask, xK_q), restart pathToBinary True)
+        [ ((controlMask, xK_Print), spawn ("sleep 0.2; scrot -s " ++ scrotParams)) 
+        , ((modMask, xK_q), restart pathToBinary True)
         , ((modMask, xK_p), spawn myGUILuncher)
         , ((modMask .|. shiftMask, xK_p), spawn myPasswordLuncher)
         , ((modMask, xK_a), spawn "screenshot")
@@ -63,9 +65,8 @@ myKeys baseConfig@XConfig {XMonad.modMask = modMask} =
       --   , ((0,xF86XK_AudioMute), spawn keyboardVolumeMute)
       -- ]
 
--- myStartupHook = do
-  -- spawn "echo"
-  -- spawn "feh --bg-scale ~/Downloads/wp5586614-anime-drink-coffee-wallpapers.png"
+myStartupHook = do
+  spawn "feh --bg-scale ~/Downloads/nix-glow-black.png"
 
 main = xmonad . docks . ewmh $ def
   { modMask = mod4Mask  
@@ -75,5 +76,5 @@ main = xmonad . docks . ewmh $ def
   , layoutHook = avoidStruts $ (smartBorders $ (layoutHook def))
   , manageHook = manageDocks
   , handleEventHook    = docksEventHook
-  -- , startupHook = myStartupHook
+  , startupHook = myStartupHook
   }

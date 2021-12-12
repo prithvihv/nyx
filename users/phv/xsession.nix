@@ -24,6 +24,7 @@ in {
         lf
         arandr
         libnotify
+        scrot
         # picom
     ];
 }
