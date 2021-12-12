@@ -1,13 +1,24 @@
 { config, pkgs, ... }:
 
-{
+let
+  alacrittyConfig = import ../../pkgs/alacritty.nix { };
+in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "phv";
   home.homeDirectory = "/home/phv";
+
+  # This will, for example, allow fontconfig to discover fonts and configurations installed through home.packages and nix-env. 
+  fonts.fontconfig.enable = true;
+
   home.packages = with pkgs; [
-    # pkgs.zsh
+    xclip
     pinentry_qt
+  ] ++ [ # comms
+    slack
+    discord
+  ] ++ [ # fonts
+    jetbrains-mono
   ];
 
   programs.git = {
@@ -35,6 +46,25 @@
     enable = true;
     pinentryFlavor = "qt";
   };
+  
+  programs.password-store = {
+    enable = true;
+  };
+  
+  programs.rofi = {
+   enable = true;
+   pass = {
+     enable = true;
+     stores = [
+       "/home/phv/.password-store"
+     ];
+   };
+  };
+  
+  programs.vscode = {
+    enable = true;
+  };
+  programs.alacritty = alacrittyConfig;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
