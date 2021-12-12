@@ -5,14 +5,35 @@
   # paths it should manage.
   home.username = "phv";
   home.homeDirectory = "/home/phv";
-  home.packages = [
+  home.packages = with pkgs; [
     # pkgs.zsh
+    pinentry_qt
   ];
 
   programs.git = {
     enable = true;
     userName = "prithvihv";
     userEmail = "hvprithvi09@gmail.com";
+  };
+
+  programs.ssh = {
+    enable = true;
+    matchBlocks = {
+       "gz_jump" = {
+         hostname = "13.234.205.34";
+         user = "prithvi";
+         identityFile = "/home/phv/.keybox/.ssh/skadi/id_rsa";
+       };
+    };
+  };
+
+  programs.gpg = {
+    enable = true;
+  };
+
+  services.gpg-agent = {
+    enable = true;
+    pinentryFlavor = "qt";
   };
 
   # This value determines the Home Manager release that your
