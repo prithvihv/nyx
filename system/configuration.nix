@@ -62,7 +62,10 @@
   # services.xserver.desktopManager.gnome.enable = true;
   services.xserver = {
     enable = true;
-    libinput.enable = true;
+    libinput = {
+      enable = true;
+      touchpad.naturalScrolling = true;
+    };
     displayManager = {
       defaultSession = "xsession";
       lightdm.enable = true;
@@ -75,6 +78,7 @@
       ];
     };
   };
+  services.upower.enable = true;
 
   # Configure keymap in X11
   # services.xserver.layout = "us";

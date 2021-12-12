@@ -22,5 +22,6 @@ executable xmonad-x86_64-linux
                        , xmonad
                        , xmonad-contrib
                        , containers
+                       , X11
   -- hs-source-dirs:
   default-language:    Haskell2010

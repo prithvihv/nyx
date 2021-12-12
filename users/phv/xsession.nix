@@ -20,6 +20,10 @@ in {
         clipmenu
         xclip
         pinentry_qt
+        feh
+        lf
+        arandr
+        libnotify
         # picom
     ];
 }

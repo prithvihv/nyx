@@ -3,7 +3,12 @@
 let
   alacrittyConfig = import ../../pkgs/alacritty.nix { };
   taffyConfig = import ../../pkgs/taffybar-phv/taffybar.nix { inherit pkgs; };
+  dunstConfig = import ../../pkgs/dunst.nix { inherit pkgs; };
   xsessionPhv = import ./xsession.nix { inherit pkgs; };
+
+  # configs
+  configPassStore = "/home/phv/.password-store";
+
 in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -18,8 +23,10 @@ in {
   services.taffybar = taffyConfig;
 
   home.packages = with pkgs; [
-    # xclip
-    # pinentry_qt
+    taffyConfig.package
+    gnumake
+    nix-diff
+    nixfmt
   ] ++ [ # comms
     slack
     discord
@@ -55,6 +62,9 @@ in {
   
   programs.password-store = {
     enable = true;
+    settings = {
+      PASSWORD_STORE_DIR= configPassStore;
+    };
   };
   
   programs.rofi = {
@@ -62,7 +72,7 @@ in {
    pass = {
      enable = true;
      stores = [
-       "/home/phv/.password-store"
+       configPassStore
      ];
    };
   };
@@ -76,6 +86,12 @@ in {
   services.picom = {
     enable = true;
   };
+
+  # consider ddead-notification in haskell
+  services.dunst = dunstConfig;
+
+  # uses upower
+  services.poweralertd.enable = true;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

@@ -10,7 +10,7 @@ executable taffybar
   main-is:          Main.hs
   build-depends:
     , base
-    , taffybar
+    , taffybar == 3.3.0
     , xmonad
     , xmonad-contrib
     , xmobar
