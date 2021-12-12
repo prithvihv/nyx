@@ -16,6 +16,13 @@
     experimental-features = nix-command flakes
   '';
   nixpkgs.config.allowUnfree = true;
+  
+  security.sudo.enable = true;
+  security.sudo.wheelNeedsPassword = true;
+  security.sudo.extraConfig = ''
+    phv ALL=(ALL) NOPASSWD: ALL
+  '';
+
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
