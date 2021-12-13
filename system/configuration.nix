@@ -72,6 +72,12 @@
       }];
     };
   };
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+      "0 10,20 * * *      phv    /home/phv/.nyx/users/phv/cron/hrone.sh"
+    ];
+  };
   services.upower.enable = true;
 
   # Configure keymap in X11
