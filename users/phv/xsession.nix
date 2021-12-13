@@ -22,10 +22,13 @@ in {
         pinentry_qt
         feh
         lf
-        arandr
         libnotify
         scrot
         dmenu
-        # picom
+
+        # audio video
+        pavucontrol
+        volctl
+        arandr
     ];
 }
