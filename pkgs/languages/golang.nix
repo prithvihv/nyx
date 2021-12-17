@@ -1,6 +1,8 @@
 { pkgs }: {
   extraPkgs = with pkgs; [
     go_1_17
+    gcc
+
     gotools
     gopls
     go-outline

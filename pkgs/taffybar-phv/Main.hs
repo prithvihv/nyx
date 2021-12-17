@@ -13,41 +13,41 @@ import System.Taffybar.Util ((<|||>))
 import System.Taffybar.Widget
 import System.Taffybar.Widget.Generic.PollingGraph
 
-myGraphConfig, memCfg, cpuCfg :: GraphConfig
-myGraphConfig = defaultGraphConfig
-  { graphPadding = 0
-  , graphBorderWidth = 0
-  , graphBackgroundColor = (0, 0, 0, 0)
-  , graphDirection = RIGHT_TO_LEFT
-  }
+-- myGraphConfig, memCfg, cpuCfg :: GraphConfig
+-- myGraphConfig = defaultGraphConfig
+--   { graphPadding = 0
+--   , graphBorderWidth = 0
+--   , graphBackgroundColor = (0, 0, 0, 0)
+--   , graphDirection = RIGHT_TO_LEFT
+--   }
 
-memCallback :: IO [Double]
-memCallback = do
-  mi <- parseMeminfo
-  return [memoryUsedRatio mi, memorySwapUsed mi]
+-- memCallback :: IO [Double]
+-- memCallback = do
+--   mi <- parseMeminfo
+--   return [memoryUsedRatio mi, memorySwapUsed mi]
 
-cpuCallback :: IO [Double]
-cpuCallback = do
-  (_, systemLoad, totalLoad) <- cpuLoad
-  return [totalLoad, systemLoad]
+-- cpuCallback :: IO [Double]
+-- cpuCallback = do
+--   (_, systemLoad, totalLoad) <- cpuLoad
+--   return [totalLoad, systemLoad]
 
-memCfg = myGraphConfig
-  { graphDataColors = [(1, 1, 1, 1), (0.5, 0.5, 0.5, 1)]
-  , graphLabel = Just "mem "
-  }
+-- memCfg = myGraphConfig
+--   { graphDataColors = [(1, 1, 1, 1), (0.5, 0.5, 0.5, 1)]
+--   , graphLabel = Just "mem "
+--   }
 
-cpuCfg = myGraphConfig
-  { graphDataColors = [(1, 1, 1, 1), (0.5, 0.5, 0.5, 1)]
-  , graphLabel = Just "cpu "
-  }
+-- cpuCfg = myGraphConfig
+--   { graphDataColors = [(1, 1, 1, 1), (0.5, 0.5, 0.5, 1)]
+--   , graphLabel = Just "cpu "
+--   }
 
 -- mpris2 = mpris2New
 
-cpu = pollingGraphNew cpuCfg 1 cpuCallback
+-- cpu = pollingGraphNew cpuCfg 1 cpuCallback
 
-mem = pollingGraphNew memCfg 1 memCallback
+-- mem = pollingGraphNew memCfg 1 memCallback
 
-battery = batteryIconNew
+-- battery = batteryIconNew
 
 tray = sniTrayThatStartsWatcherEvenThoughThisIsABadWayToDoIt
 
@@ -86,15 +86,13 @@ taffybarConfig =
         , endWidgets = map (>>= buildContentsBox)
           [ clock
           , tray
-          , battery
-          , mem
-          , cpu
+          -- , battery
+          -- , mem
+          -- , cpu
           ]
         , barHeight = 40
         }
-  in withBatteryRefresh $
-     withLogServer $
-     withToggleServer $
+  in withToggleServer $
      toTaffyConfig myConfig
 
 main :: IO ()

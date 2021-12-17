@@ -68,7 +68,8 @@ myKeys baseConfig@XConfig {XMonad.modMask = modMask} =
       -- ]
 
 myStartupHook = do
-  spawn "feh --bg-scale ~/Downloads/nix-glow-black.png"
+  spawn "feh --bg-scale ~/Downloads/nix-glow-black.png" -- FIXME: this should be passed as nix
+  spawn "go env -w GOPRIVATE=github.com/gamezop" -- FIXME: this should be golang config
 
 main = xmonad . docks . ewmh $ def
   { modMask = mod4Mask  
@@ -79,4 +80,6 @@ main = xmonad . docks . ewmh $ def
   , manageHook = manageDocks
   , handleEventHook    = docksEventHook
   , startupHook = myStartupHook
+  , normalBorderColor  = myNormalBorderColor
+  , focusedBorderColor = myFocusedBorderColor
   }

@@ -31,6 +31,10 @@ in {
     [ taffyConfig.package gnumake nix-diff nixfmt ] ++ [ # comms
       slack
       discord
+
+      # fish
+      pkgs.fishPlugins.pure
+      fasd
     ] ++ [ # fonts
       jetbrains-mono
     ] ++ [ postman ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs;
@@ -42,6 +46,27 @@ in {
     extraConfig = {
       url = { "git@github.com:" = { insteadOf = "https://github.com/"; }; };
     };
+  };
+
+  # programs.go = {
+  #   enable = true;
+  #   package = pkgs.go_1_17;
+  #   goPath = "code";
+  #   goPrivate = ["github.com/gamezop"];
+  # };
+
+  programs.htop = {
+    enable = true;
+    settings = {
+      color_scheme = 6;
+    };
+  };
+
+  programs.chromium = {
+    enable = true;
+    extensions = [
+      "cjpalhdlnbpafiamejdnhcphjbkeiagm"
+    ];
   };
 
   programs.ssh = {
@@ -56,6 +81,8 @@ in {
   };
 
   programs.gpg = { enable = true; };
+
+  programs.obs-studio.enable = true;
 
   services.gpg-agent = {
     enable = true;

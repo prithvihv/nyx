@@ -76,9 +76,17 @@
     enable = true;
     systemCronJobs = [
       "0 10,20 * * *      phv    /home/phv/.nyx/users/phv/cron/hrone.sh"
+      "*/10 * * * *  phv  /home/phv/.nyx/users/phv/cron/killtaffy.sh"
     ];
   };
   services.upower.enable = true;
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_13;
+    authentication = pkgs.lib.mkOverride 10 ''
+      local  all      all          trust
+    '';
+  };
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
@@ -102,6 +110,7 @@
       "$6$iA.Ln4D87zK1nWpa$tS7r6fQE3a7kQs0PgAaO5UntgHRHB9c9GQ2Dw1LkqSDLD8Buv2Bs4Hdf3XmpS0HmGEhKC.A6YIIQ00AMUbUwr1";
     extraGroups =
       [ "wheel" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
+    # shell = pkgs.fish;
   };
 
   # List packages installed in system profile. To search, run:

@@ -34,6 +34,7 @@
         "<C-s>"= false;
         "<C-b>"= false;
         "<C-c>"= false;
+        "<C-d>"= false;
     };
     "editor.fontFamily"= "JetBrains Mono";
     "javascript.updateImportsOnFileMove.enabled"= "always";
@@ -70,6 +71,7 @@
     };
     "[nix]" = { "editor.defaultFormatter" = "brettm12345.nixfmt-vscode"; };
     "json.schemas"= [];
+    "go.toolsGopath"= "/etc/profiles/per-user/phv/bin/";
     "cSpell.userWords"= [
         "alch"
         "apay"
