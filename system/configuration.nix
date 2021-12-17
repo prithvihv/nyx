@@ -110,7 +110,7 @@
       "$6$iA.Ln4D87zK1nWpa$tS7r6fQE3a7kQs0PgAaO5UntgHRHB9c9GQ2Dw1LkqSDLD8Buv2Bs4Hdf3XmpS0HmGEhKC.A6YIIQ00AMUbUwr1";
     extraGroups =
       [ "wheel" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
-    # shell = pkgs.fish;
+    shell = pkgs.fish;
   };
 
   # List packages installed in system profile. To search, run:

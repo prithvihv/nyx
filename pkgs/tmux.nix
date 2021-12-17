@@ -4,7 +4,7 @@
     {
       plugin = dracula;
       extraConfig = ''
-                    # drcula settings
+        # drcula settings
         set -g @dracula-show-weather false
         set -g @dracula-cpu-usage true
         set -g @dracula-ram-usage true
@@ -12,7 +12,7 @@
         set -g @dracula-show-left-icon session
         set -g @dracula-day-month true
         set -g @dracula-military-time true
-                    '';
+        '';
     }
     { plugin = sensible; }
   ];

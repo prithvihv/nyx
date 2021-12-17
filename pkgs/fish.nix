@@ -4,6 +4,12 @@
     gitignore = "curl -sL https://www.gitignore.io/api/$argv";
   };
 
+  shellInit = ''
+
+  # done notification for teminal commands
+    set __done_min_cmd_duration 3000
+  '';
+
   plugins = [
     {
       name = "theme-batman";
@@ -14,12 +20,31 @@
         sha256 = "Ko4w9tMnIi17db174FzW44LgUdui/bUzPFEHEHv//t4=";
       };
     }
+    {
+      name = "done";
+      src = pkgs.fetchFromGitHub {
+        owner = "franciscolourenco";
+        repo = "done";
+        rev = "d6abb267bb3fb7e987a9352bc43dcdb67bac9f06";
+        sha256 = "6oeyN9ngXWvps1c5QAUjlyPDQwRWAoxBiVTNmZ4sG8E=";
+      };
+    }
+    # {
+    #   name = "nix-env.fish";
+    #   src = pkgs.fetchFromGitHub {
+    #     owner = "lilyball";
+    #     repo = "nix-env.fish";
+    #     rev = "7b65bd228429e852c8fdfa07601159130a818cfa";
+    #     # sha256 = "6oeyN9ngXWvps1c5QAUjlyPDQwRWAoxBiVTNmZ4sG8E=";
+    #   };
+    # }
   ];
 
   shellAbbrs = { 
     gco = "git checkout"; 
-    gc = "git commit";
+    gc = "git commit -m";
     gl = "git log";
+    ga = "git add";
   };
 
   shellAliases = {

@@ -31,10 +31,6 @@ in {
     [ taffyConfig.package gnumake nix-diff nixfmt ] ++ [ # comms
       slack
       discord
-
-      # fish
-      pkgs.fishPlugins.pure
-      fasd
     ] ++ [ # fonts
       jetbrains-mono
     ] ++ [ postman ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs;
