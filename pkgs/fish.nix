@@ -36,6 +36,7 @@
     gc = "git commit -m";
     gl = "git log";
     ga = "git add";
+    gp = "git push";
   };
 
   shellAliases = {
