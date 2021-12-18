@@ -61,7 +61,9 @@ in {
   programs.chromium = {
     enable = true;
     extensions = [
-      "cjpalhdlnbpafiamejdnhcphjbkeiagm"
+      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock
+      "bkhaagjahfmjljalopjnoealnfndnagc" # octotree
+      "omdakjcmkglenbhjadbccaookpfjihpa" # tunnel bear`
     ];
   };
 

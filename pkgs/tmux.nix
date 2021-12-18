@@ -1,24 +1,28 @@
 { pkgs }: {
   enable = true;
-  plugins = with pkgs.tmuxPlugins; [
-    {
-      plugin = dracula;
-      extraConfig = ''
-        # drcula settings
+	clock24 = true;
+	plugins = with pkgs.tmuxPlugins; [
+		sensible
+		yank
+		{
+			plugin = dracula;
+			extraConfig = ''
+        set -g @dracula-plugins "battery cpu-usage ram-usage time"
+				set -g @dracula-show-battery true
+				set -g @dracula-show-powerline true
         set -g @dracula-show-weather false
-        set -g @dracula-cpu-usage true
-        set -g @dracula-ram-usage true
-        set -g @dracule-gpu-usage false
-        set -g @dracula-show-left-icon session
-        set -g @dracula-day-month true
         set -g @dracula-military-time true
-        '';
-    }
-    { plugin = sensible; }
-  ];
-  extraConfig = ''
+				set -g @dracula-refresh-rate 10
+        set -g @dracula-day-month true
+        set -g @dracula-show-left-icon session
+			'';
+		}
+	];
+
+	extraConfig = ''
+		set -g mouse on
     # Easy config reload
-    bind-key R source-file ~/.tmux.conf \; display-message "tmux.conf reloaded."
+    bind-key R source-file ~/.config/tmux/tmux.conf \; display-message "tmux.conf reloaded."
 
 
     # vi is good
@@ -67,5 +71,5 @@
     bind c new-window -c "#{pane_current_path}"
     bind '"' split-window -c "#{pane_current_path}"
     bind % split-window -h -c "#{pane_current_path}"
-        '';
+	'';
 }
