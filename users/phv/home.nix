@@ -16,6 +16,7 @@ let
 
   golangTools = import ../../pkgs/languages/golang.nix { inherit pkgs; };
   haskellTools = import ../../pkgs/languages/haskell.nix { inherit pkgs; };
+  clojureTools = import ../../pkgs/languages/clojure.nix { inherit pkgs; };
 
   # configs
   gzpPrivateStuff = import ../../priv/gzp-stuff.nix { inherit config; };
@@ -50,7 +51,7 @@ in {
     ] ++ [ # fonts
       jetbrains-mono
     ] ++ [ postman lens ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
-    ++ haskellTools.extraPkgs;
+    ++ haskellTools.extraPkgs ++ clojureTools.extraPkgs;
 
   programs.git = {
     enable = true;
