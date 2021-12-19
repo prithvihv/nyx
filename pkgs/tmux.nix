@@ -2,8 +2,14 @@
   enable = true;
 	clock24 = true;
 	plugins = with pkgs.tmuxPlugins; [
-		sensible
-		yank
+    # FIXME: this doesnt restore, restore is manually right now
+    { plugin = resurrect; }
+    {
+      plugin = continuum;
+      extraConfig = "set -g @continuum-restore 'on'";
+    }
+    { plugin = sensible; }
+    { plugin = yank; }
 		{
 			plugin = dracula;
 			extraConfig = ''

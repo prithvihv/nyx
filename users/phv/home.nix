@@ -9,7 +9,10 @@ let
   vsCodeConfig = import ../../pkgs/vscode.nix { inherit pkgs; };
   fishConfig = import ../../pkgs/fish.nix { inherit pkgs; };
   tmuxConfig = import ../../pkgs/tmux.nix { inherit pkgs; };
+  polyBarConfig = import ../../pkgs/polyBarConfig { inherit pkgs; };
+
   golangTools = import ../../pkgs/languages/golang.nix { inherit pkgs; };
+  haskellTools = import ../../pkgs/languages/haskell.nix { inherit pkgs; };
 
   # configs
   configPassStore = "/home/phv/.password-store";
@@ -23,23 +26,35 @@ in {
   # This will, for example, allow fontconfig to discover fonts and configurations installed through home.packages and nix-env. 
   fonts.fontconfig.enable = true;
 
-  # FIXME: enabling is manual right now
-  # systemctl --user enable taffybar 
+  # FIXME: memory leak :/
   services.taffybar = taffyConfig;
+  # service.polybar = {
+  #   enable = true;
+  # };
 
   home.packages = with pkgs;
-    [ taffyConfig.package gnumake nix-diff nixfmt ] ++ [ # comms
+    [ gnumake nix-diff nixfmt ] ++ [ # comms
       slack
       discord
+
+      pciutils
+      glxinfo
+      telnet
+
+      age
+      sops
+      git-crypt
     ] ++ [ # fonts
       jetbrains-mono
-    ] ++ [ postman ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs;
+    ] ++ [ postman ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
+    ++ haskellTools.extraPkgs;
 
   programs.git = {
     enable = true;
     userName = "prithvihv";
     userEmail = "hvprithvi09@gmail.com";
     extraConfig = {
+      user.signingkey = "0x79C7BE63C93CC999";
       url = { "git@github.com:" = { insteadOf = "https://github.com/"; }; };
     };
   };
@@ -53,9 +68,7 @@ in {
 
   programs.htop = {
     enable = true;
-    settings = {
-      color_scheme = 6;
-    };
+    settings = { color_scheme = 6; };
   };
 
   programs.chromium = {

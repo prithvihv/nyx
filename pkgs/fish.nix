@@ -2,6 +2,26 @@
   enable = true;
   functions = {
     gitignore = "curl -sL https://www.gitignore.io/api/$argv";
+    pux = "${pkgs.tmux}/bin/tmux new-session -A -s (pwd).tmux";
+    vpn-action = "sudo systemctl $argv[2] wg-quick-$argv[1].service";
+
+    # FIXME: cb now working properly
+    cb = ''
+      set -l cInfo (set_color green)
+      set -l cWarn (set_color red)
+      set -l cReset (set_color $fish_color_normal)
+      
+      #Copy input to clipboard
+      echo -n $input | xclip -selection clipboard
+      #Keep status text in one line
+      set input (echo -e "$input" | tr '\n' ' ')
+      #Truncate text for status if too long
+      if [ (expr length "$input") -gt 80 ]
+        set input (echo -e "$input" | head -c 80)$cInfo"..."$cReset
+      end
+      #Print status
+      echo -ne $cInfo"Copied to clipboard: "$cReset"$input"
+    '';
   };
 
   shellInit = ''
@@ -41,11 +61,19 @@
 
   shellAliases = {
       "..." = "cd ../..";
-      "db_local" = "psql -U postgres";
-      "db_dev" = "echo 'todo'";
-      "cd_hdd_sw" = "cd /run/media/phv/bf8da584-7bf2-425c-a602-8b3b997814d0";
-      "cd_hdd_data" = "cd /run/media/phv/d930b0b1-853e-45d7-b249-f71f7108b3ac";
-      "cd_gz" = "cd /home/phv/code/src/github.com/gamezop";
-      "j" = "ssh gz_jump";
+      "db-local" = "psql -U postgres";
+      "db-dev" = "echo 'todo'";
+
+      "cd-hdd_sw" = "cd /run/media/phv/bf8da584-7bf2-425c-a602-8b3b997814d0";
+      "cd-hdd_data" = "cd /run/media/phv/d930b0b1-853e-45d7-b249-f71f7108b3ac";
+      "cd-gz" = "cd /home/phv/code/src/github.com/gamezop";
+
+      "l" = "${pkgs.exa}/bin/exa";
+      "ll" = "${pkgs.exa}/bin/exa -l";
+      "ls" = "l";
+
+      "gz-j" = "ssh gz_jump";
+      "gz-vpn_on" = "vpn-action gzp-dev start";
+      "gz-vpn_off" = "vpn-action gzp-dev stop";
   };
 }

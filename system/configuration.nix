@@ -2,11 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+inputs@{ lib, config, pkgs, ... }:
 
-{
+let
+in {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./../priv/gzp-vpn-configuration.nix
   ];
 
   # nix flakes
@@ -38,6 +40,25 @@
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.wlp59s0.useDHCP = true;
+
+  # Secret management
+  sops = {
+    defaultSopsFile = ../sops/secrets/nyx.yaml;
+    age.keyFile = "/home/phv/.keybox/age.sops.txt";
+    secrets = let
+      secrets = [
+        "vpn/gzp_dev/private"
+        "secret_name" # need some defaults, for nested paths to work
+      ];
+      permissionSettings = {
+        mode = "0440";
+        owner = config.users.users.phv.name;
+        group = config.users.users.phv.group;
+      };
+      defaultPermissions = secret: { ${secret} = permissionSettings; };
+    in lib.foldl' lib.mergeAttrs { } (builtins.map defaultPermissions
+      secrets); # building map with keys of secret paths
+  };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -74,6 +95,7 @@
   };
   services.cron = {
     enable = true;
+    # FIXME: add shellscripts to nixstore
     systemCronJobs = [
       "0 10,20 * * *      phv    /home/phv/.nyx/users/phv/cron/hrone.sh"
       "*/10 * * * *  phv  /home/phv/.nyx/users/phv/cron/killtaffy.sh"
@@ -87,6 +109,11 @@
       local all all trust
       host    all             all             127.0.0.1/32            trust
     '';
+  };
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
   };
 
   # Configure keymap in X11
@@ -109,8 +136,12 @@
     # initialPassword = "qwerty123";
     hashedPassword =
       "$6$iA.Ln4D87zK1nWpa$tS7r6fQE3a7kQs0PgAaO5UntgHRHB9c9GQ2Dw1LkqSDLD8Buv2Bs4Hdf3XmpS0HmGEhKC.A6YIIQ00AMUbUwr1";
-    extraGroups =
-      [ "wheel" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "docker"
+      "keys"
+    ]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
   };
 
@@ -152,6 +183,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.11"; # Did you read the comment?
-
 }
 
