@@ -15,8 +15,8 @@ let
   haskellTools = import ../../pkgs/languages/haskell.nix { inherit pkgs; };
 
   # configs
+  gzpPrivateStuff = import ../../priv/gzp-stuff.nix { inherit config; };
   configPassStore = "/home/phv/.password-store";
-
 in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -84,7 +84,7 @@ in {
     enable = true;
     matchBlocks = {
       "gz_jump" = {
-        hostname = "13.234.205.34";
+        hostname = gzpPrivateStuff.gzp-dev-ip;
         user = "prithvi";
         identityFile = "/home/phv/.keybox/.ssh/skadi/id_rsa";
       };
