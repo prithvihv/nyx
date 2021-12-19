@@ -82,13 +82,7 @@ in {
 
   programs.ssh = {
     enable = true;
-    matchBlocks = {
-      "gz_jump" = {
-        hostname = gzpPrivateStuff.gzp-dev-ip;
-        user = "prithvi";
-        identityFile = "/home/phv/.keybox/.ssh/skadi/id_rsa";
-      };
-    };
+    matchBlocks = { "gz_jump" = gzpPrivateStuff.gzp-dev-jump; };
   };
 
   programs.gpg = { enable = true; };
