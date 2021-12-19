@@ -4,11 +4,10 @@
 
 inputs@{ lib, config, pkgs, ... }:
 
-let
+let gzp-vpn = import ./../priv/gzp-stuff.nix { inherit config; };
 in {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./../priv/gzp-vpn-configuration.nix
   ];
 
   # nix flakes
@@ -40,6 +39,7 @@ in {
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.wlp59s0.useDHCP = true;
+  networking.wg-quick.interfaces = { gzp-dev = gzp-vpn.gzp-dev; };
 
   # Secret management
   sops = {
