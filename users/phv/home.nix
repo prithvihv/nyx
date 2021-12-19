@@ -7,7 +7,7 @@ let
 
   alacrittyConfig = import ../../pkgs/alacritty.nix { };
   vsCodeConfig = import ../../pkgs/vscode.nix { inherit pkgs; };
-  fishConfig = import ../../pkgs/fish.nix { inherit pkgs; };
+  fishConfig = import ../../pkgs/fish.nix { inherit pkgs; inherit gzpPrivateStuff; };
   tmuxConfig = import ../../pkgs/tmux.nix { inherit pkgs; };
   polyBarConfig = import ../../pkgs/polyBarConfig { inherit pkgs; };
 
@@ -46,7 +46,10 @@ in {
       git-crypt
     ] ++ [ # fonts
       jetbrains-mono
-    ] ++ [ postman ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
+    ] ++ [ 
+      postman
+      lens 
+    ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
     ++ haskellTools.extraPkgs;
 
   programs.git = {

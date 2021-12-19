@@ -1,4 +1,4 @@
-{ pkgs }: {
+{ pkgs, gzpPrivateStuff }: {
   enable = true;
   functions = {
     gitignore = "curl -sL https://www.gitignore.io/api/$argv";
@@ -62,7 +62,8 @@
   shellAliases = {
       "..." = "cd ../..";
       "db-local" = "psql -U postgres";
-      "db-dev" = "echo 'todo'";
+      "db-dev-priv" = "psql \"${gzpPrivateStuff.gzp-dev-psql.urlPrivate}\"";
+      "db-dev-public" = "psql \"${gzpPrivateStuff.gzp-dev-psql.urlPublic}\"";
 
       "cd-hdd_sw" = "cd /run/media/phv/bf8da584-7bf2-425c-a602-8b3b997814d0";
       "cd-hdd_data" = "cd /run/media/phv/d930b0b1-853e-45d7-b249-f71f7108b3ac";
