@@ -28,6 +28,8 @@
 
   # done notification for teminal commands
     set __done_min_cmd_duration 3000
+
+    ${pkgs.any-nix-shell}/bin/any-nix-fish fish --info-right | source
   '';
 
   plugins = [

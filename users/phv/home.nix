@@ -7,7 +7,10 @@ let
 
   alacrittyConfig = import ../../pkgs/alacritty.nix { };
   vsCodeConfig = import ../../pkgs/vscode.nix { inherit pkgs; };
-  fishConfig = import ../../pkgs/fish.nix { inherit pkgs; inherit gzpPrivateStuff; };
+  fishConfig = import ../../pkgs/fish.nix {
+    inherit pkgs;
+    inherit gzpPrivateStuff;
+  };
   tmuxConfig = import ../../pkgs/tmux.nix { inherit pkgs; };
   polyBarConfig = import ../../pkgs/polyBarConfig { inherit pkgs; };
 
@@ -33,7 +36,7 @@ in {
   # };
 
   home.packages = with pkgs;
-    [ gnumake nix-diff nixfmt ] ++ [ # comms
+    [ gnumake nix-diff nixfmt any-nix-shell ] ++ [ # comms
       slack
       discord
 
@@ -46,10 +49,7 @@ in {
       git-crypt
     ] ++ [ # fonts
       jetbrains-mono
-    ] ++ [ 
-      postman
-      lens 
-    ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
+    ] ++ [ postman lens ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
     ++ haskellTools.extraPkgs;
 
   programs.git = {
