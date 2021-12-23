@@ -4,7 +4,9 @@
 
 inputs@{ lib, config, pkgs, ... }:
 
-let gzp-vpn = import ./../priv/gzp-stuff.nix { inherit config; };
+let
+  gzp-vpn = import ./../priv/gzp-stuff.nix { inherit config; };
+  hroneTokenScript = import ../users/phv/cron/hrone.token.prd.nix { inherit pkgs; };
 in {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -98,7 +100,9 @@ in {
     # FIXME: add shellscripts to nixstore
     systemCronJobs = [
       "0 10,20 * * *      phv    /home/phv/.nyx/users/phv/cron/hrone.sh"
-      "*/10 * * * *  phv  /home/phv/.nyx/users/phv/cron/killtaffy.sh"
+      # "*/1 * * * *      phv    /home/phv/.nyx/users/phv/cron/hrone.token.prd.sh"
+      "0 9 * * *        phv  ${hroneTokenScript}/bin/hrone_token"
+      # "*/10 * * * *  phv  /home/phv/.nyx/users/phv/cron/killtaffy.sh"
     ];
   };
   services.upower.enable = true;

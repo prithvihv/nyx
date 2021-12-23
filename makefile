@@ -4,3 +4,7 @@ buildXMonad:
 	
 update: 
 	nix flake update
+
+editSopsSecret:
+	cd ./sops && \
+	sops secrets/nyx.yaml  

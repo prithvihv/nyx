@@ -40,17 +40,24 @@ in {
     [ gnumake nix-diff nixfmt any-nix-shell ] ++ [ # comms
       slack
       discord
+      vlc
 
       pciutils
       glxinfo
       telnet
+      jq
 
       age
       sops
       git-crypt
+
+      emacs
+
+      
+      unzip
     ] ++ [ # fonts
       jetbrains-mono
-    ] ++ [ postman lens ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
+    ] ++ [ postman lens awscli2 ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
     ++ haskellTools.extraPkgs ++ clojureTools.extraPkgs;
 
   programs.git = {

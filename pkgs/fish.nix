@@ -70,6 +70,7 @@
       "cd-hdd_sw" = "cd /run/media/phv/bf8da584-7bf2-425c-a602-8b3b997814d0";
       "cd-hdd_data" = "cd /run/media/phv/d930b0b1-853e-45d7-b249-f71f7108b3ac";
       "cd-gz" = "cd /home/phv/code/src/github.com/gamezop";
+      "cd-config" = "cd /home/phv/.nyx";
 
       "l" = "${pkgs.exa}/bin/exa";
       "ll" = "${pkgs.exa}/bin/exa -l";
