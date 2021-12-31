@@ -17,10 +17,14 @@ let
   golangTools = import ../../pkgs/languages/golang.nix { inherit pkgs; };
   haskellTools = import ../../pkgs/languages/haskell.nix { inherit pkgs; };
   clojureTools = import ../../pkgs/languages/clojure.nix { inherit pkgs; };
+  nodeTools = import ../../pkgs/languages/node.nix { inherit pkgs; };
 
   # configs
   gzpPrivateStuff = import ../../priv/gzp-stuff.nix { inherit config; };
   configPassStore = "/home/phv/.password-store";
+
+  # scripts
+  bashidsScript = pkgs.callPackage ./scripts/bashids.nix { };
 in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -46,19 +50,25 @@ in {
       glxinfo
       telnet
       jq
+      imagemagick # convert images
+      # example convert -scale 2560x1440 source-image.jpg lockscreen.png
 
       age
       sops
       git-crypt
+      authy
 
       emacs
 
-      
       unzip
     ] ++ [ # fonts
       jetbrains-mono
-    ] ++ [ postman lens awscli2 ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
-    ++ haskellTools.extraPkgs ++ clojureTools.extraPkgs;
+    ] ++ [ # dev applications
+      postman lens octant awscli2 jetbrains.datagrip beekeeper-studio ]
+    ++ [ # bash scripts
+      bashidsScript
+    ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
+    ++ haskellTools.extraPkgs ++ clojureTools.extraPkgs ++ nodeTools.extraPkgs;
 
   programs.git = {
     enable = true;
@@ -87,7 +97,8 @@ in {
     extensions = [
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock
       "bkhaagjahfmjljalopjnoealnfndnagc" # octotree
-      "omdakjcmkglenbhjadbccaookpfjihpa" # tunnel bear`
+      "omdakjcmkglenbhjadbccaookpfjihpa" # tunnel bear
+      "gbmdgpbipfallnflgajpaliibnhdgobh" # json viewer
     ];
   };
 
@@ -124,7 +135,10 @@ in {
   programs.tmux = tmuxConfig;
   xsession = xsessionPhv.xsession;
 
-  services.picom = { enable = true; };
+  services.picom = {
+    enable = true;
+    # opacityRule = [ "100:name *= 'i3lock'" ];
+  };
   services.udiskie.enable = true;
 
   # consider ddead-notification in haskell

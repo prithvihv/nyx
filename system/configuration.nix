@@ -6,7 +6,7 @@ inputs@{ lib, config, pkgs, ... }:
 
 let
   gzp-vpn = import ./../priv/gzp-stuff.nix { inherit config; };
-  hroneTokenScript = import ../users/phv/cron/hrone.token.prd.nix { inherit pkgs; };
+  hroneTokenScript = import ./../priv/hrone.token.nix { inherit pkgs; };
 in {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -18,6 +18,9 @@ in {
     experimental-features = nix-command flakes
   '';
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-9.4.4"
+  ];
 
   security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = true;
@@ -99,10 +102,9 @@ in {
     enable = true;
     # FIXME: add shellscripts to nixstore
     systemCronJobs = [
-      "0 10,20 * * *      phv    /home/phv/.nyx/users/phv/cron/hrone.sh"
-      # "*/1 * * * *      phv    /home/phv/.nyx/users/phv/cron/hrone.token.prd.sh"
+      "0 10,11,20,22 * * *      phv    /home/phv/.nyx/users/phv/cron/hrone.sh"
       "0 9 * * *        phv  ${hroneTokenScript}/bin/hrone_token"
-      # "*/10 * * * *  phv  /home/phv/.nyx/users/phv/cron/killtaffy.sh"
+      "*/10 * * * *  phv  /home/phv/.nyx/users/phv/cron/killtaffy.sh"
     ];
   };
   services.upower.enable = true;
@@ -112,6 +114,8 @@ in {
     authentication = pkgs.lib.mkOverride 10 ''
       local all all trust
       host    all             all             127.0.0.1/32            trust
+      host    all             all             0.0.0.0/0            md5
+      host    all             all             localhost            trust
     '';
   };
 

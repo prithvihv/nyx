@@ -58,6 +58,7 @@
     gc = "git commit -m";
     gl = "git log";
     ga = "git add";
+    gpl = "git pull";
     gp = "git push";
   };
 
@@ -79,5 +80,11 @@
       "gz-j" = "ssh gz_jump";
       "gz-vpn_on" = "vpn-action gzp-dev start";
       "gz-vpn_off" = "vpn-action gzp-dev stop";
+      
+      # "bashids" = "/home/phv/users/phv/scripts/bashids.sh";
+
+      # linux
+      "lx-battery" = "${pkgs.upower}/bin/upower -i /org/freedesktop/UPower/devices/battery_BAT0";
+      "lx-k-taffy" = "/home/phv/.nyx/users/phv/cron/killtaffy.sh";
   };
 }

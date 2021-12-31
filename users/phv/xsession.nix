@@ -25,6 +25,7 @@ in {
         libnotify
         scrot
         dmenu
+        i3lock
 
         # audio video
         pavucontrol

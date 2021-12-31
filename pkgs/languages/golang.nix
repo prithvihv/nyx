@@ -3,7 +3,9 @@
     go_1_17
     gcc
 
-    gotools
+    # gotools
+    mockgen
+    go-tools
     gopls
     go-outline
     gocode

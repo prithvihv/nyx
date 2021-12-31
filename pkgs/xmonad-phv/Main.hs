@@ -22,6 +22,7 @@ myTerminal = "alacritty"
 myGUILuncher = "rofi -show drun"
 myPasswordLuncher = "rofi-pass"
 myClipboardLuncher = "clipmenu"
+myLockScreen = "i3lock -i ~/Downloads/nix-glow-black-1080p.png" -- FIXME: not pure
 
 -- xmonad
 myBorderWidth = 1
@@ -56,6 +57,7 @@ myKeys baseConfig@XConfig {XMonad.modMask = modMask} =
         , ((modMask, xK_q), restart pathToBinary True)
         , ((modMask, xK_p), spawn myGUILuncher)
         , ((modMask .|. shiftMask, xK_p), spawn myPasswordLuncher)
+        , ((modMask .|. shiftMask, xK_l), spawn myLockScreen)
         , ((modMask, xK_c), spawn myClipboardLuncher)
         , ((modMask, xK_a), spawn "screenshot")
         ]
