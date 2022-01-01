@@ -5,6 +5,7 @@
     # language
     bbenoist.nix
     golang.go
+    elixir-lsp.vscode-elixir-ls
     redhat.vscode-yaml
     esbenp.prettier-vscode
 

@@ -5,7 +5,7 @@
 inputs@{ lib, config, pkgs, ... }:
 
 let
-  gzp-vpn = import ./../priv/gzp-stuff.nix { inherit config; };
+  gzp-vpn = import ./../priv/gzp-stuff.nix { inherit config; inherit lib; };
   hroneTokenScript = import ./../priv/hrone.token.nix { inherit pkgs; };
 in {
   imports = [ # Include the results of the hardware scan.
@@ -122,6 +122,9 @@ in {
   programs.neovim = {
     enable = true;
     defaultEditor = true;
+  };
+  programs.ssh = {
+    startAgent = true;
   };
 
   # Configure keymap in X11

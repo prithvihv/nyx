@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   taffyConfig = import ../../pkgs/taffybar-phv/taffybar.nix { inherit pkgs; };
@@ -18,9 +18,10 @@ let
   haskellTools = import ../../pkgs/languages/haskell.nix { inherit pkgs; };
   clojureTools = import ../../pkgs/languages/clojure.nix { inherit pkgs; };
   nodeTools = import ../../pkgs/languages/node.nix { inherit pkgs; };
+  elixirTools = import ../../pkgs/languages/elixir.nix { inherit pkgs; };
 
   # configs
-  gzpPrivateStuff = import ../../priv/gzp-stuff.nix { inherit config; };
+  gzpPrivateStuff = import ../../priv/gzp-stuff.nix { inherit config; inherit lib; };
   configPassStore = "/home/phv/.password-store";
 
   # scripts
@@ -68,7 +69,7 @@ in {
     ++ [ # bash scripts
       bashidsScript
     ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
-    ++ haskellTools.extraPkgs ++ clojureTools.extraPkgs ++ nodeTools.extraPkgs;
+    ++ haskellTools.extraPkgs ++ clojureTools.extraPkgs ++ nodeTools.extraPkgs ++ elixirTools.extraPkgs;
 
   programs.git = {
     enable = true;
@@ -104,7 +105,8 @@ in {
 
   programs.ssh = {
     enable = true;
-    matchBlocks = { "gz_jump" = gzpPrivateStuff.gzp-dev-jump; };
+    matchBlocks = {
+    } // gzpPrivateStuff.gzp-ssh;
   };
 
   programs.gpg = { enable = true; };
