@@ -27,7 +27,8 @@ in {
         dmenu
         i3lock
 
-        # audio video
+        # a/v
+        brightnessctl
         pavucontrol
         volctl
         arandr
