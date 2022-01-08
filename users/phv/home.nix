@@ -39,7 +39,7 @@ in {
   fonts.fontconfig.enable = true;
 
   # FIXME: memory leak :/
- #  services.taffybar = taffyConfig;
+  #  services.taffybar = taffyConfig;
   # service.polybar = {
   #   enable = true;
   # };
@@ -70,7 +70,7 @@ in {
       unzip
     ] ++ [ # fonts
       jetbrains-mono
-      unicode-emoji
+      # rofi-emoji
     ] ++ [ # dev applications
       postman
       lens
@@ -78,7 +78,8 @@ in {
       awscli2
       terraform
       jetbrains.datagrip
-      redis-desktop-manager qt5Full
+      redis-desktop-manager
+      qt5Full
       beekeeper-studio
     ] ++ [ # bash scripts
       bashidsScript
@@ -143,6 +144,12 @@ in {
       enable = true;
       stores = [ configPassStore ];
     };
+    theme = "DarkBlue";
+    package = pkgs.rofi;
+
+    # FIXME this doesnt work
+    # plugins = [ pkgs.rofi-emoji ];
+    # package = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ];  };
   };
 
   programs.vscode = vsCodeConfig;
