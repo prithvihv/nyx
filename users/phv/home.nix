@@ -21,7 +21,10 @@ let
   elixirTools = import ../../pkgs/languages/elixir.nix { inherit pkgs; };
 
   # configs
-  gzpPrivateStuff = import ../../priv/gzp-stuff.nix { inherit config; inherit lib; };
+  gzpPrivateStuff = import ../../priv/gzp-stuff.nix {
+    inherit config;
+    inherit lib;
+  };
   configPassStore = "/home/phv/.password-store";
 
   # scripts
@@ -36,7 +39,7 @@ in {
   fonts.fontconfig.enable = true;
 
   # FIXME: memory leak :/
-  services.taffybar = taffyConfig;
+ #  services.taffybar = taffyConfig;
   # service.polybar = {
   #   enable = true;
   # };
@@ -49,6 +52,7 @@ in {
 
       pciutils
       glxinfo
+      glances
       telnet
       jq
       imagemagick # convert images
@@ -59,17 +63,28 @@ in {
       git-crypt
       authy
 
+      redis
+
       emacs
 
       unzip
     ] ++ [ # fonts
       jetbrains-mono
+      unicode-emoji
     ] ++ [ # dev applications
-      postman lens octant awscli2 jetbrains.datagrip beekeeper-studio ]
-    ++ [ # bash scripts
+      postman
+      lens
+      octant
+      awscli2
+      terraform
+      jetbrains.datagrip
+      redis-desktop-manager qt5Full
+      beekeeper-studio
+    ] ++ [ # bash scripts
       bashidsScript
     ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
-    ++ haskellTools.extraPkgs ++ clojureTools.extraPkgs ++ nodeTools.extraPkgs ++ elixirTools.extraPkgs;
+    ++ haskellTools.extraPkgs ++ clojureTools.extraPkgs ++ nodeTools.extraPkgs
+    ++ elixirTools.extraPkgs;
 
   programs.git = {
     enable = true;
@@ -105,8 +120,7 @@ in {
 
   programs.ssh = {
     enable = true;
-    matchBlocks = {
-    } // gzpPrivateStuff.gzp-ssh;
+    matchBlocks = { } // gzpPrivateStuff.gzp-ssh;
   };
 
   programs.gpg = { enable = true; };

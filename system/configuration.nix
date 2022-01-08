@@ -104,7 +104,7 @@ in {
     systemCronJobs = [
       "0 10,11,20,22 * * *      phv    /home/phv/.nyx/users/phv/cron/hrone.sh"
       "0 9 * * *        phv  ${hroneTokenScript}/bin/hrone_token"
-      "*/10 * * * *  phv  /home/phv/.nyx/users/phv/cron/killtaffy.sh"
+      # "*/10 * * * *  phv  /home/phv/.nyx/users/phv/cron/killtaffy.sh"
     ];
   };
   services.upower.enable = true;

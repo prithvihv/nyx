@@ -15,5 +15,7 @@
     golint
     delve # dlv used in vscode debugging
     go-tools # staticcheck
+    go-swag
+    go-swagger
   ];
 }
