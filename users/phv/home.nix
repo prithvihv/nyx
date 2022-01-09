@@ -29,6 +29,7 @@ let
 
   # scripts
   bashidsScript = pkgs.callPackage ./scripts/bashids.nix { };
+  # rofi-with-plugins = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
 in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -55,6 +56,7 @@ in {
       glances
       telnet
       jq
+      qbittorrent
       imagemagick # convert images
       # example convert -scale 2560x1440 source-image.jpg lockscreen.png
 
@@ -66,6 +68,9 @@ in {
       redis
 
       emacs
+      rofimoji
+
+      # rofi.override { plugins = [ rofi-emoji ]; }
 
       unzip
     ] ++ [ # fonts
@@ -145,7 +150,7 @@ in {
       stores = [ configPassStore ];
     };
     theme = "DarkBlue";
-    package = pkgs.rofi;
+    # package = pkgs.rofi;
 
     # FIXME this doesnt work
     # plugins = [ pkgs.rofi-emoji ];

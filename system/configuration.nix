@@ -165,6 +165,7 @@ in {
     git
     hello
     firefox
+
   ];
   virtualisation.docker.enable = true;
 

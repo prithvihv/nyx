@@ -25,6 +25,8 @@ myGUILuncher = "rofi -show drun"
 
 myPasswordLuncher = "rofi-pass"
 
+myEmojiLuncher = "rofimoji"
+
 myClipboardLuncher = "clipmenu"
 
 myLockScreen = "i3lock -i ~/Downloads/nix-glow-black-1080p.png" -- FIXME: not pure
@@ -70,19 +72,19 @@ myKeys baseConfig@XConfig {XMonad.modMask = modMask} =
       [ ((controlMask, xK_Print), spawn ("sleep 0.2; scrot -s " ++ scrotParams)),
         ((modMask, xK_q), restart pathToBinary True),
         ((modMask, xK_p), spawn myGUILuncher),
+        ((modMask .|. shiftMask, xK_0), spawn myEmojiLuncher),
         ((modMask .|. shiftMask, xK_p), spawn myPasswordLuncher),
         ((modMask .|. shiftMask, xK_l), spawn myLockScreen),
         ((modMask, xK_c), spawn myClipboardLuncher),
         ((modMask, xK_a), spawn "screenshot")
       ]
-      -- DELL XPS
+        -- DELL XPS
         ++ [ ((0, xF86XK_MonBrightnessUp), spawn keyBoardBrightnessUp),
              ((0, xF86XK_MonBrightnessDown), spawn keyBoardBrightnessDown),
              ((0, xF86XK_AudioRaiseVolume), spawn keyboardVolumeUp),
              ((0, xF86XK_AudioLowerVolume), spawn keyboardVolumeDown),
              ((0, xF86XK_AudioMute), spawn keyboardVolumeMute)
            ]
-
 
 myStartupHook = do
   spawn "feh --bg-scale ~/Downloads/nix-glow-black.png" -- FIXME: this should be passed as nix

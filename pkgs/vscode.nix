@@ -18,6 +18,7 @@
 
   userSettings = {
     "workbench.colorTheme"= "Dracula";
+    "workbench.editor.enablePreview"= false;
     "vetur.format.defaultFormatterOptions"= {
         "js-beautify-html"= {
             "wrap_attributes"= "aligned-multiple";
