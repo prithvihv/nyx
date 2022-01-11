@@ -71,6 +71,7 @@ in {
       rofimoji
 
       # rofi.override { plugins = [ rofi-emoji ]; }
+      calibre
 
       unzip
     ] ++ [ # fonts

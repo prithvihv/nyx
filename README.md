@@ -10,3 +10,12 @@
 ## Gamezop
 - `vpn-action gzp-dev <start/stop>` connects and disconnects vpn, with DNS
 - 
+
+
+
+## postback tracking
+
+aff channel, we publish ads
+
+- no of user who sign up, no of deposit.
+
