@@ -14,6 +14,8 @@
 
 
     dracula-theme.theme-dracula
+
+    arrterian.nix-env-selector
   ];
 
   userSettings = {
