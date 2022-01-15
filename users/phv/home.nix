@@ -19,6 +19,7 @@ let
   clojureTools = import ../../pkgs/languages/clojure.nix { inherit pkgs; };
   nodeTools = import ../../pkgs/languages/node.nix { inherit pkgs; };
   elixirTools = import ../../pkgs/languages/elixir.nix { inherit pkgs; };
+  solana = pkgs.callPackage ../../pkgs/blockchain/solana.nix { };
 
   # configs
   gzpPrivateStuff = import ../../priv/gzp-stuff.nix {
@@ -66,6 +67,8 @@ in {
       authy
 
       redis
+
+      solana
 
       emacs
       rofimoji
