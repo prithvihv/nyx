@@ -1,9 +1,13 @@
 { pkgs }: {
   extraPkgs = with pkgs; [
-    rustc
-    rustfmt
-    rust-analyzer
+    # rustc
+    rustup
+    rustup-toolchain-install-master
 
-    cargo
+    # binutils.bintools
+    # rustfmt
+    # rust-analyzer
+
+    # cargo
   ];
 }

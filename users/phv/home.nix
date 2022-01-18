@@ -53,6 +53,8 @@ in {
       discord
       vlc
 
+      gimp
+
       pciutils
       glxinfo
       glances
@@ -68,6 +70,8 @@ in {
       authy
 
       redis
+
+      nodePackages.serve
 
       # solana
 
@@ -104,6 +108,7 @@ in {
     extraConfig = {
       user.signingkey = "0x79C7BE63C93CC999";
       url = { "git@github.com:" = { insteadOf = "https://github.com/"; }; };
+      # url = { "https://github.com/" = { insteadOf = "git@github.com:"; }; };
     };
   };
 
