@@ -1,8 +1,8 @@
 { pkgs }: {
   extraPkgs = with pkgs; [
     # rustc
-    rustup
-    rustup-toolchain-install-master
+    # rustup
+    # rustup-toolchain-install-master
 
     # binutils.bintools
     # rustfmt

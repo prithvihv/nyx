@@ -5,6 +5,7 @@ let
   binaryNames = [ 
     "cli" 
     "keygen"
+    # "/programs/bpf_loader"
   ];
 
   solanapkg = binName: rustPlatform.buildRustPackage rec {

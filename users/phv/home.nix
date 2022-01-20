@@ -56,6 +56,7 @@ in {
       gimp
 
       pciutils
+      rsync
       glxinfo
       glances
       telnet
@@ -63,11 +64,14 @@ in {
       qbittorrent
       imagemagick # convert images
       # example convert -scale 2560x1440 source-image.jpg lockscreen.png
+      ffmpeg
 
       age
       sops
       git-crypt
       authy
+
+      brave
 
       redis
 

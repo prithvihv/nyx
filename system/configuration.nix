@@ -150,6 +150,7 @@ in {
     extraGroups = [
       "wheel"
       "networkmanager"
+      "lxd"
       "docker"
       "keys"
     ]; # Enable ‘sudo’ for the user.
@@ -165,9 +166,9 @@ in {
     git
     hello
     firefox
-
-  ];
+  ] ;
   virtualisation.docker.enable = true;
+  virtualisation.lxd.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

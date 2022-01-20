@@ -12,95 +12,84 @@
     vscodevim.vim
     WakaTime.vscode-wakatime
 
-
     dracula-theme.theme-dracula
 
     arrterian.nix-env-selector
   ];
 
   userSettings = {
-    "workbench.colorTheme"= "Dracula";
-    "workbench.editor.enablePreview"= false;
-    "vetur.format.defaultFormatterOptions"= {
-        "js-beautify-html"= {
-            "wrap_attributes"= "aligned-multiple";
-        };
-        "prettyhtml"= {
-            "printWidth"= 400;
-            "wrapAttributes"= false;
-        };
+    "workbench.colorTheme" = "Dracula";
+    "workbench.editor.enablePreview" = false;
+    "vetur.format.defaultFormatterOptions" = {
+      "js-beautify-html" = { "wrap_attributes" = "aligned-multiple"; };
+      "prettyhtml" = {
+        "printWidth" = 400;
+        "wrapAttributes" = false;
+      };
     };
-    "workbench.sideBar.location"= "right";
-    "editor.lineNumbers"= "relative";
-    "vim.handleKeys"= {
-        "<C-f>"= false;
-        "<C-w>"= false;
-        "<C-s>"= false;
-        "<C-b>"= false;
-        "<C-c>"= false;
-        "<C-d>"= false;
+    "workbench.sideBar.location" = "right";
+    "editor.lineNumbers" = "relative";
+    "vim.handleKeys" = {
+      "<C-f>" = false;
+      "<C-w>" = false;
+      "<C-s>" = false;
+      "<C-b>" = false;
+      "<C-c>" = false;
+      "<C-d>" = false;
     };
-    "editor.fontFamily"= "JetBrains Mono";
-    "javascript.updateImportsOnFileMove.enabled"= "always";
-    "diffEditor.ignoreTrimWhitespace"= false;
-    "go.formatTool"= "goimports";
-    "go.lintFlags"= [
-        "--disable-all"
-        "--enable=golint"
-        "--config=~/.gometalinter"
-    ];
-    "explorer.confirmDelete"= false;
-    "explorer.confirmDragAndDrop"= false;
-    "workbench.iconTheme"= "vscode-icons";
-    "files.watcherExclude"= {
-        "**/.bloop"= true;
-        "**/.metals"= true;
-        "**/.ammonite"= true;
+    "editor.fontFamily" = "JetBrains Mono";
+    "javascript.updateImportsOnFileMove.enabled" = "always";
+    "diffEditor.ignoreTrimWhitespace" = false;
+    "go.formatTool" = "goimports";
+    "go.lintFlags" =
+      [ "--disable-all" "--enable=golint" "--config=~/.gometalinter" ];
+    "explorer.confirmDelete" = false;
+    "explorer.confirmDragAndDrop" = false;
+    "workbench.iconTheme" = "vscode-icons";
+    "files.watcherExclude" = {
+      "**/.bloop" = true;
+      "**/.metals" = true;
+      "**/.ammonite" = true;
     };
-    "window.menuBarVisibility"= "toggle";
-    "workbench.editorAssociations"= {
-        "*.ipynb"= "jupyter-notebook";
-    };
-    "redhat.telemetry.enabled"= false;
-    "[yaml]"= {
-        "editor.defaultFormatter"= "redhat.vscode-yaml";
-    };
-    "[json]"= {
-        "editor.defaultFormatter"= "esbenp.prettier-vscode";
-    };
-    "[clojure]"= {
-        "editor.autoClosingBrackets"= "always";
-        "editor.autoClosingOvertype"= "always";
-        "editor.formatOnPaste"= true;
+    "window.menuBarVisibility" = "toggle";
+    "[javascript]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
+    "workbench.editorAssociations" = { "*.ipynb" = "jupyter-notebook"; };
+    "redhat.telemetry.enabled" = false;
+    "[yaml]" = { "editor.defaultFormatter" = "redhat.vscode-yaml"; };
+    "[json]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
+    "[clojure]" = {
+      "editor.autoClosingBrackets" = "always";
+      "editor.autoClosingOvertype" = "always";
+      "editor.formatOnPaste" = true;
     };
     "[nix]" = { "editor.defaultFormatter" = "brettm12345.nixfmt-vscode"; };
-    "json.schemas"= [];
-    "go.toolsGopath"= "/etc/profiles/per-user/phv/bin/";
-    "cSpell.userWords"= [
-        "alch"
-        "apay"
-        "arvind"
-        "arvindpunk"
-        "davecgh"
-        "gamezop"
-        "gock"
-        "gomock"
-        "GZPID"
-        "Ifsc"
-        "jinbe"
-        "jlog"
-        "jmoiron"
-        "kelasa"
-        "normie"
-        "rabbitmq"
-        "sqlx"
-        "stretchr"
-        "Strs"
-        "txns"
-        "upsert"
-        "Zoro"
+    "json.schemas" = [ ];
+    "go.toolsGopath" = "/etc/profiles/per-user/phv/bin/";
+    "cSpell.userWords" = [
+      "alch"
+      "apay"
+      "arvind"
+      "arvindpunk"
+      "davecgh"
+      "gamezop"
+      "gock"
+      "gomock"
+      "GZPID"
+      "Ifsc"
+      "jinbe"
+      "jlog"
+      "jmoiron"
+      "kelasa"
+      "normie"
+      "rabbitmq"
+      "sqlx"
+      "stretchr"
+      "Strs"
+      "txns"
+      "upsert"
+      "Zoro"
     ];
-    "aws.profile"= "profile=default";
-    "window.zoomLevel"= 1;
+    "aws.profile" = "profile=default";
+    "window.zoomLevel" = 1;
   };
 }
