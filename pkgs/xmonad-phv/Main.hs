@@ -37,6 +37,8 @@ myGUILauncher = "rofi -show drun"
 
 myAutorandrlauncher = "rofiAutorandr"
 
+myToggleStatusBar = "togglePolybar"
+
 myPasswordLauncher = "rofi-pass"
 
 myEmojiLauncher = "rofimoji"
@@ -72,6 +74,37 @@ keyboardVolumeDown = keyboardVolume_base ++ "-" ++ keyboardVolume_variance
 
 keyboardVolumeMute = "pactl set-sink-volume 0 " ++ "0"
 
+termWs = ['\61728'] -- 
+
+webWs = ['\62057'] -- 
+
+devWs = ['\61729'] -- 
+
+comWs = ['\128489'] -- 🗩
+
+setWs = ['\9881'] -- ⚙
+
+devtoolsWs = ['\61820'] -- 
+
+search = ['\62498'] -- 
+
+-- wrkWs = "wrk"
+-- sysWs = "sys"
+-- etcWs = "etc"
+
+-- termWs= ""
+-- webWs = ""
+-- devWs = ""
+-- comWs = "🗩"
+-- setWs = "⚙"
+-- devtoolsWs = ""
+-- search = ""
+
+myWS :: [WorkspaceId]
+myWS = [termWs, webWs, devWs, comWs, devtoolsWs, search, search, search]
+
+-- myWS = [termWs,webWs, ossWs, devWs, comWs, wrkWs, sysWs, etcWs]
+
 -----------------------------------------------------------------
 -- Config Section End
 -----------------------------------------------------------------
@@ -86,6 +119,7 @@ myKeys baseConfig@XConfig {XMonad.modMask = modMask} =
       [ ((controlMask, xK_Print), spawn ("sleep 0.2; scrot -s " ++ scrotParams)),
         ((modMask, xK_q), restart pathToBinary True),
         ((modMask, xK_p), spawn myGUILauncher),
+        ((modMask .|. shiftMask, xK_b), spawn myToggleStatusBar),
         ((modMask .|. shiftMask, xK_d), spawn myAutorandrlauncher),
         ((modMask .|. shiftMask, xK_0), spawn myEmojiLauncher),
         ((modMask .|. shiftMask, xK_p), spawn myPasswordLauncher),
@@ -178,5 +212,6 @@ main' client = do
         startupHook = myStartupHook,
         normalBorderColor = myNormalBorderColor,
         focusedBorderColor = myFocusedBorderColor,
-        logHook = myPolybarLogHook client
+        logHook = myPolybarLogHook client,
+        workspaces = myWS
       }

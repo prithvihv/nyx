@@ -5,8 +5,10 @@
 - [ ] learn and integrate tools to workflow:
     - [ ] ripgrep
     - [ ] fuzzy search
-- GC for nix
-- github p secrets
+- [ ] GC for nix
+- [ ] github p secrets
+- [ ] i3 multi lock screen
+- [ ] toggling notifications
 
 ## Secret management
 - using a sops to modules that accepts file params

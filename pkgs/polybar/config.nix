@@ -39,24 +39,35 @@ let
 
   launchPolybar = pkgs.writeShellScriptBin "launchPolybar" launchScriptStr;
 
+  togglePolybar = pkgs.writeShellScriptBin "togglePolybar" ''
+    if pgrep polybar; then
+      kill -9 $(pgrep polybar) 
+    else
+      ${launchPolybar}/bin/launchPolybar
+    fi
+  '';
+
   common = {
     cursor-click = "pointer";
     font-0 = "Iosevka:size=12;3";
-    font-1 = "Noto Color Emoji:style=Regular:scale=10;2";
+    font-1 = "Noto Color Emoji:scale=10;2";
     font-2 = "Font Awesome 5 Free Regular:style=Regular:size=12;0";
     font-3 = "FuraCode Nerd Font:style=Bold:size=12;3";
+    font-4 = "Noto Sans Symbols2;3";
   };
 
-  primary = "#504945";
-
-  secondary = "#ebdbb2";
-
-  tertiary = "#1d2021";
-
+  foreground = "#ccffffff";
+  primary = "#44475a";
+  # primary = "#6272a4";
+  background = "#282a36";
+  # secondary = "#50fa7b";
+  secondary = "#f8f8f2";
+  # secondary = "#44475a";
+  tertiary = "#ffaa00";
   quaternary = "#ecf0f1";
   urgency = "#e74c3c";
 in {
-  extraPkgs = [ launchPolybar pkgs.xmonad-log ];
+  extraPkgs = [ launchPolybar pkgs.xmonad-log togglePolybar ];
   launchPolybar = launchPolybar;
 
   home-manager-config = {
@@ -64,25 +75,13 @@ in {
     package = pkgs.polybarFull.override {
       # i3GapsSupport = true;
       alsaSupport = true;
-      # iwSupport = true;
+      iwSupport = true;
       # githubSupport = true;
       pulseSupport = true;
     };
     #   script = "polybar top";
     script = launchScriptStr;
-    settings = {
-
-      # nesting is not allowed in the "config" block
-      "module/volume" = {
-        type = "internal/pulseaudio";
-        format.volume = "<ramp-volume> <label-volume>";
-        label.muted.text = "🔇";
-        label.muted.foreground = "#666";
-        ramp.volume = [ "🔈" "🔉" "🔊" ];
-
-        click.right = "pavucontrol &";
-      } // common;
-    };
+    settings = { };
 
     # https://github.com/polybar/polybar/wiki/Configuration
     config = {
@@ -110,20 +109,49 @@ in {
         # format-offset = 10;
       };
 
+      "module/volume" = {
+        type = "internal/pulseaudio";
+        label-volume = "%percentage%%";
+        format-volume = "<ramp-volume> <label-volume>";
+        label-muted-foreground = "#666";
+        ramp-volume-0 = "🕨";
+        ramp-volume-1 = "🕩";
+        ramp-volume-2 = "🕪";
+        format-volume-padding = 1;
+        format-volume-foreground = secondary;
+        format-volume-background = primary;
+        label-muted = "🔇 Muted";
+        format-muted = "<label-muted>";
+        format-muted-padding = 1;
+        format-muted-foreground = secondary;
+        format-muted-background = primary;
+        format-muted-prefix-foreground = urgency;
+        format-muted-overline = background;
+
+        click-right = "pavucontrol &";
+      } // common;
       "bar/top" = {
         bottom = false;
         fixed-center = true;
         enable-ipc = true;
         monitor = "\${env:MONITOR:}";
-        module-margin = 1;
+        # module-margin = 1;
+        padding = 1;
+        separator = "|";
+
+        override-redirect = true;
+        wm-restack = "xmonad"; # currently not supported
 
         height = 19;
         # height = "2%";
         width = "100%";
+        background = background;
+        foreground = foreground;
         # radius = 0;
 
         locale = "en_US.UTF-8";
-        modules-right = "wireless volume battery date";
+        modules-right =
+          "cpu memory swap diskspace wireless volume battery date";
         modules-center = "time";
         modules-left = "xmonad";
         # tray-position = "\${env:MONITOR:}";
@@ -134,7 +162,6 @@ in {
         margin-bottom = 0;
         margin-top = 0;
       };
-
       "module/xmonad" = {
         type = "custom/script";
         exec = "${pkgs.xmonad-log}/bin/xmonad-log";
@@ -145,6 +172,8 @@ in {
         type = "internal/date";
         time = "%H:%M:%S";
         label = "%time%";
+
+        format-foreground = tertiary;
       };
 
       "module/date" = {
@@ -153,6 +182,59 @@ in {
         date = "%d.%m.%y";
 
         label = "%date%";
+        format-background = primary;
+        format-foreground = secondary;
+      };
+
+      "module/cpu" = {
+        type = "internal/cpu";
+
+        interval = "0.5";
+
+        format = " <label>";
+        format-background = primary;
+        format-foreground = secondary;
+        format-padding = 1;
+
+        label = "%percentage%%";
+      };
+      "module/memory" = {
+        type = "internal/memory";
+
+        interval = 3;
+
+        format = " <label>";
+        format-background = primary;
+        format-foreground = secondary;
+        format-padding = 1;
+
+        label = "%gb_used%/%gb_free%";
+      };
+
+      "module/swap" = {
+        type = "internal/memory";
+
+        interval = 3;
+
+        format = "🖫 <label>";
+        format-background = primary;
+        format-foreground = secondary;
+        format-padding = 1;
+
+        label = "%percentage_used%%";
+      };
+
+      # they dont have foreground color :/
+      "module/diskspace" = {
+        type = "internal/fs";
+        mount-0 = "/";
+        label-mounted = "%percentage_used%%, ◌: %free%";
+
+        format-mounted = "🖴 <label-mounted>";
+        format-background = primary;
+        format-foreground = secondary;
+
+        label = "used: %percentage_used%% free: %free";
       };
 
       "module/battery" = {

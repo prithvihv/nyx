@@ -83,6 +83,7 @@ in {
 
       # solana
       rofimoji
+      gucharmap # find emojis
 
       calibre
 
