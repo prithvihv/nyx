@@ -1,13 +1,18 @@
 { pkgs, ... }:
 
-{
+let
+  background = "#6272a4"; 
+  foreground = "#f8f8f2"; 
+  frame_color = "#ff5555";
+  # https://github.com/dracula/dracula-theme/blob/master/README.md#color-palette
+in{
   enable = true;
   iconTheme.package = pkgs.numix-icon-theme;
   iconTheme.name = "Numix";
   iconTheme.size = "48";
   settings = {
     global = {
-      font = "SourceCodePro 12";
+      font = "Iosevka";
       markup = "yes";
       plain_text = "no";
       format = "<b>%s</b>\\n%b";
@@ -48,20 +53,21 @@
     };
 
     urgency_low = {
-      background = "#171717";
-      foreground = "#B2A181";
+      background = "${background}";
+      foreground = "${foreground}";
       timeout = 10;
     };
 
     urgency_normal = {
-      background = "#171717";
-      foreground = "#B2A181";
+      background = "${background}";
+      foreground = "${foreground}";
       timeout = 5;
     };
 
     urgency_critical = {
-      background = "#dc322f";
-      foreground = "#eee8d5";
+      background = "${background}";
+      foreground = "${foreground}";
+      frame_color = "${frame_color}";
       timeout = 0;
     };
   };

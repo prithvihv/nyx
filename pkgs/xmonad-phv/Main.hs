@@ -1,11 +1,22 @@
 {-# LANGUAGE FlexibleContexts #-}
 
 -- import           XMonad.Util.Run                ( spawnPipe )
+
+-- imports for pollybar
+
+import qualified Codec.Binary.UTF8.String as UTF8
+import qualified DBus as D
+import qualified DBus.Client as D
+import Data.List (find)
+import Data.List.Split (splitOn)
 import qualified Data.Map.Strict as M
+import Data.Maybe (isJust)
 import Graphics.X11.ExtraTypes.XF86
 import XMonad
 import XMonad.Core
+import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops (ewmh)
+import XMonad.Hooks.FadeInactive (fadeInactiveLogHook)
 import XMonad.Hooks.ManageDocks (avoidStruts, docks, docksEventHook, manageDocks)
 import XMonad.Layout.NoBorders (smartBorders)
 import XMonad.Util.EZConfig (additionalKeys)
@@ -90,7 +101,68 @@ myStartupHook = do
   spawn "feh --bg-scale ~/Downloads/nix-glow-black.png" -- FIXME: this should be passed as nix
   spawn "go env -w GOPRIVATE=github.com/gamezop" -- FIXME: this should be golang config
 
-main =
+-- reference: https://github.com/gvolpe/nix-config/blob/master/home/programs/xmonad/config.hs
+mkDbusClient :: IO D.Client
+mkDbusClient = do
+  dbus <- D.connectSession
+  D.requestName dbus (D.busName_ "org.xmonad.log") opts
+  return dbus
+  where
+    opts = [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
+
+-- Emit a DBus signal on log updates
+dbusOutput :: D.Client -> String -> IO ()
+dbusOutput dbus str =
+  let opath = D.objectPath_ "/org/xmonad/Log"
+      iname = D.interfaceName_ "org.xmonad.Log"
+      mname = D.memberName_ "Update"
+      signal = (D.signal opath iname mname)
+      body = [D.toVariant $ UTF8.decodeString str]
+   in D.emit dbus $ signal {D.signalBody = body}
+
+findTitle :: [Char] -> String
+findTitle t
+  | isJust $ find (== '-') t = (last . splitOn "-") t
+  | otherwise = shorten 100 t
+
+polybarHook :: D.Client -> PP
+polybarHook dbus =
+  let wrapper c s
+        | s /= "NSP" = wrap ("%{F" <> c <> "} ") " %{F-}" s
+        | otherwise = mempty
+      blue = "#2E9AFE"
+      gray = "#7F7F7F"
+      orange = "#ea4300"
+      purple = "#9058c7"
+      red = "#722222"
+   in def
+        { ppOutput = dbusOutput dbus,
+          ppCurrent = wrapper blue,
+          ppVisible = wrapper gray,
+          ppUrgent = wrapper orange,
+          ppHidden = wrapper gray,
+          ppHiddenNoWindows = wrapper red,
+          ppTitle = wrapper purple . findTitle
+        }
+
+myPolybarLogHook :: D.Client -> X ()
+myPolybarLogHook dbus = dynamicLogWithPP (polybarHook dbus)
+
+-- myLogHook <+> dynamicLogWithPP (polybarHook dbus)
+
+-- Status bars and logging
+
+-- Perform an arbitrary action on each internal state change or X event.
+-- See the 'XMonad.Hooks.DynamicLog' extension for examples.
+--
+myLogHook :: X ()
+myLogHook = fadeInactiveLogHook 0.9
+
+main :: IO ()
+main = mkDbusClient >>= main'
+
+main' :: D.Client -> IO ()
+main' client = do
   xmonad . docks . ewmh $
     def
       { modMask = mod4Mask,
@@ -102,5 +174,6 @@ main =
         handleEventHook = docksEventHook,
         startupHook = myStartupHook,
         normalBorderColor = myNormalBorderColor,
-        focusedBorderColor = myFocusedBorderColor
+        focusedBorderColor = myFocusedBorderColor,
+        logHook = myPolybarLogHook client
       }

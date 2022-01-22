@@ -5,7 +5,10 @@
 inputs@{ lib, config, pkgs, ... }:
 
 let
-  gzp-vpn = import ./../priv/gzp-stuff.nix { inherit config; inherit lib; };
+  gzp-vpn = import ./../priv/gzp-stuff.nix {
+    inherit config;
+    inherit lib;
+  };
   hroneTokenScript = import ./../priv/hrone.token.nix { inherit pkgs; };
 in {
   imports = [ # Include the results of the hardware scan.
@@ -18,9 +21,7 @@ in {
     experimental-features = nix-command flakes
   '';
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-9.4.4"
-  ];
+  nixpkgs.config.permittedInsecurePackages = [ "electron-9.4.4" ];
 
   security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = true;
@@ -35,6 +36,10 @@ in {
   networking.hostName = "nyx"; # Define your hostname.
   networking.networkmanager.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+  networking.extraHosts = ''
+    127.0.0.1 bake.sale
+  '';
 
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
@@ -76,6 +81,30 @@ in {
   #   keyMap = "us";
   # };
 
+  fonts = {
+    fonts = with pkgs; [
+      emacs-all-the-icons-fonts
+      hasklig
+      iosevka
+      source-code-pro
+
+      noto-fonts
+      nerdfonts
+      # ubuntu_font_family
+      unifont
+      jetbrains-mono
+      font-awesome
+      font-awesome_5
+      font-awesome-ttf
+      cantarell-fonts
+      siji
+      dejavu_fonts
+      material-icons
+      cantarell-fonts
+    ];
+    fontconfig = { enable = true; };
+  };
+
   # Enable the X11 windowing system.
 
   # Enable the GNOME Desktop Environment.
@@ -108,6 +137,7 @@ in {
     ];
   };
   services.upower.enable = true;
+  services.blueman.enable = true;
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_13;
@@ -123,9 +153,7 @@ in {
     enable = true;
     defaultEditor = true;
   };
-  programs.ssh = {
-    startAgent = true;
-  };
+  programs.ssh = { startAgent = true; };
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
@@ -136,7 +164,12 @@ in {
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio = {
+    enable = true;
+    extraModules = [ pkgs.pulseaudio-modules-bt ];
+    package = pkgs.pulseaudioFull;
+  };
+  hardware.bluetooth.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -166,7 +199,7 @@ in {
     git
     hello
     firefox
-  ] ;
+  ];
   virtualisation.docker.enable = true;
   virtualisation.lxd.enable = true;
 

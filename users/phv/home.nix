@@ -12,7 +12,7 @@ let
     inherit gzpPrivateStuff;
   };
   tmuxConfig = import ../../pkgs/tmux.nix { inherit pkgs; };
-  polyBarConfig = import ../../pkgs/polyBarConfig { inherit pkgs; };
+  polyBarConfig = import ../../pkgs/polybar/config.nix { inherit pkgs; };
 
   golangTools = import ../../pkgs/languages/golang.nix { inherit pkgs; };
   haskellTools = import ../../pkgs/languages/haskell.nix { inherit pkgs; };
@@ -37,9 +37,6 @@ in {
   # paths it should manage.
   home.username = "phv";
   home.homeDirectory = "/home/phv";
-
-  # This will, for example, allow fontconfig to discover fonts and configurations installed through home.packages and nix-env. 
-  fonts.fontconfig.enable = true;
 
   # FIXME: memory leak :/
   #  services.taffybar = taffyConfig;
@@ -78,17 +75,11 @@ in {
       nodePackages.serve
 
       # solana
-
-      emacs
       rofimoji
 
-      # rofi.override { plugins = [ rofi-emoji ]; }
       calibre
 
       unzip
-    ] ++ [ # fonts
-      jetbrains-mono
-      # rofi-emoji
     ] ++ [ # dev applications
       postman
       lens
@@ -103,7 +94,8 @@ in {
       bashidsScript
     ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
     ++ haskellTools.extraPkgs ++ clojureTools.extraPkgs ++ nodeTools.extraPkgs
-    ++ elixirTools.extraPkgs ++ rustTools.extraPkgs ++ solanaTools.tools;
+    ++ elixirTools.extraPkgs ++ rustTools.extraPkgs ++ solanaTools.tools
+    ++ polyBarConfig.extraPkgs;
 
   programs.git = {
     enable = true;
@@ -163,7 +155,8 @@ in {
       enable = true;
       stores = [ configPassStore ];
     };
-    theme = "DarkBlue";
+    # theme = "DarkBlue";
+    theme = ../../pkgs/rofi/theme-dracula.rasi;
     # package = pkgs.rofi;
 
     # FIXME this doesnt work
@@ -188,8 +181,17 @@ in {
 
   # uses upower
   services.poweralertd.enable = true;
+  services.blueman-applet.enable = true;
 
   services.clipmenu.enable = true;
+
+  services.polybar = polyBarConfig.home-manager-config;
+
+  services.emacs = {
+    enable = true;
+    # package = 
+    client = { enable = true; };
+  };
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
