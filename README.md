@@ -2,10 +2,11 @@
 - [ ] move cron jobs to nix-store
 - [X] taffy bar has a memory leak: https://github.com/srid/nixos-config/issues/8 move to polybar
 - [ ] tmux resurrect continuum not restoring automatically 
-- [ ] learn and integrate tools:
+- [ ] learn and integrate tools to workflow:
     - [ ] ripgrep
     - [ ] fuzzy search
 - GC for nix
+- github p secrets
 
 ## Secret management
 - using a sops to modules that accepts file params
