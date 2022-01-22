@@ -1,7 +1,6 @@
 { }:
-let 
-in
-{
+let
+in {
   enable = true;
   settings = {
     colors = {
@@ -17,37 +16,37 @@ in
         text = "0xf8f8f2";
         background = "0x44475a";
       };
-      normal= {
+      normal = {
         black = "0x000000";
-        red= "0xff5555";
-        green= "0x50fa7b";
-        yellow= "0xf1fa8c";
-        blue= "0xbd93f9";
-        magenta= "0xff79c6";
-        cyan= "0x8be9fd";
-        white= "0xbfbfbf";
+        red = "0xff5555";
+        green = "0x50fa7b";
+        yellow = "0xf1fa8c";
+        blue = "0xbd93f9";
+        magenta = "0xff79c6";
+        cyan = "0x8be9fd";
+        white = "0xbfbfbf";
       };
-      bright= {
-        black= "0x4d4d4d";
-        red= "0xff6e67";
-        green= "0x5af78e";
-        yellow= "0xf4f99d";
-        blue= "0xcaa9fa";
-        magenta= "0xff92d0";
-        cyan= "0x9aedfe";
-        white= "0xe6e6e6";
+      bright = {
+        black = "0x4d4d4d";
+        red = "0xff6e67";
+        green = "0x5af78e";
+        yellow = "0xf4f99d";
+        blue = "0xcaa9fa";
+        magenta = "0xff92d0";
+        cyan = "0x9aedfe";
+        white = "0xe6e6e6";
       };
-      dim= {
+      dim = {
         black = "0x14151b";
-        red= "0xff2222";
-        green= "0x1ef956";
-        yellow= "0xebf85b";
-        blue= "0x4d5b86";
-        magenta= "0xff46b0";
-        cyan= "0x59dffc";
-        white= "0xe6e6d1";
+        red = "0xff2222";
+        green = "0x1ef956";
+        yellow = "0xebf85b";
+        blue = "0x4d5b86";
+        magenta = "0xff46b0";
+        cyan = "0x59dffc";
+        white = "0xe6e6d1";
       };
-      indexed_color = [];
+      indexed_color = [ ];
     };
     font = {
       normal = {
@@ -58,13 +57,9 @@ in
         family = "JetBrains Mono Extra Bold";
         style = "Bold";
       };
-      italic = {
-        family = "JetBrains Mono";
-      };
+      italic = { family = "JetBrains Mono"; };
       size = 8.0;
     };
-    selection = {
-      save_to_clipboard = true;
-    };
+    selection = { save_to_clipboard = true; };
   };
 }

@@ -37,7 +37,7 @@
       "<C-c>" = false;
       "<C-d>" = false;
     };
-    "editor.fontFamily" = "JetBrains Mono";
+    "editor.fontFamily" = "JetBrains Mono,  Iosevka, FuraCode Nerd Font";
     "javascript.updateImportsOnFileMove.enabled" = "always";
     "diffEditor.ignoreTrimWhitespace" = false;
     "go.formatTool" = "goimports";

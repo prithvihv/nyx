@@ -3,7 +3,12 @@
 let
   taffyConfig = import ../../pkgs/taffybar-phv/taffybar.nix { inherit pkgs; };
   dunstConfig = import ../../pkgs/dunst.nix { inherit pkgs; };
-  xsessionPhv = import ./xsession.nix { inherit pkgs; };
+  polyBarConfig = import ../../pkgs/polybar/config.nix { inherit pkgs; };
+  xsessionPhv = import ./xsession.nix {
+    inherit pkgs;
+    inherit lib;
+    launchPolybar = polyBarConfig.launchPolybar;
+  };
 
   alacrittyConfig = import ../../pkgs/alacritty.nix { };
   vsCodeConfig = import ../../pkgs/vscode.nix { inherit pkgs; };
@@ -12,7 +17,6 @@ let
     inherit gzpPrivateStuff;
   };
   tmuxConfig = import ../../pkgs/tmux.nix { inherit pkgs; };
-  polyBarConfig = import ../../pkgs/polybar/config.nix { inherit pkgs; };
 
   golangTools = import ../../pkgs/languages/golang.nix { inherit pkgs; };
   haskellTools = import ../../pkgs/languages/haskell.nix { inherit pkgs; };
@@ -72,6 +76,9 @@ in {
 
       redis
 
+      # TODO: move this to package
+      autorandr
+
       nodePackages.serve
 
       # solana
@@ -102,11 +109,16 @@ in {
     userName = "prithvihv";
     userEmail = "hvprithvi09@gmail.com";
     extraConfig = {
+      # TODO: this doesnt work right now
       user.signingkey = "0x79C7BE63C93CC999";
       url = { "git@github.com:" = { insteadOf = "https://github.com/"; }; };
       # url = { "https://github.com/" = { insteadOf = "git@github.com:"; }; };
     };
   };
+
+  programs.autorandr = xsessionPhv.autorandr;
+
+  programs.command-not-found = { enable = true; };
 
   # programs.go = {
   #   enable = true;

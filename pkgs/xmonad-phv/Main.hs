@@ -12,6 +12,7 @@ import Data.List.Split (splitOn)
 import qualified Data.Map.Strict as M
 import Data.Maybe (isJust)
 import Graphics.X11.ExtraTypes.XF86
+import Graphics.X11.Xlib.Display
 import XMonad
 import XMonad.Core
 import XMonad.Hooks.DynamicLog
@@ -32,11 +33,13 @@ import XMonad.Util.EZConfig (additionalKeys)
 -- terminal
 myTerminal = "alacritty"
 
-myGUILuncher = "rofi -show drun"
+myGUILauncher = "rofi -show drun"
 
-myPasswordLuncher = "rofi-pass"
+myAutorandrlauncher = "rofiAutorandr"
 
-myEmojiLuncher = "rofimoji"
+myPasswordLauncher = "rofi-pass"
+
+myEmojiLauncher = "rofimoji"
 
 myClipboardLuncher = "clipmenu"
 
@@ -82,9 +85,10 @@ myKeys baseConfig@XConfig {XMonad.modMask = modMask} =
     myConfig =
       [ ((controlMask, xK_Print), spawn ("sleep 0.2; scrot -s " ++ scrotParams)),
         ((modMask, xK_q), restart pathToBinary True),
-        ((modMask, xK_p), spawn myGUILuncher),
-        ((modMask .|. shiftMask, xK_0), spawn myEmojiLuncher),
-        ((modMask .|. shiftMask, xK_p), spawn myPasswordLuncher),
+        ((modMask, xK_p), spawn myGUILauncher),
+        ((modMask .|. shiftMask, xK_d), spawn myAutorandrlauncher),
+        ((modMask .|. shiftMask, xK_0), spawn myEmojiLauncher),
+        ((modMask .|. shiftMask, xK_p), spawn myPasswordLauncher),
         ((modMask .|. shiftMask, xK_l), spawn myLockScreen),
         ((modMask, xK_c), spawn myClipboardLuncher),
         ((modMask, xK_a), spawn "screenshot")
@@ -98,7 +102,6 @@ myKeys baseConfig@XConfig {XMonad.modMask = modMask} =
            ]
 
 myStartupHook = do
-  spawn "feh --bg-scale ~/Downloads/nix-glow-black.png" -- FIXME: this should be passed as nix
   spawn "go env -w GOPRIVATE=github.com/gamezop" -- FIXME: this should be golang config
 
 -- reference: https://github.com/gvolpe/nix-config/blob/master/home/programs/xmonad/config.hs

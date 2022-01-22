@@ -1,6 +1,6 @@
 ## Issues:
 - [ ] move cron jobs to nix-store
-- [ ] taffy bar has a memory leak: https://github.com/srid/nixos-config/issues/8 move to polybar
+- [X] taffy bar has a memory leak: https://github.com/srid/nixos-config/issues/8 move to polybar
 - [ ] tmux resurrect continuum not restoring automatically 
 - [ ] learn and integrate tools:
     - [ ] ripgrep
@@ -28,6 +28,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed for any bug fixes.
 ### Security in case of vulnerabilities.
 
+
+
+## [phv2] - 2022-01-23
+### Added for new features.
+- autorandr setup
 
 ## [phv1] - 2022-01-22
 ### Added for new features.

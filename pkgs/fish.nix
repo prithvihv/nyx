@@ -81,7 +81,6 @@
       "gz-vpn_on" = "vpn-action gzp-dev start";
       "gz-vpn_off" = "vpn-action gzp-dev stop";
       
-      # "bashids" = "/home/phv/users/phv/scripts/bashids.sh";
 
       # linux
       "lx-battery" = "${pkgs.upower}/bin/upower -i /org/freedesktop/UPower/devices/battery_BAT0";
