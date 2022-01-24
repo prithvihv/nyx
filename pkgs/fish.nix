@@ -10,7 +10,7 @@
       set -l cInfo (set_color green)
       set -l cWarn (set_color red)
       set -l cReset (set_color $fish_color_normal)
-      
+
       #Copy input to clipboard
       echo -n $input | xclip -selection clipboard
       #Keep status text in one line
@@ -26,10 +26,10 @@
 
   shellInit = ''
 
-  # done notification for teminal commands
-    set __done_min_cmd_duration 3000
+    # done notification for teminal commands
+      set __done_min_cmd_duration 3000
 
-    ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
+      ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
   '';
 
   plugins = [
@@ -53,8 +53,8 @@
     }
   ];
 
-  shellAbbrs = { 
-    gco = "git checkout"; 
+  shellAbbrs = {
+    gco = "git checkout";
     gc = "git commit -m";
     gl = "git log";
     ga = "git add";
@@ -63,27 +63,28 @@
   };
 
   shellAliases = {
-      "..." = "cd ../..";
-      "db-local" = "psql -U postgres";
-      "db-dev-priv" = "psql \"${gzpPrivateStuff.gzp-dev-psql.urlPrivate}\"";
-      "db-dev-public" = "psql \"${gzpPrivateStuff.gzp-dev-psql.urlPublic}\"";
+    "..." = "cd ../..";
+    "db-local" = "psql -U postgres";
+    "db-dev-priv" = ''psql "${gzpPrivateStuff.gzp-dev-psql.urlPrivate}"'';
+    "db-dev-public" = ''psql "${gzpPrivateStuff.gzp-dev-psql.urlPublic}"'';
 
-      "cd-hdd_sw" = "cd /run/media/phv/bf8da584-7bf2-425c-a602-8b3b997814d0";
-      "cd-hdd_data" = "cd /run/media/phv/d930b0b1-853e-45d7-b249-f71f7108b3ac";
-      "cd-gz" = "cd /home/phv/code/src/github.com/gamezop";
-      "cd-config" = "cd /home/phv/.nyx";
+    "cd-hdd_sw" = "cd /run/media/phv/bf8da584-7bf2-425c-a602-8b3b997814d0";
+    "cd-hdd_data" = "cd /run/media/phv/d930b0b1-853e-45d7-b249-f71f7108b3ac";
+    "cd-gz" = "cd /home/phv/code/src/github.com/gamezop";
+    "cd-config" = "cd /home/phv/.nyx";
+    "cd-fzf" = "cd (${pkgs.fd}/bin/fd --type directory | fzf)"; # ALT-C
 
-      "l" = "${pkgs.exa}/bin/exa";
-      "ll" = "${pkgs.exa}/bin/exa -l";
-      "ls" = "l";
+    "l" = "${pkgs.exa}/bin/exa";
+    "ll" = "${pkgs.exa}/bin/exa -l";
+    "ls" = "l";
 
-      "gz-j" = "ssh gz_jump";
-      "gz-vpn_on" = "vpn-action gzp-dev start";
-      "gz-vpn_off" = "vpn-action gzp-dev stop";
-      
+    "gz-j" = "ssh gz_jump";
+    "gz-vpn_on" = "vpn-action gzp-dev start";
+    "gz-vpn_off" = "vpn-action gzp-dev stop";
 
-      # linux
-      "lx-battery" = "${pkgs.upower}/bin/upower -i /org/freedesktop/UPower/devices/battery_BAT0";
-      "lx-k-taffy" = "/home/phv/.nyx/users/phv/cron/killtaffy.sh";
+    # linux
+    "lx-battery" =
+      "${pkgs.upower}/bin/upower -i /org/freedesktop/UPower/devices/battery_BAT0";
+    "lx-k-taffy" = "/home/phv/.nyx/users/phv/cron/killtaffy.sh";
   };
 }

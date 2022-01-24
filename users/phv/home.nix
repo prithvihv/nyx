@@ -81,6 +81,8 @@ in {
 
       nodePackages.serve
 
+      fd
+
       # solana
       rofimoji
       gucharmap # find emojis
@@ -120,6 +122,15 @@ in {
   programs.autorandr = xsessionPhv.autorandr;
 
   programs.command-not-found = { enable = true; };
+
+  # explore stuff here https://www.freecodecamp.org/news/fzf-a-command-line-fuzzy-finder-missing-demo-a7de312403ff/
+  programs.fzf = {
+    enable = true;
+    tmux.enableShellIntegration = true;
+    enableFishIntegration = true;
+    changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type directory"; # ALT-C
+    historyWidgetOptions = [ ];
+  };
 
   # programs.go = {
   #   enable = true;
