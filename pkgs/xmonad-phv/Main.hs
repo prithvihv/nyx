@@ -19,7 +19,12 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops (ewmh)
 import XMonad.Hooks.FadeInactive (fadeInactiveLogHook)
 import XMonad.Hooks.ManageDocks (avoidStruts, docks, docksEventHook, manageDocks)
+import XMonad.Layout.Decoration
+import XMonad.Layout.Fullscreen
+import XMonad.Layout.NoBorders
 import XMonad.Layout.NoBorders (smartBorders)
+import XMonad.Layout.Spiral
+import XMonad.Layout.Tabbed
 import XMonad.Util.EZConfig (additionalKeys)
 
 -----------------------------------------------------------------
@@ -164,17 +169,23 @@ findTitle t
   | isJust $ find (== '-') t = (last . splitOn "-") t
   | otherwise = shorten 100 t
 
+-- Color Palette
+bgDracula = "#44475a"
+
+yellow = "#f1fa8c"
+
+currDracula = "#6272a4"
+
+orange = "#ffb86c"
+
+cyan = "#8be9fd"
+
 polybarHook :: D.Client -> PP
 polybarHook dbus =
   let wrapper c s
         | s /= "NSP" = wrap ("%{F" <> c <> "} ") " %{F-}" s
         | otherwise = mempty
-      yellow = "#f1fa8c"
-      bgDracula = "#44475a"
-      currDracula = "#6272a4"
-      orange = "#ffb86c"
       purple = "#9058c7"
-      cyan = "#8be9fd"
    in def
         { ppOutput = dbusOutput dbus,
           ppCurrent = wrapper yellow,
@@ -202,6 +213,27 @@ myLogHook = fadeInactiveLogHook 0.9
 main :: IO ()
 main = mkDbusClient >>= main'
 
+myLayout =
+  avoidStruts
+    ( Tall 1 (3 / 100) (2 / 3)
+        ||| Mirror (Tall 1 (3 / 100) (4 / 5))
+        ||| tabbed shrinkText tabConfig
+        ||| spiral (6 / 7)
+        ||| Mirror (Tall 1 (3 / 100) (1 / 5))
+    )
+    ||| noBorders (fullscreenFull Full)
+  where
+    tabConfig =
+      def
+        { activeBorderColor = bgDracula,
+          activeTextColor = yellow,
+          activeColor = "#282a36",
+          inactiveBorderColor = bgDracula,
+          inactiveTextColor = "#f8f8f2",
+          inactiveColor = "#282a36",
+          fontName = "xft:Iosevka:size=3" -- FIXME: now working
+        }
+
 main' :: D.Client -> IO ()
 main' client = do
   xmonad . docks . ewmh $
@@ -210,7 +242,7 @@ main' client = do
         terminal = myTerminal,
         borderWidth = myBorderWidth,
         keys = myKeys,
-        layoutHook = avoidStruts $ (smartBorders $ (layoutHook def)),
+        layoutHook = smartBorders myLayout,
         manageHook = manageDocks,
         handleEventHook = docksEventHook,
         startupHook = myStartupHook,
