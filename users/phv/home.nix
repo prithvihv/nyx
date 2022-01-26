@@ -74,14 +74,14 @@ in {
 
       brave
 
-      redis
+      logseq
 
-      # TODO: move this to package
-      autorandr
+      redis
 
       nodePackages.serve
 
       fd
+      peek
 
       # solana
       rofimoji
@@ -124,12 +124,15 @@ in {
   programs.command-not-found = { enable = true; };
 
   # explore stuff here https://www.freecodecamp.org/news/fzf-a-command-line-fuzzy-finder-missing-demo-a7de312403ff/
+  # https://pragmaticpineapple.com/four-useful-fzf-tricks-for-your-terminal/
   programs.fzf = {
     enable = true;
     tmux.enableShellIntegration = true;
     enableFishIntegration = true;
     changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type directory"; # ALT-C
     historyWidgetOptions = [ ];
+    # TODO: terminal auto complete with ** 
+    # TODO: 
   };
 
   # programs.go = {

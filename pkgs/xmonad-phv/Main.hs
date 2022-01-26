@@ -74,19 +74,23 @@ keyboardVolumeDown = keyboardVolume_base ++ "-" ++ keyboardVolume_variance
 
 keyboardVolumeMute = "pactl set-sink-volume 0 " ++ "0"
 
-termWs = ['\61728'] -- 
+termWs = '\61728' : ":term" -- 
 
-webWs = ['\62057'] -- 
+webWs = '\62057' : ":web" -- 
 
-devWs = ['\61729'] -- 
+devWs = '\61729' : ":code" -- 
 
-comWs = ['\128489'] -- 🗩
+comWs = '\128489' : ":comm" --  🗩
 
-setWs = ['\9881'] -- ⚙
+devtoolsWs = '\61820' : ":dev" -- 
 
-devtoolsWs = ['\61820'] -- 
+search = '\62498' : ":web" -- 
 
-search = ['\62498'] -- 
+productivityToolsWs = '\61820' : ":tool" -- 
+
+setWs = '\9881' : ":config" -- ⚙
+
+setMoreWs = '\9881' : ":admin" -- ⚙
 
 -- wrkWs = "wrk"
 -- sysWs = "sys"
@@ -101,9 +105,7 @@ search = ['\62498'] -- 
 -- search = ""
 
 myWS :: [WorkspaceId]
-myWS = [termWs, webWs, devWs, comWs, devtoolsWs, search, search, search]
-
--- myWS = [termWs,webWs, ossWs, devWs, comWs, wrkWs, sysWs, etcWs]
+myWS = [termWs, webWs, devWs, comWs, devtoolsWs, search, productivityToolsWs, setWs, setMoreWs]
 
 -----------------------------------------------------------------
 -- Config Section End
@@ -167,19 +169,21 @@ polybarHook dbus =
   let wrapper c s
         | s /= "NSP" = wrap ("%{F" <> c <> "} ") " %{F-}" s
         | otherwise = mempty
-      blue = "#2E9AFE"
-      gray = "#7F7F7F"
-      orange = "#ea4300"
+      yellow = "#f1fa8c"
+      bgDracula = "#44475a"
+      currDracula = "#6272a4"
+      orange = "#ffb86c"
       purple = "#9058c7"
-      red = "#722222"
+      cyan = "#8be9fd"
    in def
         { ppOutput = dbusOutput dbus,
-          ppCurrent = wrapper blue,
-          ppVisible = wrapper gray,
+          ppCurrent = wrapper yellow,
+          ppVisible = wrapper cyan,
           ppUrgent = wrapper orange,
-          ppHidden = wrapper gray,
-          ppHiddenNoWindows = wrapper red,
-          ppTitle = wrapper purple . findTitle
+          ppHidden = wrapper currDracula,
+          ppHiddenNoWindows = wrapper bgDracula,
+          -- ppTitle = wrapper purple . findTitle
+          ppTitle = const "" -- disable title
         }
 
 myPolybarLogHook :: D.Client -> X ()
