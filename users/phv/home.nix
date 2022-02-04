@@ -55,6 +55,7 @@ in {
       vlc
 
       gimp
+      wakatime
 
       pciutils
       rsync
@@ -199,6 +200,9 @@ in {
 
   services.picom = {
     enable = true;
+    fade = true;
+    fadeSteps = ["0.03" "0.03"];
+    fadeDelta = 1;
     # opacityRule = [ "100:name *= 'i3lock'" ];
   };
   services.udiskie.enable = true;
