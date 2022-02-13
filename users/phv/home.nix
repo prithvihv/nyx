@@ -14,6 +14,7 @@ let
   vsCodeConfig = import ../../pkgs/vscode.nix { inherit pkgs; };
   fishConfig = import ../../pkgs/fish.nix {
     inherit pkgs;
+    inherit lib;
     inherit gzpPrivateStuff;
   };
   tmuxConfig = import ../../pkgs/tmux.nix { inherit pkgs; };
@@ -35,6 +36,7 @@ let
 
   # scripts
   bashidsScript = pkgs.callPackage ./scripts/bashids.nix { };
+  rofiBluetooth = pkgs.callPackage ./scripts/rofi-bluetooth.nix { };
   # rofi-with-plugins = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
 in {
   # Home Manager needs a bit of information about you and the
@@ -86,11 +88,15 @@ in {
 
       # solana
       rofimoji
+      rofiBluetooth
       gucharmap # find emojis
 
       calibre
 
       unzip
+
+      # jenkins stuff
+      # haskellPackages.jenkinsPlugins2nix
     ] ++ [ # dev applications
       postman
       lens

@@ -45,6 +45,7 @@ myAutorandrlauncher = "rofiAutorandr"
 myToggleStatusBar = "togglePolybar"
 
 myPasswordLauncher = "rofi-pass"
+myBlueToothLauncher = "rofi-bluetooth.sh"
 
 myEmojiLauncher = "rofimoji"
 
@@ -131,6 +132,7 @@ myKeys baseConfig@XConfig {XMonad.modMask = modMask} =
         ((modMask .|. shiftMask, xK_0), spawn myEmojiLauncher),
         ((modMask .|. shiftMask, xK_p), spawn myPasswordLauncher),
         ((modMask .|. shiftMask, xK_l), spawn myLockScreen),
+        ((modMask .|. shiftMask, xK_h), spawn myBlueToothLauncher),
         ((modMask, xK_c), spawn myClipboardLuncher),
         ((modMask, xK_a), spawn "screenshot")
       ]

@@ -1,4 +1,8 @@
-{ pkgs, gzpPrivateStuff }: {
+{ pkgs, lib, gzpPrivateStuff }: let
+  buildSshCmdProxy = { name, ip }: {
+    "gz-${name}" = "tmux split-window -h ssh ${name} & tmux split-window -v ssh ${name} && tmux split-window -h ssh ${name} && exit 0";
+  };
+in {
   enable = true;
   functions = {
     gitignore = "curl -sL https://www.gitignore.io/api/$argv";
@@ -83,10 +87,13 @@
     "gz-j" = "ssh gz_jump";
     "gz-vpn_on" = "vpn-action gzp-dev start";
     "gz-vpn_off" = "vpn-action gzp-dev stop";
+    # "gz-coke" = "tmux split-window -h ssh rbac-coke-new & tmux split-window -v ssh rbac-coke-new && tmux split-window -h ssh rbac-coke-new && exit 0";
 
     # linux
     "lx-battery" =
       "${pkgs.upower}/bin/upower -i /org/freedesktop/UPower/devices/battery_BAT0";
     "lx-k-taffy" = "/home/phv/.nyx/users/phv/cron/killtaffy.sh";
-  };
+  } // lib.foldl' lib.mergeAttrs { } (builtins.map buildSshCmdProxy gzpPrivateStuff.gzp-bastion2machines);
+
+  # // lib.foldl' lib.mergeAttrs { } (builtins.map buildSshCmdProxy gzpPrivateStuff.gzp-bastion2machines) ;
 }

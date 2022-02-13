@@ -8,13 +8,12 @@
     elixir-lsp.vscode-elixir-ls
     redhat.vscode-yaml
     esbenp.prettier-vscode
-
     vscodevim.vim
     WakaTime.vscode-wakatime
-
     dracula-theme.theme-dracula
-
     arrterian.nix-env-selector
+    scala-lang.scala
+    scalameta.metals
   ];
 
   userSettings = {

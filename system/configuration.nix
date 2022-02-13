@@ -29,6 +29,19 @@ in {
     phv ALL=(ALL) NOPASSWD: ALL
   '';
 
+  services.jenkins = {
+    enable = false;
+    jobBuilder = {
+      enable = true;
+      nixJobs = [{
+        job = {
+          name = "jenkins-job-test-3";
+          builders = [{ shell = "echo 'Hello world!'"; }];
+        };
+      }];
+    };
+  };
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
