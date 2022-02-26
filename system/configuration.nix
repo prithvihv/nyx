@@ -21,7 +21,8 @@ in {
     experimental-features = nix-command flakes
   '';
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [ "electron-9.4.4" ];
+  nixpkgs.config.permittedInsecurePackages =
+    [ "electron-9.4.4" "electron-13.6.9" ];
 
   security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = true;
@@ -161,6 +162,9 @@ in {
       host    all             all             localhost            trust
     '';
   };
+
+  services.zookeeper = { enable = true; };
+  services.apache-kafka = { enable = true; };
 
   programs.neovim = {
     enable = true;
