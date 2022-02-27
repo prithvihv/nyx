@@ -163,8 +163,8 @@ in {
     '';
   };
 
-  services.zookeeper = { enable = true; };
-  services.apache-kafka = { enable = true; };
+  services.zookeeper = { enable = false; };
+  services.apache-kafka = { enable = false; };
 
   programs.neovim = {
     enable = true;
