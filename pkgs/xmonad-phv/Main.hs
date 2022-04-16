@@ -51,7 +51,7 @@ myEmojiLauncher = "rofimoji"
 
 myClipboardLuncher = "clipmenu"
 
-myLockScreen = "i3lock -i ~/Downloads/nix-glow-black-1080p.png" -- FIXME: not pure
+myLockScreen = "betterlockscreen -l --off 10" -- FIXME: not pure
 
 -- xmonad
 myBorderWidth = 1

@@ -69,6 +69,19 @@ in {
       imagemagick # convert images
       # example convert -scale 2560x1440 source-image.jpg lockscreen.png
       ffmpeg
+      dolphin # file manager
+      krusader # file manager
+
+      # krusader dependencies
+      kdiff3
+      kompare
+      xxdiff
+      thunderbird
+      kmail
+      krename
+      kate
+
+      k3s
 
       age
       sops
@@ -82,6 +95,7 @@ in {
       redis
 
       nodePackages.serve
+      openjdk17
 
       fd
       peek
@@ -104,6 +118,8 @@ in {
       awscli2
       terraform
       jetbrains.datagrip
+      jetbrains.goland
+      jetbrains.idea-ultimate
       redis-desktop-manager
       qt5Full
       beekeeper-studio
@@ -121,7 +137,7 @@ in {
     extraConfig = {
       # TODO: this doesnt work right now
       user.signingkey = "0x79C7BE63C93CC999";
-      url = { "git@github.com:" = { insteadOf = "https://github.com/"; }; };
+      # url = { "git@github.com:" = { insteadOf = "https://github.com/"; }; };
       # url = { "https://github.com/" = { insteadOf = "git@github.com:"; }; };
     };
   };
@@ -207,7 +223,7 @@ in {
   services.picom = {
     enable = true;
     fade = true;
-    fadeSteps = ["0.03" "0.03"];
+    fadeSteps = [ "0.03" "0.03" ];
     fadeDelta = 1;
     # opacityRule = [ "100:name *= 'i3lock'" ];
   };

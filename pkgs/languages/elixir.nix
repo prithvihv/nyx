@@ -6,5 +6,7 @@
 
     beamPackages.rebar3
     beamPackages.hex
+
+    asdf
   ];
 }

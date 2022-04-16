@@ -64,6 +64,8 @@ in {
     ga = "git add";
     gpl = "git pull";
     gp = "git push";
+
+    kk = "sudo k3s kubectl";
   };
 
   shellAliases = {

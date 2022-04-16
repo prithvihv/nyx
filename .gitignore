@@ -2,3 +2,4 @@ result
 *.prd.*
 # secret.yaml
 *.prd/
+k8s

@@ -63,7 +63,10 @@ in {
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.wlp59s0.useDHCP = true;
-  networking.wg-quick.interfaces = { gzp-dev = gzp-vpn.gzp-dev; };
+  networking.wg-quick.interfaces = {
+    gzp-dev = gzp-vpn.gzp-dev;
+    gzp-prd = gzp-vpn.gzp-prd;
+  };
 
   # Secret management
   sops = {
@@ -72,6 +75,7 @@ in {
     secrets = let
       secrets = [
         "vpn/gzp_dev/private"
+        "vpn/gzp_prd/private"
         "secret_name" # need some defaults, for nested paths to work
       ];
       permissionSettings = {
@@ -150,6 +154,22 @@ in {
       # "*/10 * * * *  phv  /home/phv/.nyx/users/phv/cron/killtaffy.sh"
     ];
   };
+
+  services.grafana = {
+    enable = true;
+    analytics.reporting.enable = false;
+    auth.anonymous.enable = false;
+
+    database = {
+      name = "grafana";
+      type = "postgres";
+      host = "localhost";
+      user = "postgres";
+      password = "postgres";
+    };
+
+    declarativePlugins = with pkgs.grafanaPlugins; [ grafana-piechart-panel ];
+  };
   services.upower.enable = true;
   services.blueman.enable = true;
   services.postgresql = {
@@ -165,6 +185,10 @@ in {
 
   services.zookeeper = { enable = false; };
   services.apache-kafka = { enable = false; };
+  services.k3s = {
+    enable = true;
+    role = "server";
+  };
 
   programs.neovim = {
     enable = true;

@@ -8,7 +8,7 @@
     elixir-lsp.vscode-elixir-ls
     redhat.vscode-yaml
     esbenp.prettier-vscode
-    vscodevim.vim
+    # vscodevim.vim
     WakaTime.vscode-wakatime
     dracula-theme.theme-dracula
     arrterian.nix-env-selector
@@ -17,6 +17,16 @@
   ];
 
   userSettings = {
+    "go.coverOnSave" = true;
+    "go.coverageDecorator" = {
+      "type" = "gutter";
+      "coveredHighlightColor" = "rgba(64,128,128,0.5)";
+      "uncoveredHighlightColor" = "rgba(128,64,64,0.25)";
+      "coveredGutterStyle" = "blockgreen";
+      "uncoveredGutterStyle" = "blockred";
+    };
+    "go.coverOnSingleTest" = true;
+
     "workbench.colorTheme" = "Dracula";
     "workbench.editor.enablePreview" = false;
     "vetur.format.defaultFormatterOptions" = {
@@ -28,6 +38,7 @@
     };
     "workbench.sideBar.location" = "right";
     "editor.lineNumbers" = "relative";
+    "editor.fontLigatures" = true;
     "vim.handleKeys" = {
       "<C-f>" = false;
       "<C-w>" = false;
@@ -56,6 +67,7 @@
     "redhat.telemetry.enabled" = false;
     "[yaml]" = { "editor.defaultFormatter" = "redhat.vscode-yaml"; };
     "[json]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
+    "[html]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
     "[clojure]" = {
       "editor.autoClosingBrackets" = "always";
       "editor.autoClosingOvertype" = "always";
@@ -90,5 +102,7 @@
     ];
     "aws.profile" = "profile=default";
     "window.zoomLevel" = 1;
+
+    "calva.clojureLspPath" = "/etc/profiles/per-user/phv/bin/clojure-lsp";
   };
 }

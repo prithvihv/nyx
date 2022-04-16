@@ -2,6 +2,9 @@
   extraPkgs = with pkgs; [
     go_1_17
     gcc
+    go-protobuf
+    protobuf
+    # protoc-gen-go
 
     # gotools
     mockgen

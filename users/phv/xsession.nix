@@ -46,13 +46,46 @@ in {
         "launchPolybar" = launchPolybarStr;
       };
     };
+    # get these by saving a arandr config to a a file, 
+    # reading the file to get arguments
     profiles = {
-      "default" = {
+      "portable" = {
         inherit fingerprint;
         config = {
           eDP-1 = laptopScreen;
           DP-3.enable = false;
           DP-1.enable = false;
+        };
+      };
+      "focus_big" = {
+        inherit fingerprint;
+        config = {
+          DP-3 = _4kScreen // {
+            rotate = "normal";
+          };
+          eDP-1.enable = false;
+          DP-1.enable = false;
+        };
+      };
+      "triple_2k_L_wide" = {
+        inherit fingerprint;
+        config = {
+          eDP-1 = laptopScreen // {
+            primary = false;
+            position = "2240x1440";
+          };
+          DP-3 = _4kScreen // {
+            position = "1920x0";
+            rotate = "normal";
+          };
+          DP-1 = {
+            # crtc = 1;
+            enable = true;
+            primary = false;
+            mode = "1920x1080";
+            position = "0x567";
+            rotate = "normal";
+          };
         };
       };
       "triple_2k" = {
@@ -111,6 +144,7 @@ in {
     pavucontrol
     volctl
     arandr
+    betterlockscreen
 
     rofiAutorandr
   ];
