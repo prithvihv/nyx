@@ -11,7 +11,6 @@ let
   };
 
   alacrittyConfig = import ../../pkgs/alacritty.nix { };
-  vsCodeConfig = import ../../pkgs/vscode.nix { inherit pkgs; };
   fishConfig = import ../../pkgs/fish.nix {
     inherit pkgs;
     inherit lib;
@@ -31,6 +30,10 @@ let
   gzpPrivateStuff = import ../../priv/gzp-stuff.nix {
     inherit config;
     inherit lib;
+  };
+  vsCodeConfig = import ../../pkgs/vscode.nix {
+    inherit gzpPrivateStuff;
+    inherit pkgs;
   };
   configPassStore = "/home/phv/.password-store";
 
@@ -106,6 +109,8 @@ in {
       gucharmap # find emojis
 
       calibre
+
+      okular
 
       unzip
 

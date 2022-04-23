@@ -20,6 +20,7 @@
     go-tools # staticcheck
     go-swag
     go-swagger
+    gotests
     goimports
   ];
 }

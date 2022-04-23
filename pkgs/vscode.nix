@@ -1,4 +1,4 @@
-{ pkgs }: {
+{ pkgs, gzpPrivateStuff }: {
   enable = true;
   # package = pkgs.vscodium;
   extensions = with pkgs.vscode-extensions; [
@@ -104,5 +104,9 @@
     "window.zoomLevel" = 1;
 
     "calva.clojureLspPath" = "/etc/profiles/per-user/phv/bin/clojure-lsp";
+
+    "codestats.apikey" = gzpPrivateStuff.code-stat-skadi-api;
+    "codestats.apiurl" = "https://codestats.net/api/";
+    "codestats.username" = "phv";
   };
 }
