@@ -113,6 +113,7 @@ in {
       okular
 
       unzip
+      spotify
 
       # jenkins stuff
       # haskellPackages.jenkinsPlugins2nix

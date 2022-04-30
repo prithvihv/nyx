@@ -60,14 +60,12 @@ in {
       "focus_big" = {
         inherit fingerprint;
         config = {
-          DP-3 = _4kScreen // {
-            rotate = "normal";
-          };
+          DP-3 = _4kScreen // { rotate = "normal"; };
           eDP-1.enable = false;
           DP-1.enable = false;
         };
       };
-      "triple_2k_L_wide" = {
+      "triple_2k_L" = {
         inherit fingerprint;
         config = {
           eDP-1 = laptopScreen // {
@@ -88,7 +86,28 @@ in {
           };
         };
       };
-      "triple_2k" = {
+      "triple_2k_wide" = {
+        inherit fingerprint;
+        config = {
+          eDP-1 = laptopScreen // {
+            primary = false;
+            position = "4480x360";
+          };
+          DP-3 = _4kScreen // {
+            rotate = "normal";
+            position = "1920x0";
+          };
+          DP-1 = {
+            # crtc = 1;
+            enable = true;
+            primary = false;
+            mode = "1920x1080";
+            position = "0x360";
+            rotate = "normal";
+          };
+        };
+      };
+      "triple_2k_vertical_reader" = {
         inherit fingerprint;
         config = {
           eDP-1 = laptopScreen // { primary = false; };
