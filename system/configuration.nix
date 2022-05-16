@@ -149,9 +149,41 @@ in {
     enable = true;
     # FIXME: add shellscripts to nixstore
     systemCronJobs = [
-      "0 10,11,20,22 * * *      phv    /home/phv/.nyx/users/phv/cron/hrone.sh"
+      "0 10,11,20,22 * * 1-5      phv    /home/phv/.nyx/users/phv/cron/hrone.sh"
       "0 9 * * *        phv  ${hroneTokenScript}/bin/hrone_token"
       # "*/10 * * * *  phv  /home/phv/.nyx/users/phv/cron/killtaffy.sh"
+    ];
+  };
+
+  services.prometheus = {
+    enable = true;
+    retentionTime = "13d";
+    exporters = {
+      node = {
+        # TODO: takes CPU FOR no reason
+        enable = false;
+        enabledCollectors = [ "systemd" ];
+        port = 9002;
+      };
+    };
+    scrapeConfigs = [
+      # {
+      #   job_name = "nyx";
+      #   static_configs = [{ targets = [ "127.0.0.1:9002" ]; }];
+      #   scrape_interval = "15s";
+      # }
+      {
+        #   authorization:
+        # credentials: a5b045153b0f471d14356fe0df8ce86d
+        job_name = "dev-bidbook";
+        static_configs = [{ targets = [ "dev-bidbook.skillclash.com" ]; }];
+
+        # nixos Master has authorization
+        # authorization = [{ credentials = "a5b045153b0f471d14356fe0df8ce86d"; }];
+        bearer_token = "a5b045153b0f471d14356fe0df8ce86d";
+        scrape_interval = "1s";
+        # token = "a5b045153b0f471d14356fe0df8ce86d";
+      }
     ];
   };
 
@@ -186,7 +218,7 @@ in {
   services.zookeeper = { enable = false; };
   services.apache-kafka = { enable = false; };
   services.k3s = {
-    enable = true;
+    enable = false;
     role = "server";
   };
 

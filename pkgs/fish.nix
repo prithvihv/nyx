@@ -81,6 +81,7 @@ in {
     "cd-gz" = "cd /home/phv/code/src/github.com/gamezop";
     "cd-config" = "cd /home/phv/.nyx";
     "cd-fzf" = "cd (${pkgs.fd}/bin/fd --type directory | fzf)"; # ALT-C
+    "code-ed" = "cd /home/phv/code/src/github.com/prithvihv/ed/groww-scraper && source ~/.secret.sh && code .";
 
     "l" = "${pkgs.exa}/bin/exa";
     "ll" = "${pkgs.exa}/bin/exa -l";

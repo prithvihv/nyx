@@ -115,6 +115,13 @@ in {
       unzip
       spotify
 
+      k6
+
+      pandoc
+      # latex stuff
+      texlive.combined.scheme-medium
+      graphviz # pprof golang needs this
+
       # jenkins stuff
       # haskellPackages.jenkinsPlugins2nix
     ] ++ [ # dev applications

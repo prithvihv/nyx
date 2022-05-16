@@ -99,6 +99,9 @@
       "txns"
       "upsert"
       "Zoro"
+      "ecto"
+      "errr"
+      "requestid"
     ];
     "aws.profile" = "profile=default";
     "window.zoomLevel" = 1;

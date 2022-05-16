@@ -65,7 +65,7 @@ in {
           DP-1.enable = false;
         };
       };
-      "triple_2k_L" = {
+      "triple_2k_horizontal_laptop" = {
         inherit fingerprint;
         config = {
           eDP-1 = laptopScreen // {
@@ -104,6 +104,27 @@ in {
             mode = "1920x1080";
             position = "0x360";
             rotate = "normal";
+          };
+        };
+      };
+      "triple_2k_vertical_reader_left" = {
+        inherit fingerprint;
+        config = {
+          eDP-1 = laptopScreen // { 
+            primary = false;
+            position = "3640x420";
+          };
+          DP-3 = _4kScreen // {
+            position = "1080x180";
+          };
+          DP-1 = {
+            # crtc = 1;
+            enable = true;
+            primary = false;
+            mode = "1920x1080";
+            position = "0x0";
+            rate = "60";
+            rotate = "left";
           };
         };
       };
