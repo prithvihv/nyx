@@ -21,6 +21,6 @@
     go-swag
     go-swagger
     gotests
-    goimports
+    gotools
   ];
 }

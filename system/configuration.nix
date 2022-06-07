@@ -113,7 +113,6 @@ in {
       jetbrains-mono
       font-awesome
       font-awesome_5
-      font-awesome-ttf
       cantarell-fonts
       siji
       dejavu_fonts
@@ -239,7 +238,6 @@ in {
   sound.enable = true;
   hardware.pulseaudio = {
     enable = true;
-    extraModules = [ pkgs.pulseaudio-modules-bt ];
     package = pkgs.pulseaudioFull;
   };
   hardware.bluetooth.enable = true;
