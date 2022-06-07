@@ -156,7 +156,7 @@ in {
   };
 
   services.prometheus = {
-    enable = true;
+    enable = false;
     retentionTime = "13d";
     exporters = {
       node = {
@@ -243,6 +243,10 @@ in {
     package = pkgs.pulseaudioFull;
   };
   hardware.bluetooth.enable = true;
+  hardware.sane = {
+    enable = true;
+    extraBackends = [ pkgs.hplipWithPlugin ];
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -259,6 +263,8 @@ in {
       "lxd"
       "docker"
       "keys"
+      "scanner" 
+      "lp"
     ]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
   };

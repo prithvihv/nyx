@@ -116,14 +116,18 @@ in {
       spotify
 
       k6
+      # github-cli
 
       pandoc
       # latex stuff
       texlive.combined.scheme-medium
       graphviz # pprof golang needs this
+      mypaint
 
       # jenkins stuff
       # haskellPackages.jenkinsPlugins2nix
+
+      gnome.simple-scan
     ] ++ [ # dev applications
       postman
       lens
