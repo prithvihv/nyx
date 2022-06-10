@@ -11,10 +11,9 @@
     # solana-nix.url = "github:drozdziak1/nix-solana-sdk/master";
     home-manager.inputs.nixpkgs.follows =
       "nixpkgs"; # ask hm to use pinned nixpkgs
-
   };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix  }:
+  outputs = { self, nixpkgs, home-manager, sops-nix }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {

@@ -8,7 +8,6 @@
 
     # gotools
     mockgen
-    go-tools
     gopls
     go-outline
     gocode

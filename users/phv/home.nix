@@ -84,8 +84,6 @@ in {
       krename
       kate
 
-      k3s
-
       age
       sops
       git-crypt
@@ -136,10 +134,9 @@ in {
       terraform
       jetbrains.datagrip
       jetbrains.goland
-      jetbrains.idea-ultimate
+      # jetbrains.idea-ultimate
       redis-desktop-manager
       qt5Full
-      beekeeper-studio
     ] ++ [ # bash scripts
       bashidsScript
     ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs

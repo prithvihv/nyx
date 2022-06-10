@@ -107,7 +107,7 @@ in {
       source-code-pro
 
       noto-fonts
-      nerdfonts
+      # nerdfonts
       # ubuntu_font_family
       unifont
       jetbrains-mono
