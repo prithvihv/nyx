@@ -135,13 +135,14 @@ in {
       jetbrains.datagrip
       jetbrains.goland
       # jetbrains.idea-ultimate
-      redis-desktop-manager
+      # redis-desktop-manager
       qt5Full
     ] ++ [ # bash scripts
       bashidsScript
     ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
     ++ haskellTools.extraPkgs ++ clojureTools.extraPkgs ++ nodeTools.extraPkgs
-    ++ elixirTools.extraPkgs ++ rustTools.extraPkgs ++ solanaTools.tools
+    ++ elixirTools.extraPkgs ++ rustTools.extraPkgs
+    # ++ solanaTools.tools
     ++ polyBarConfig.extraPkgs;
 
   programs.git = {
@@ -204,6 +205,7 @@ in {
   programs.obs-studio.enable = true;
 
   services.gpg-agent = {
+    # enable = true;
     enable = true;
     pinentryFlavor = "qt";
   };
@@ -256,7 +258,6 @@ in {
 
   services.emacs = {
     enable = true;
-    # package = 
     client = { enable = true; };
   };
 
