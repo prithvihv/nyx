@@ -66,7 +66,7 @@ in {
       rsync
       glxinfo
       glances
-      telnet
+      inetutils
       jq
       qbittorrent
       imagemagick # convert images
