@@ -54,7 +54,7 @@ in {
   # };
 
   home.packages = with pkgs;
-    [ gnumake nix-diff nixfmt any-nix-shell ] ++ [ # comms
+    [ gnumake nix-diff nixfmt any-nix-shell pinentry_qt ] ++ [ # comms
       slack
       discord
       vlc
@@ -72,8 +72,6 @@ in {
       imagemagick # convert images
       # example convert -scale 2560x1440 source-image.jpg lockscreen.png
       ffmpeg
-      dolphin # file manager
-      krusader # file manager
 
       # krusader dependencies
       kdiff3
@@ -125,12 +123,12 @@ in {
       # jenkins stuff
       # haskellPackages.jenkinsPlugins2nix
 
-      gnome.simple-scan
     ] ++ [ # dev applications
       postman
       lens
       octant
       awscli2
+      github-cli
       terraform
       jetbrains.datagrip
       jetbrains.goland
@@ -200,7 +198,10 @@ in {
     matchBlocks = { } // gzpPrivateStuff.gzp-ssh;
   };
 
-  programs.gpg = { enable = true; };
+  programs.gpg = {
+    enable = true;
+    # package = pkgs.gnupg1;
+  };
 
   programs.obs-studio.enable = true;
 
@@ -208,6 +209,14 @@ in {
     # enable = true;
     enable = true;
     pinentryFlavor = "qt";
+    extraConfig = ''
+      log-file /home/phv/gpg-agent.log
+      daemon
+      debug-pinentry
+      debug ipc
+      verbose
+    '';
+    # enableFishIntegration = true;
   };
 
   programs.password-store = {
@@ -237,7 +246,7 @@ in {
   xsession = xsessionPhv.xsession;
 
   services.picom = {
-    enable = true;
+    enable = false;
     fade = true;
     fadeSteps = [ "0.03" "0.03" ];
     fadeDelta = 1;
