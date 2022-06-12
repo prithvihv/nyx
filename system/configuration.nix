@@ -20,9 +20,6 @@ in {
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages =
-    [ "electron-9.4.4" "electron-13.6.9" ];
 
   security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = true;
@@ -107,7 +104,7 @@ in {
       source-code-pro
 
       noto-fonts
-      # nerdfonts
+      nerdfonts
       # ubuntu_font_family
       unifont
       jetbrains-mono
@@ -121,6 +118,7 @@ in {
     ];
     fontconfig = { enable = true; };
   };
+  # services.dbus.packages = [ pkgs.gcr ];
 
   # Enable the X11 windowing system.
 
@@ -261,7 +259,7 @@ in {
       "lxd"
       "docker"
       "keys"
-      "scanner" 
+      "scanner"
       "lp"
     ]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
@@ -283,9 +281,13 @@ in {
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
+  # programs.gnupg = {
+
+  #   # package = pkgs.gnupg20;
+  #   agent = {
+  #     enable = true;
+  #     # enableSSHSupport = true;
+  #   };
   # };
 
   # List services that you want to enable:

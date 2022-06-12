@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs-21-11.url = "github:NixOS/nixpkgs/nixos-21.11";
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -13,12 +14,21 @@
       "nixpkgs"; # ask hm to use pinned nixpkgs
   };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix }:
+  outputs = { self, nixpkgs, nixpkgs-21-11, home-manager, sops-nix }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
-        config = { allowUnfree = true; };
+        config = {
+          allowUnfree = true;
+          permittedInsecurePackages = [ "electron-9.4.4" "electron-13.6.9" ];
+        };
+        overlays = [
+          (self: super:
+            with super; {
+              gnupg = nixpkgs-21-11.legacyPackages.x86_64-linux.gnupg;
+            })
+        ];
       };
 
       lib = nixpkgs.lib;
@@ -26,7 +36,7 @@
       nixosConfigurations = {
         nyx = lib.nixosSystem {
           inherit system;
-          # packages.afasf = [  ];
+          inherit pkgs;
           modules = [
             ./system/configuration.nix
             sops-nix.nixosModules.sops
