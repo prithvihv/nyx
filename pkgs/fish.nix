@@ -8,24 +8,6 @@ in {
     gitignore = "curl -sL https://www.gitignore.io/api/$argv";
     pux = "${pkgs.tmux}/bin/tmux new-session -A -s (pwd).tmux";
     vpn-action = "sudo systemctl $argv[2] wg-quick-$argv[1].service";
-
-    # FIXME: cb now working properly
-    cb = ''
-      set -l cInfo (set_color green)
-      set -l cWarn (set_color red)
-      set -l cReset (set_color $fish_color_normal)
-
-      #Copy input to clipboard
-      echo -n $input | xclip -selection clipboard
-      #Keep status text in one line
-      set input (echo -e "$input" | tr '\n' ' ')
-      #Truncate text for status if too long
-      if [ (expr length "$input") -gt 80 ]
-        set input (echo -e "$input" | head -c 80)$cInfo"..."$cReset
-      end
-      #Print status
-      echo -ne $cInfo"Copied to clipboard: "$cReset"$input"
-    '';
   };
 
   shellInit = ''
@@ -35,6 +17,7 @@ in {
 
       ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
   '';
+  # TODO: https://github.com/zx2c4/password-store/blob/master/src/completion/pass.fish-completion
 
   plugins = [
     {
@@ -44,6 +27,16 @@ in {
         repo = "theme-batman";
         rev = "2a76bd81f4805debd7f137cb98828bff34570562";
         sha256 = "Ko4w9tMnIi17db174FzW44LgUdui/bUzPFEHEHv//t4=";
+      };
+    }
+    {
+      # not working
+      name = "plugin-pbcopy";
+      src = pkgs.fetchFromGitHub {
+        owner = "oh-my-fish";
+        repo = "plugin-pbcopy";
+        rev = "e8d78bb01f66246f7996a4012655b8ddbad777c2";
+        sha256 = "sha256-B6/0tNk5lb+1nup1dfXhPD2S5PURZyFd8nJJF6shvq4=";
       };
     }
     {
@@ -64,6 +57,7 @@ in {
     ga = "git add";
     gpl = "git pull";
     gp = "git push";
+    cb = "pbcopy";
 
     kk = "sudo k3s kubectl";
   };

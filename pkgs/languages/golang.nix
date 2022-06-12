@@ -21,5 +21,7 @@
     go-swagger
     gotests
     gotools
+
+    graphviz # pprof golang needs this
   ];
 }

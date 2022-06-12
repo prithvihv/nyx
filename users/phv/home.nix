@@ -54,87 +54,76 @@ in {
   # };
 
   home.packages = with pkgs;
-    [ gnumake nix-diff nixfmt any-nix-shell pinentry_qt ] ++ [ # comms
+    [ gnumake nix-diff nixfmt any-nix-shell pinentry_qt ] ++ [
+
+      # gui applications
       slack
       discord
       vlc
-
+      logseq
       gimp
-      wakatime
+      authy
+      calibre
+      okular
+      spotify
+      qbittorrent
+      brave
+      peek
+      xfce.thunar
+
+      # encrypt
+      age
+      sops
+      git-crypt
+
+      redis
+      openjdk17
+
+      rofimoji
+      rofiBluetooth
+
+      # don't know how this got here; need to debug and remove:
+      qt5Full
+
+    ] ++ [ # linux software terminal / cli / system
+      fd
+      jq
+      unzip
+      nodePackages.serve
+      imagemagick # convert images
+      # example convert -scale 2560x1440 source-image.jpg lockscreen.png
+      ffmpeg
+      inetutils # telnet
+
+      # docs content files
+      pandoc
+      # latex stuff
+      texlive.combined.scheme-medium
+      mypaint
+
+      gucharmap # find emojis
 
       pciutils
       rsync
       glxinfo
       glances
-      inetutils
-      jq
-      qbittorrent
-      imagemagick # convert images
-      # example convert -scale 2560x1440 source-image.jpg lockscreen.png
-      ffmpeg
 
-      # krusader dependencies
-      kdiff3
-      kompare
-      xxdiff
-      thunderbird
-      kmail
-      krename
-      kate
-
-      age
-      sops
-      git-crypt
-      authy
-
-      brave
-
-      logseq
-
-      redis
-
-      nodePackages.serve
-      openjdk17
-
-      fd
-      peek
-
-      # solana
-      rofimoji
-      rofiBluetooth
-      gucharmap # find emojis
-
-      calibre
-
-      okular
-
-      unzip
-      spotify
-
-      k6
-      # github-cli
-
-      pandoc
-      # latex stuff
-      texlive.combined.scheme-medium
-      graphviz # pprof golang needs this
-      mypaint
-
-      # jenkins stuff
-      # haskellPackages.jenkinsPlugins2nix
-
+      gtk3
+      gnome3.adwaita-icon-theme
     ] ++ [ # dev applications
-      postman
-      lens
-      octant
+
+      # cli: external
       awscli2
       github-cli
       terraform
+      wakatime
+
+      # gui
+      postman
+      lens
       jetbrains.datagrip
       jetbrains.goland
       # jetbrains.idea-ultimate
-      # redis-desktop-manager
-      qt5Full
     ] ++ [ # bash scripts
       bashidsScript
     ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
@@ -206,17 +195,8 @@ in {
   programs.obs-studio.enable = true;
 
   services.gpg-agent = {
-    # enable = true;
     enable = true;
     pinentryFlavor = "qt";
-    extraConfig = ''
-      log-file /home/phv/gpg-agent.log
-      daemon
-      debug-pinentry
-      debug ipc
-      verbose
-    '';
-    # enableFishIntegration = true;
   };
 
   programs.password-store = {
@@ -269,6 +249,16 @@ in {
     enable = true;
     client = { enable = true; };
   };
+
+  # not working
+  # gtk = {
+  #   enable = true;
+  #   theme = {
+  #     name = "Adwaita-dark";
+  #     package = pkgs.gnome.gnome-themes-extra;
+  #   };
+  # };
+  # env GTK_THEME=Adwaita:dark thunar
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
