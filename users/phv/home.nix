@@ -118,6 +118,7 @@ in {
       github-cli
       terraform
       wakatime
+      gitleaks
 
       neovide
 
