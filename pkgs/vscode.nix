@@ -14,6 +14,7 @@
     arrterian.nix-env-selector
     scala-lang.scala
     scalameta.metals
+    ms-vsliveshare.vsliveshare
   ];
 
   userSettings = {

@@ -219,11 +219,12 @@ in {
     role = "server";
   };
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
   programs.ssh = { startAgent = true; };
+
+  environment.variables = {
+    EDITOR = "nvim";
+    NEOVIDE_MULTIGRID = "true";
+  };
 
   # Configure keymap in X11
   # services.xserver.layout = "us";

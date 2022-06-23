@@ -17,6 +17,7 @@ let
     inherit gzpPrivateStuff;
   };
   tmuxConfig = import ../../pkgs/tmux.nix { inherit pkgs; };
+  vimConfig = import ../../pkgs/vim.nix { inherit pkgs; };
 
   golangTools = import ../../pkgs/languages/golang.nix { inherit pkgs; };
   haskellTools = import ../../pkgs/languages/haskell.nix { inherit pkgs; };
@@ -117,6 +118,8 @@ in {
       github-cli
       terraform
       wakatime
+
+      neovide
 
       # gui
       postman
@@ -223,6 +226,7 @@ in {
   programs.alacritty = alacrittyConfig;
   programs.fish = fishConfig;
   programs.tmux = tmuxConfig;
+  programs.neovim = vimConfig;
   xsession = xsessionPhv.xsession;
 
   services.picom = {

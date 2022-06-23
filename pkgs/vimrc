@@ -1,0 +1,27 @@
+let g:neovide_fullscreen=v:true
+
+set relativenumber
+set mouse=a
+colorscheme dracula
+
+" both vim and system clipboard are the same now
+set clipboard=unnamed,unnamedplus
+
+" learning vim, disable arrow keys
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+let mapleader = "," " map leader to Space
+" telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" -- if has('gui_running')
+set guifont=JetBrains\ Mono:h8
+" -- endif
+
+lua require('config')

@@ -7,6 +7,8 @@
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    neovim.url = "github:nix-community/neovim-nightly-overlay";
+    neovim.inputs.nixpkgs.follows = "nixpkgs";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-22.05";
     # solana-nix.url = "github:drozdziak1/nix-solana-sdk/master";
@@ -14,7 +16,7 @@
       "nixpkgs"; # ask hm to use pinned nixpkgs
   };
 
-  outputs = { self, nixpkgs, nixpkgs-21-11, home-manager, sops-nix }:
+  outputs = { self, nixpkgs, nixpkgs-21-11, neovim, home-manager, sops-nix }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -28,7 +30,7 @@
             with super; {
               gnupg = nixpkgs-21-11.legacyPackages.x86_64-linux.gnupg;
             })
-        ];
+        ] ++ [ neovim.overlay ];
       };
 
       lib = nixpkgs.lib;
