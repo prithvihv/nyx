@@ -19,7 +19,7 @@ let
   tmuxConfig = import ../../pkgs/tmux.nix { inherit pkgs; };
   vimConfig = import ../../pkgs/vim.nix { inherit pkgs; };
 
-  golangTools = import ../../pkgs/languages/golang.nix { inherit pkgs; };
+  golangTools = import ../../pkgs/languages/golang.nix { inherit pkgs lib; };
   haskellTools = import ../../pkgs/languages/haskell.nix { inherit pkgs; };
   clojureTools = import ../../pkgs/languages/clojure.nix { inherit pkgs; };
   nodeTools = import ../../pkgs/languages/node.nix { inherit pkgs; };
@@ -90,6 +90,7 @@ in {
       fd
       jq
       unzip
+      duf
       nodePackages.serve
       imagemagick # convert images
       # example convert -scale 2560x1440 source-image.jpg lockscreen.png
@@ -97,6 +98,7 @@ in {
       inetutils # telnet
 
       # docs content files
+      # https://pandoc.org/MANUAL.html
       pandoc
       # latex stuff
       texlive.combined.scheme-medium
@@ -111,6 +113,8 @@ in {
 
       gtk3
       gnome3.adwaita-icon-theme
+
+      element-desktop
     ] ++ [ # dev applications
 
       # cli: external
@@ -119,6 +123,8 @@ in {
       terraform
       wakatime
       gitleaks
+      unp # "unpack (almost) everything with one command"
+      unrar
 
       neovide
 
@@ -254,7 +260,20 @@ in {
     enable = true;
     client = { enable = true; };
   };
+  services.gnome-keyring = {
+    enable = false;
+    components = [ "secrets" "pkcs11" ];
+  };
 
+  services.xscreensaver = {
+    enable = true;
+    settings = {
+      mode = "blank";
+      lock = false;
+      # fadeTick = 20;
+      timeout = "00:00:20";
+    };
+  };
   # not working
   # gtk = {
   #   enable = true;

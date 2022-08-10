@@ -1,21 +1,38 @@
 { pkgs, gzpPrivateStuff }: {
   enable = true;
   # package = pkgs.vscodium;
-  extensions = with pkgs.vscode-extensions; [
-    # language
-    bbenoist.nix
-    golang.go
-    elixir-lsp.vscode-elixir-ls
-    redhat.vscode-yaml
-    esbenp.prettier-vscode
-    # vscodevim.vim
-    WakaTime.vscode-wakatime
-    dracula-theme.theme-dracula
-    arrterian.nix-env-selector
-    scala-lang.scala
-    scalameta.metals
-    ms-vsliveshare.vsliveshare
-  ];
+  extensions = with pkgs.vscode-extensions;
+    let
+      vitesse-theme = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "theme-vitesse";
+          publisher = "antfu";
+          version = "0.5.1";
+          sha256 = "0wni9sriin54ci8rly2s68lkfx8rj1cys6mgcizvps9sam6377w6";
+        };
+        meta = with pkgs.lib; {
+          description = "Vitesse theme for VS Code";
+          downloadPage =
+            "https://marketplace.visualstudio.com/items?itemName=antfu.theme-vitesse";
+          homepage = "no";
+          license = licenses.mit;
+        };
+      };
+    in [
+      bbenoist.nix
+      golang.go
+      elixir-lsp.vscode-elixir-ls
+      redhat.vscode-yaml
+      esbenp.prettier-vscode
+      # vscodevim.vim
+      WakaTime.vscode-wakatime
+      dracula-theme.theme-dracula
+      vitesse-theme
+      arrterian.nix-env-selector
+      scala-lang.scala
+      scalameta.metals
+      ms-vsliveshare.vsliveshare
+    ];
 
   userSettings = {
     "go.coverOnSave" = true;
@@ -28,6 +45,7 @@
     };
     "go.coverOnSingleTest" = true;
 
+    # "workbench.colorTheme" = "Vitesse Dark";
     "workbench.colorTheme" = "Dracula";
     "workbench.editor.enablePreview" = false;
     "vetur.format.defaultFormatterOptions" = {
@@ -49,6 +67,7 @@
       "<C-d>" = false;
     };
     "editor.fontFamily" = "JetBrains Mono,  Iosevka, FuraCode Nerd Font";
+    "editor.fontSize" = 12;
     "javascript.updateImportsOnFileMove.enabled" = "always";
     "diffEditor.ignoreTrimWhitespace" = false;
     "go.formatTool" = "goimports";
@@ -103,6 +122,65 @@
       "ecto"
       "errr"
       "requestid"
+      "Avble"
+      "Backends"
+      "Bidbook"
+      "Connx"
+      "Frontends"
+      "GOPATH"
+      "Idempotency"
+      "MATCHMOVE"
+      "Msgf"
+      "Quizzop"
+      "Recurr"
+      "Rowx"
+      "TRANSACTIONTYPEPRD"
+      "Txns"
+      "Withdrable"
+      "acked"
+      "alch"
+      "amqp"
+      "cmds"
+      "defmemo"
+      "ecto"
+      "errorh"
+      "errr"
+      "fundingsocieties"
+      "fundingsocietiesdocker"
+      "gamehistory"
+      "godotenv"
+      "gomock"
+      "goveralls"
+      "idempotency"
+      "jmoiron"
+      "kelasa"
+      "keyscan"
+      "luffy"
+      "mrkdwn"
+      "mult"
+      "noout"
+      "notok"
+      "paytm"
+      "psql"
+      "razorpay"
+      "requestid"
+      "rzpay"
+      "sharded"
+      "sqlx"
+      "unacked"
+      "unmarshalled"
+      "usopp"
+      "venky"
+      "zerolog"
+      "Detial"
+      "gonic"
+      "Kolkata"
+      "LDBTYPE"
+      "Leaderboad"
+      "luffy"
+      "przs"
+      "sequencially"
+      "sanevalidators"
     ];
     "aws.profile" = "profile=default";
     "window.zoomLevel" = 1;

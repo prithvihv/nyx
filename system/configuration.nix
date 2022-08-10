@@ -27,19 +27,6 @@ in {
     phv ALL=(ALL) NOPASSWD: ALL
   '';
 
-  services.jenkins = {
-    enable = false;
-    jobBuilder = {
-      enable = true;
-      nixJobs = [{
-        job = {
-          name = "jenkins-job-test-3";
-          builders = [{ shell = "echo 'Hello world!'"; }];
-        };
-      }];
-    };
-  };
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -151,7 +138,6 @@ in {
       # "*/10 * * * *  phv  /home/phv/.nyx/users/phv/cron/killtaffy.sh"
     ];
   };
-
   services.prometheus = {
     enable = false;
     retentionTime = "13d";
@@ -170,16 +156,12 @@ in {
       #   scrape_interval = "15s";
       # }
       {
-        #   authorization:
-        # credentials: a5b045153b0f471d14356fe0df8ce86d
-        job_name = "dev-bidbook";
-        static_configs = [{ targets = [ "dev-bidbook.skillclash.com" ]; }];
+        job_name = "local-bidbook";
+        static_configs = [{ targets = [ "localhost:4040" ]; }];
 
         # nixos Master has authorization
-        # authorization = [{ credentials = "a5b045153b0f471d14356fe0df8ce86d"; }];
-        bearer_token = "a5b045153b0f471d14356fe0df8ce86d";
+        bearer_token = "1d5d6789538cf812ee128f357b610232";
         scrape_interval = "1s";
-        # token = "a5b045153b0f471d14356fe0df8ce86d";
       }
     ];
   };
@@ -196,6 +178,7 @@ in {
       user = "postgres";
       password = "postgres";
     };
+    extraOptions = { PANELS_DISABLE_SANITIZE_HTML = "true"; };
 
     declarativePlugins = with pkgs.grafanaPlugins; [ grafana-piechart-panel ];
   };
@@ -210,6 +193,19 @@ in {
       host    all             all             0.0.0.0/0            md5
       host    all             all             localhost            trust
     '';
+  };
+
+  services.jenkins = {
+    enable = false;
+    jobBuilder = {
+      enable = true;
+      nixJobs = [{
+        job = {
+          name = "jenkins-job-test-3";
+          builders = [{ shell = "echo 'Hello world!'"; }];
+        };
+      }];
+    };
   };
 
   services.zookeeper = { enable = false; };
@@ -251,7 +247,6 @@ in {
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.phv = {
     isNormalUser = true;
-    # initialPassword = "qwerty123";
     hashedPassword =
       "$6$iA.Ln4D87zK1nWpa$tS7r6fQE3a7kQs0PgAaO5UntgHRHB9c9GQ2Dw1LkqSDLD8Buv2Bs4Hdf3XmpS0HmGEhKC.A6YIIQ00AMUbUwr1";
     extraGroups = [
