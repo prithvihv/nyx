@@ -10,7 +10,10 @@
 - [ ] i3 multi lock screen
 - [ ] toggling notifications
 - [ ] file manager broken
-- [ ] remove krusader and dependencies
+- [X] remove krusader and dependencies
+
+# XPS hardware config references:
+https://gist.github.com/matthewbauer/68775d50d371eafb0de41a49f81f9cca
 
 ## Secret management
 - using a sops to modules that accepts file params
