@@ -112,7 +112,7 @@ in {
   # Enable the GNOME Desktop Environment.
   services.xserver = {
     enable = true;
-    dpi = 196;
+    # dpi = 196;
     videoDrivers = [ "nvidia" ];
     libinput = {
       enable = true;
