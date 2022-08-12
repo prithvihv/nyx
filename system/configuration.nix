@@ -115,6 +115,7 @@ in {
   # services.xserver.desktopManager.gnome.enable = true;
   services.xserver = {
     enable = true;
+    # videoDrivers = [ "nvidia" ];
     libinput = {
       enable = true;
       touchpad.naturalScrolling = true;
@@ -129,6 +130,10 @@ in {
       }];
     };
   };
+
+  hardware.opengl.enable = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+
   services.cron = {
     enable = true;
     # FIXME: add shellscripts to nixstore
@@ -216,6 +221,13 @@ in {
   };
 
   programs.ssh = { startAgent = true; };
+  programs.steam = {
+    enable = true;
+    # remotePlay.openFirewall =
+    #   true; # Open ports in the firewall for Steam Remote Play
+    # dedicatedServer.openFirewall =
+    #   true; # Open ports in the firewall for Source Dedicated Server
+  };
 
   environment.variables = {
     EDITOR = "nvim";
