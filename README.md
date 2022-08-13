@@ -7,10 +7,12 @@
     - [ ] fuzzy search
 - [ ] GC for nix
 - [ ] github p secrets
-- [ ] i3 multi lock screen
+- [X] i3 multi lock screen
 - [ ] toggling notifications
 - [ ] file manager broken
 - [X] remove krusader and dependencies
+- [ ] switch to i3 blocks
+- [ ] switch to [vitesse](https://marketplace.visualstudio.com/items?itemName=antfu.theme-vitesse&ssr=false#overview) color palette
 
 # XPS hardware config references:
 https://gist.github.com/matthewbauer/68775d50d371eafb0de41a49f81f9cca
@@ -41,7 +43,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security in case of vulnerabilities.
 
 
-
+## [phv3] - 2022-08-13
+### Added
+- nvidia drivers / steam
 ## [phv2] - 2022-01-23
 ### Added for new features.
 - autorandr setup
