@@ -65,6 +65,17 @@ in {
           DP-1.enable = false;
         };
       };
+      "focus_big_gaming" = {
+        inherit fingerprint;
+        config = {
+          DP-3 = _4kScreen // {
+            rotate = "normal";
+            mode = "1920x1080";
+          };
+          eDP-1.enable = false;
+          DP-1.enable = false;
+        };
+      };
       "triple_2k_horizontal_laptop" = {
         inherit fingerprint;
         config = {
@@ -110,13 +121,11 @@ in {
       "triple_2k_vertical_reader_left" = {
         inherit fingerprint;
         config = {
-          eDP-1 = laptopScreen // { 
+          eDP-1 = laptopScreen // {
             primary = false;
             position = "3640x420";
           };
-          DP-3 = _4kScreen // {
-            position = "1080x180";
-          };
+          DP-3 = _4kScreen // { position = "1080x180"; };
           DP-1 = {
             # crtc = 1;
             enable = true;
