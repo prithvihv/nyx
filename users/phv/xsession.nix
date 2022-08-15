@@ -9,6 +9,9 @@ let
     layout=$(${pkgs.autorandr}/bin/autorandr | rofi -dmenu -p "Layout")
     ${pkgs.autorandr}/bin/autorandr --load $layout
   '';
+  # TODO: on switching need to change DPI
+  # https://blog.summercat.com/configuring-mixed-dpi-monitors-with-xrandr.html
+  # Graphics card is configured can consider using 4k now
 in {
   # to fill this part
   # use autorandr --config
@@ -126,6 +129,28 @@ in {
             position = "3640x420";
           };
           DP-3 = _4kScreen // { position = "1080x180"; };
+          DP-1 = {
+            # crtc = 1;
+            enable = true;
+            primary = false;
+            mode = "1920x1080";
+            position = "0x0";
+            rate = "60";
+            rotate = "left";
+          };
+        };
+      };
+
+      "triple_4k_vertical_reader_left" = {
+        inherit fingerprint;
+        config = {
+          eDP-1 = laptopScreen // {
+            primary = false;
+            position = "3640x420";
+          };
+          DP-3 = _4kScreen // { 
+            position = "1080x180"; 
+            };
           DP-1 = {
             # crtc = 1;
             enable = true;

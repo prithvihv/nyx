@@ -45,8 +45,8 @@
     };
     "go.coverOnSingleTest" = true;
 
-    # "workbench.colorTheme" = "Vitesse Dark";
-    "workbench.colorTheme" = "Dracula";
+    "workbench.colorTheme" = "Vitesse Dark";
+    # "workbench.colorTheme" = "Dracula";
     "workbench.editor.enablePreview" = false;
     "vetur.format.defaultFormatterOptions" = {
       "js-beautify-html" = { "wrap_attributes" = "aligned-multiple"; };
