@@ -25,12 +25,15 @@
           allowUnfree = true;
           permittedInsecurePackages = [ "electron-9.4.4" "electron-13.6.9" ];
         };
-        overlays = [
+        overlays = let
+          # to upgrade discord: https://github.com/NixOS/nixpkgs/commit/1f2b951a1f68ae56986aa3831f0889615aa7ebaf
+          overlay-discord = import ./pkgs/discord/discord.nix;
+        in [
           (self: super:
             with super; {
               gnupg = nixpkgs-21-11.legacyPackages.x86_64-linux.gnupg;
             })
-        ] ++ [ neovim.overlay ];
+        ] ++ [ overlay-discord ] ++ [ neovim.overlay ];
       };
 
       lib = nixpkgs.lib;
