@@ -19,6 +19,7 @@
   outputs = { self, nixpkgs, nixpkgs-21-11, neovim, home-manager, sops-nix }:
     let
       system = "x86_64-linux";
+      # gnupg= = callPackage ./pkgs/gnupg/22.nix { };
       pkgs = import nixpkgs {
         inherit system;
         config = {

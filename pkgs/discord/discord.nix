@@ -5,8 +5,10 @@ let
   lib = pkgs.lib;
   stdenv = pkgs.stdenv;
   inherit (pkgs) callPackage fetchurl;
+
+  # copy the below part from: https://github.com/NixOS/nixpkgs/blob/nixos-22.05/pkgs/applications/networking/instant-messengers/discord/default.nix
   versions = if stdenv.isLinux then {
-    stable = "0.0.19";
+    stable = "0.0.20";
     ptb = "0.0.29";
     canary = "0.0.135";
   } else {
@@ -25,7 +27,7 @@ let
       stable = fetchurl {
         url =
           "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
-        sha256 = "GfSyddbGF8WA6JmHo4tUM27cyHV5kRAyrEiZe1jbA5A=";
+        sha256 = "3f7yuxigEF3e8qhCetCHKBtV4XUHsx/iYiaCCXjspYw=";
       };
       ptb = fetchurl {
         url =

@@ -3,6 +3,7 @@
   # package = pkgs.vscodium;
   extensions = with pkgs.vscode-extensions;
     let
+      lib = pkgs.lib;
       vitesse-theme = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "theme-vitesse";
@@ -18,10 +19,41 @@
           license = licenses.mit;
         };
       };
+      makefile-tools = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "makefile-tools";
+          publisher = "ms-vscode";
+          version = "0.5.0";
+          sha256 = "oBYABz6qdV9g7WdHycL1LrEaYG5be3e4hlo4ILhX4KI=";
+        };
+        meta = with pkgs.lib; {
+          description = "Makefile Tools";
+          downloadPage =
+            "https://marketplace.visualstudio.com/items?itemName=ms-vscode.makefile-tools";
+          homepage = "no";
+          license = licenses.mit;
+        };
+      };
+      c-cpp-runner = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "c-cpp-runner";
+          publisher = "franneck94";
+          version = "4.0.4";
+          sha256 = "mJUxSAp2SkmLYtE/VQJfKy84k0qo0YoxBIzFY+a5CSI=";
+        };
+        meta = with pkgs.lib; {
+          description = "Makefile Tools";
+          downloadPage =
+            "https://marketplace.visualstudio.com/items?itemName=franneck94.c-cpp-runner";
+          homepage = "no";
+          license = licenses.mit;
+        };
+      };
     in [
       bbenoist.nix
       golang.go
       elixir-lsp.vscode-elixir-ls
+      # Prisma.prisma
       redhat.vscode-yaml
       esbenp.prettier-vscode
       # vscodevim.vim
@@ -32,9 +64,27 @@
       scala-lang.scala
       scalameta.metals
       ms-vsliveshare.vsliveshare
+      # ms-vscode.cpptools
+      # c-cpp-runner
+      makefile-tools
+
+      dbaeumer.vscode-eslint
     ];
 
   userSettings = {
+    "latex-workshop.kpsewhich.path" =
+      "/etc/profiles/per-user/phv/bin/kpsewhich";
+    "latex-workshop.latex.tools" = [{
+      "name" = "latexmk";
+      "command" = "latexmk";
+      "args" = [
+        "-xelatex"
+        "-synctex=1"
+        "-interaction=nonstopmode"
+        "-file-line-error"
+        "%DOC%"
+      ];
+    }];
     "go.coverOnSave" = true;
     "go.coverageDecorator" = {
       "type" = "gutter";
@@ -88,12 +138,18 @@
     "[yaml]" = { "editor.defaultFormatter" = "redhat.vscode-yaml"; };
     "[json]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
     "[html]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
+    "[prisma]" = { "editor.defaultFormatter" = "Prisma.prisma"; };
     "[clojure]" = {
       "editor.autoClosingBrackets" = "always";
       "editor.autoClosingOvertype" = "always";
       "editor.formatOnPaste" = true;
     };
+    "[typescript]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
+    "[jsonc]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
     "[nix]" = { "editor.defaultFormatter" = "brettm12345.nixfmt-vscode"; };
+    "[dockercompose]" = {
+      "editor.defaultFormatter" = "ms-azuretools.vscode-docker";
+    };
     "json.schemas" = [ ];
     "go.toolsGopath" = "/etc/profiles/per-user/phv/bin/";
     "cSpell.userWords" = [

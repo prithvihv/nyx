@@ -27,6 +27,14 @@ in {
     phv ALL=(ALL) NOPASSWD: ALL
   '';
 
+  nixpkgs.config.packageOverrides = pkgs: rec {
+    vscodeCpp = pkgs.vscode-with-extensions.override {
+      vscodeExtensions = vscode-extensions:
+        with vscode-extensions;
+        [ ms-vscode.cpptools ];
+    };
+  };
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

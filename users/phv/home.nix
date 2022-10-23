@@ -22,7 +22,7 @@ let
   golangTools = import ../../pkgs/languages/golang.nix { inherit pkgs lib; };
   haskellTools = import ../../pkgs/languages/haskell.nix { inherit pkgs; };
   clojureTools = import ../../pkgs/languages/clojure.nix { inherit pkgs; };
-  nodeTools = import ../../pkgs/languages/node.nix { inherit pkgs; };
+  nodeTools = import ../../pkgs/languages/node/node.nix { inherit pkgs; };
   elixirTools = import ../../pkgs/languages/elixir.nix { inherit pkgs; };
   rustTools = import ../../pkgs/languages/rust.nix { inherit pkgs; };
   solanaTools = pkgs.callPackage ../../pkgs/blockchain/solana.nix { };
@@ -41,6 +41,14 @@ let
   # scripts
   bashidsScript = pkgs.callPackage ./scripts/bashids.nix { };
   rofiBluetooth = pkgs.callPackage ./scripts/rofi-bluetooth.nix { };
+
+  # latex stuff
+  tex = with pkgs;
+    (texlive.combine {
+      inherit (texlive)
+        scheme-medium titlesec marvosym xcolor enumitem hyperref fancyhdr
+        latexmk tlmgrbasics fontawesome;
+    });
   # rofi-with-plugins = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
 in {
   # Home Manager needs a bit of information about you and the
@@ -70,7 +78,10 @@ in {
       qbittorrent
       brave
       peek
-      xfce.thunar
+
+      # these are broken but i want them
+      protonvpn-gui
+      protonvpn-cli
 
       # encrypt
       age
@@ -100,8 +111,7 @@ in {
       # docs content files
       # https://pandoc.org/MANUAL.html
       pandoc
-      # latex stuff
-      texlive.combined.scheme-medium
+      tex
       mypaint
 
       gucharmap # find emojis
@@ -113,10 +123,7 @@ in {
 
       gtk3
       gnome3.adwaita-icon-theme
-
-      element-desktop
     ] ++ [ # dev applications
-
       # cli: external
       awscli2
       github-cli

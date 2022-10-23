@@ -3,3 +3,4 @@ result
 # secret.yaml
 *.prd/
 k8s
+.vscode/
