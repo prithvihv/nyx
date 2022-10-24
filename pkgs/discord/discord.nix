@@ -8,7 +8,7 @@ let
 
   # copy the below part from: https://github.com/NixOS/nixpkgs/blob/nixos-22.05/pkgs/applications/networking/instant-messengers/discord/default.nix
   versions = if stdenv.isLinux then {
-    stable = "0.0.20";
+    stable = "0.0.21";
     ptb = "0.0.29";
     canary = "0.0.135";
   } else {
@@ -27,7 +27,7 @@ let
       stable = fetchurl {
         url =
           "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
-        sha256 = "3f7yuxigEF3e8qhCetCHKBtV4XUHsx/iYiaCCXjspYw=";
+        sha256 = "KDKUssPRrs/D10s5GhJ23hctatQmyqd27xS9nU7iNaM=";
       };
       ptb = fetchurl {
         url =

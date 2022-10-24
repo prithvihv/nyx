@@ -79,6 +79,8 @@ in {
       brave
       peek
 
+      libreoffice
+
       # these are broken but i want them
       protonvpn-gui
       protonvpn-cli
