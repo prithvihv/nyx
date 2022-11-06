@@ -207,6 +207,11 @@ in {
       ${wallpaperStr}
       ${pkgs.volctl}/bin/volctl & disown
       ${launchPolybarStr}
+      export XMODIFIERS="@im=fcitx5"
+      export XMODIFIER="@im=fcitx5"
+      export GTK_IM_MODULE="fcitx5"
+      export QT_IM_MODULE="fcitx5"
+      fcitx5 &
 
       # FIXME: this should be golang config
       go env -w GOPRIVATE=github.com/gamezop

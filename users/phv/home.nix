@@ -218,6 +218,9 @@ in {
     pinentryFlavor = "qt";
   };
 
+  # TODO: figur out dropbox configuration
+  # services.dropbox = { enable = true; };
+
   programs.password-store = {
     enable = true;
     settings = { PASSWORD_STORE_DIR = configPassStore; };

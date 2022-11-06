@@ -85,11 +85,23 @@ in {
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
+  i18n.defaultLocale = "en_US.UTF-8";
   # console = {
   #   font = "Lat2-Terminus16";
   #   keyMap = "us";
   # };
+  # https://wiki.archlinux.org/title/Fcitx5
+  
+  i18n.inputMethod.enabled = "fcitx5";
+  i18n.inputMethod.fcitx5.addons = with pkgs; [
+    # once mozc is added open the GUI and add it to defaults. CTRL + SPACE is to switch between defaults group
+    fcitx5-mozc # japanese
+    fcitx5-gtk
+    # fcitx5-rime # traditional chinese
+    # fcitx5-table-other
+    # fcitx5-configtool
+    # fcitx5-m17n
+  ];
 
   fonts = {
     fonts = with pkgs; [
@@ -110,8 +122,20 @@ in {
       dejavu_fonts
       material-icons
       cantarell-fonts
+
+      # japanese
+      ipafont
+      kochi-substitute
     ];
-    fontconfig = { enable = true; };
+    fontconfig = {
+      enable = true;
+
+      # might need to enable this to make it look nicer
+      # ultimate.enable = true;
+
+      # might need to set up default fonts
+      # defaultFonts = {};
+    };
   };
   # services.dbus.packages = [ pkgs.gcr ];
 
