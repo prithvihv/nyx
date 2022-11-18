@@ -92,6 +92,7 @@ in {
 
       redis
       openjdk17
+      datadog-agent
 
       rofimoji
       rofiBluetooth
@@ -129,6 +130,7 @@ in {
       # cli: external
       awscli2
       github-cli
+      go-migrate
       terraform
       wakatime
       gitleaks

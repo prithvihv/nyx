@@ -64,21 +64,21 @@ let
     nodeEnv.buildNodePackage {
       name = "prisma";
       packageName = "prisma";
-      version = "4.3.1";
+      version = "4.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/prisma/-/prisma-4.3.1.tgz";
+        url = "https://registry.npmjs.org/prisma/-/prisma-4.2.1.tgz";
         sha512 =
-          "90xo06wtqil76Xsi3mNpc4Js3SdDRR5g4qb9h+4VWY4Y8iImJY6xc3PX+C9xxTSt1lr0Q89A0MLkJjd8ax6KiQ==";
+          "HuYqnTDgH8atjPGtYmY0Ql9XrrJnfW7daG1PtAJRW0E6gJxc50lY3vrIDn0yjMR3TvRlypjTcspQX8DT+xD4Sg==";
       };
       dependencies = [{
         name = "_at_prisma_slash_engines";
         packageName = "@prisma/engines";
-        version = "4.3.1";
+        version = "4.2.1";
         src = fetchurl {
           url =
-            "https://registry.npmjs.org/@prisma/engines/-/engines-4.3.1.tgz";
+            "https://registry.npmjs.org/@prisma/engines/-/engines-4.2.1.tgz";
           sha512 =
-            "4JF/uMaEDAPdcdZNOrnzE3BvrbGpjgV0FcPT3EVoi6I86fWkloqqxBt+KcK/+fIRR0Pxj66uGR9wVH8U1Y13JA==";
+            "0KqBwREUOjBiHwITsQzw2DWfLHjntvbqzGRawj4sBMnIiL5CXwyDUKeHOwXzKMtNr1rEjxEsypM14g0CzLRK3g==";
         };
       }];
       buildInputs = [ ];
