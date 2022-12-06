@@ -136,6 +136,9 @@ in {
       gitleaks
       unp # "unpack (almost) everything with one command"
       unrar
+      mtpfs # trying to get kindle working
+      gmtp
+      gparted
 
       neovide
 
