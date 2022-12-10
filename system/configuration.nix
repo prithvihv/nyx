@@ -91,7 +91,6 @@ in {
   #   keyMap = "us";
   # };
   # https://wiki.archlinux.org/title/Fcitx5
-  
   i18n.inputMethod.enabled = "fcitx5";
   i18n.inputMethod.fcitx5.addons = with pkgs; [
     # once mozc is added open the GUI and add it to defaults. CTRL + SPACE is to switch between defaults group
@@ -110,7 +109,8 @@ in {
       iosevka
       source-code-pro
 
-      noto-fonts
+      # TODO: this broke in 22.11
+      # noto-fonts
       nerdfonts
       # ubuntu_font_family
       unifont
@@ -222,17 +222,19 @@ in {
 
   services.grafana = {
     enable = true;
-    analytics.reporting.enable = false;
-    auth.anonymous.enable = false;
+    settings = {
+      "analytics.reporting".enable = false;
+      "auth.anonymous".enable = false;
 
-    database = {
-      name = "grafana";
-      type = "postgres";
-      host = "localhost";
-      user = "postgres";
-      password = "postgres";
+      database = {
+        name = "grafana";
+        type = "postgres";
+        host = "localhost";
+        user = "postgres";
+        password = "postgres";
+      };
+      extraOptions = { PANELS_DISABLE_SANITIZE_HTML = "true"; };
     };
-    extraOptions = { PANELS_DISABLE_SANITIZE_HTML = "true"; };
 
     declarativePlugins = with pkgs.grafanaPlugins; [ grafana-piechart-panel ];
   };
@@ -350,10 +352,11 @@ in {
   # started in user sessions.
   # programs.mtr.enable = true;
   # programs.gnupg = {
-
-  #   # package = pkgs.gnupg20;
+  #   package = pkgs.gnupg1orig;
   #   agent = {
   #     enable = true;
+  #     # enableExtraSocket = true;
+  #     pinentryFlavor = "qt";
   #     # enableSSHSupport = true;
   #   };
   # };

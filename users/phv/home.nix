@@ -63,7 +63,7 @@ in {
   # };
 
   home.packages = with pkgs;
-    [ gnumake nix-diff nixfmt any-nix-shell pinentry_qt ] ++ [
+    [ gnumake nix-diff nixfmt any-nix-shell ] ++ [
 
       # gui applications
       slack
@@ -78,6 +78,10 @@ in {
       qbittorrent
       brave
       peek
+      
+      anki
+      ocrmypdf
+      zathura
 
       libreoffice
 
@@ -96,10 +100,6 @@ in {
 
       rofimoji
       rofiBluetooth
-
-      # don't know how this got here; need to debug and remove:
-      qt5Full
-
     ] ++ [ # linux software terminal / cli / system
       fd
       jq
@@ -200,7 +200,6 @@ in {
     enable = true;
     extensions = [
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock
-      "bkhaagjahfmjljalopjnoealnfndnagc" # octotree
       "omdakjcmkglenbhjadbccaookpfjihpa" # tunnel bear
       "gbmdgpbipfallnflgajpaliibnhdgobh" # json viewer
     ];
@@ -211,12 +210,13 @@ in {
     matchBlocks = { } // gzpPrivateStuff.gzp-ssh;
   };
 
+  programs.obs-studio.enable = true;
+
+
   programs.gpg = {
     enable = true;
-    # package = pkgs.gnupg1;
   };
 
-  programs.obs-studio.enable = true;
 
   services.gpg-agent = {
     enable = true;
@@ -238,6 +238,7 @@ in {
       stores = [ configPassStore ];
     };
     # theme = "DarkBlue";
+    # reference: https://raw.githubusercontent.com/dracula/rofi/master/theme/config2.rasi
     theme = ../../pkgs/rofi/theme-dracula.rasi;
     # package = pkgs.rofi;
 
@@ -276,10 +277,6 @@ in {
   services.emacs = {
     enable = true;
     client = { enable = true; };
-  };
-  services.gnome-keyring = {
-    enable = false;
-    components = [ "secrets" "pkcs11" ];
   };
 
   services.xscreensaver = {

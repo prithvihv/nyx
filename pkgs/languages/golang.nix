@@ -52,7 +52,9 @@ let
     };
 in {
   extraPkgs = with pkgs; [
-    go_1_17
+    # go_1_17
+    # TODO: this broke in 22.11
+    go
     gcc
     go-protobuf
     protobuf
