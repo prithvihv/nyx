@@ -164,6 +164,7 @@ in {
       key = "C14F829C5E50AF56";
       signByDefault = true;
     };
+    extraConfig = { push = { autoSetupRemote = true; }; };
   };
 
   programs.autorandr = xsessionPhv.autorandr;
