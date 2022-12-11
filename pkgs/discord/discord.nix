@@ -7,37 +7,29 @@ let
   inherit (pkgs) callPackage fetchurl;
 
   # copy the below part from: https://github.com/NixOS/nixpkgs/blob/nixos-22.05/pkgs/applications/networking/instant-messengers/discord/default.nix
-  versions = if stdenv.isLinux then {
-    stable = "0.0.21";
-    ptb = "0.0.29";
-    canary = "0.0.135";
+   versions = if stdenv.isLinux then {
+    stable = "0.0.22";
+    ptb = "0.0.35";
+    canary = "0.0.143";
   } else {
     stable = "0.0.264";
     ptb = "0.0.59";
     canary = "0.0.283";
   };
   version = versions.${branch};
-  srcs = let
-    darwin-ptb = fetchurl {
-      url = "https://dl-ptb.discordapp.net/apps/osx/${version}/DiscordPTB.dmg";
-      sha256 = "sha256-LS7KExVXkOv8O/GrisPMbBxg/pwoDXIOo1dK9wk1yB8=";
-    };
-  in {
+  srcs = rec {
     x86_64-linux = {
       stable = fetchurl {
-        url =
-          "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
-        sha256 = "KDKUssPRrs/D10s5GhJ23hctatQmyqd27xS9nU7iNaM=";
+        url = "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
+        sha256 = "F1xzdx4Em6Ref7HTe9EH7whx49iFc0DFpaQKdFquq6c=";
       };
       ptb = fetchurl {
-        url =
-          "https://dl-ptb.discordapp.net/apps/linux/${version}/discord-ptb-${version}.tar.gz";
-        sha256 = "d78NnQZ3MkLje8mHrI6noH2iD2oEvSJ3cDnsmzQsUYc=";
+        url = "https://dl-ptb.discordapp.net/apps/linux/${version}/discord-ptb-${version}.tar.gz";
+        sha256 = "bnp5wfcR21s7LMPxFgj5G3UsxPWlFj4t6CbeosiufHY=";
       };
       canary = fetchurl {
-        url =
-          "https://dl-canary.discordapp.net/apps/linux/${version}/discord-canary-${version}.tar.gz";
-        sha256 = "sha256-dmG+3BWS1BMHHQAv4fsXuObVeAJBeD+TqnyQz69AMac=";
+        url = "https://dl-canary.discordapp.net/apps/linux/${version}/discord-canary-${version}.tar.gz";
+        sha256 = "sha256-K+yyg9GTAvggfn4JQCTmq016tMyyzq+nD7aL3+bWFlo=";
       };
     };
     x86_64-darwin = {
@@ -45,15 +37,16 @@ let
         url = "https://dl.discordapp.net/apps/osx/${version}/Discord.dmg";
         sha256 = "1jvlxmbfqhslsr16prsgbki77kq7i3ipbkbn67pnwlnis40y9s7p";
       };
-      ptb = darwin-ptb;
+      ptb = fetchurl {
+        url = "https://dl-ptb.discordapp.net/apps/osx/${version}/DiscordPTB.dmg";
+        sha256 = "sha256-LS7KExVXkOv8O/GrisPMbBxg/pwoDXIOo1dK9wk1yB8=";
+      };
       canary = fetchurl {
-        url =
-          "https://dl-canary.discordapp.net/apps/osx/${version}/DiscordCanary.dmg";
+        url = "https://dl-canary.discordapp.net/apps/osx/${version}/DiscordCanary.dmg";
         sha256 = "0mqpk1szp46mih95x42ld32rrspc6jx1j7qdaxf01whzb3d4pi9l";
       };
     };
-    # Only PTB bundles a MachO Universal binary with ARM support.
-    aarch64-darwin = { ptb = darwin-ptb; };
+    aarch64-darwin = x86_64-darwin;
   };
   src = srcs.${stdenv.hostPlatform.system}.${branch};
 
