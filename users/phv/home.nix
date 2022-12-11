@@ -78,7 +78,7 @@ in {
       qbittorrent
       brave
       peek
-      
+
       anki
       ocrmypdf
       zathura
@@ -160,11 +160,9 @@ in {
     enable = true;
     userName = "prithvihv";
     userEmail = "hvprithvi09@gmail.com";
-    extraConfig = {
-      # TODO: this doesnt work right now
-      user.signingkey = "0x79C7BE63C93CC999";
-      # url = { "git@github.com:" = { insteadOf = "https://github.com/"; }; };
-      # url = { "https://github.com/" = { insteadOf = "git@github.com:"; }; };
+    signing = {
+      key = "C14F829C5E50AF56";
+      signByDefault = true;
     };
   };
 
@@ -212,11 +210,7 @@ in {
 
   programs.obs-studio.enable = true;
 
-
-  programs.gpg = {
-    enable = true;
-  };
-
+  programs.gpg = { enable = true; };
 
   services.gpg-agent = {
     enable = true;
