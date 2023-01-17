@@ -8,13 +8,43 @@
         mktplcRef = {
           name = "theme-vitesse";
           publisher = "antfu";
-          version = "0.5.1";
-          sha256 = "0wni9sriin54ci8rly2s68lkfx8rj1cys6mgcizvps9sam6377w6";
+          version = "0.6.0";
+          sha256 = "sha256-LgNJzRBU1+UxL61LkghSFzbUNtBTh1cVdfaSCNkrymk=";
         };
         meta = with pkgs.lib; {
           description = "Vitesse theme for VS Code";
           downloadPage =
             "https://marketplace.visualstudio.com/items?itemName=antfu.theme-vitesse";
+          homepage = "no";
+          license = licenses.mit;
+        };
+      };
+      jest = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "vscode-jest";
+          publisher = "orta";
+          version = "5.2.0";
+          sha256 = "E9VwEPclxLi33Y9HfMPnLqGQWZecLajCf3rCoKw89pQ=";
+        };
+        meta = with pkgs.lib; {
+          description = "Code::Stats";
+          downloadPage =
+            "https://marketplace.visualstudio.com/items?itemName=orta.vscode-jest";
+          homepage = "no";
+          license = licenses.mit;
+        };
+      };
+      code-stats = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "code-stats-vscode";
+          publisher = "riussi";
+          version = "1.0.18";
+          sha256 = "9UyDK588qpeMWq5OBQwXYl+9qctXIDY3qd/CtosG4TU=";
+        };
+        meta = with pkgs.lib; {
+          description = "Code::Stats";
+          downloadPage =
+            "https://marketplace.visualstudio.com/items?itemName=riussi.code-stats-vscode";
           homepage = "no";
           license = licenses.mit;
         };
@@ -49,27 +79,38 @@
           license = licenses.mit;
         };
       };
+      nixOsApps =
+        pkgs.lib.optionals pkgs.stdenv.isLinux [ ms-vsliveshare.vsliveshare ];
     in [
       bbenoist.nix
       golang.go
       elixir-lsp.vscode-elixir-ls
-      # Prisma.prisma
+      bbenoist.nix
       redhat.vscode-yaml
       esbenp.prettier-vscode
       # vscodevim.vim
       WakaTime.vscode-wakatime
       dracula-theme.theme-dracula
-      vitesse-theme
       arrterian.nix-env-selector
       scala-lang.scala
       scalameta.metals
-      ms-vsliveshare.vsliveshare
+      arrterian.nix-env-selector
+      pkief.material-icon-theme
+      esbenp.prettier-vscode
       # ms-vscode.cpptools
       # c-cpp-runner
-      makefile-tools
 
       dbaeumer.vscode-eslint
-    ];
+      streetsidesoftware.code-spell-checker
+      eamodio.gitlens
+      james-yu.latex-workshop
+      redhat.vscode-yaml
+      foxundermoon.shell-format
+
+      vitesse-theme
+      code-stats
+      jest
+    ] ++ nixOsApps;
 
   userSettings = {
     "latex-workshop.kpsewhich.path" =

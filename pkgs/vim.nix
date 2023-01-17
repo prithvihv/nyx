@@ -2,7 +2,7 @@
 let
 in {
   enable = true;
-  package = pkgs.neovim-nightly;
+  package = if pkgs.stdenv.isDarwin then pkgs.neovim else pkgs.neovim-nightly;
   viAlias = true;
   vimAlias = true;
   vimdiffAlias = true;
