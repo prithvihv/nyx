@@ -67,6 +67,7 @@
       # ms-vscode.cpptools
       # c-cpp-runner
       makefile-tools
+      redhat.java
 
       dbaeumer.vscode-eslint
     ];
@@ -242,9 +243,16 @@
     "window.zoomLevel" = 1;
 
     "calva.clojureLspPath" = "/etc/profiles/per-user/phv/bin/clojure-lsp";
+    "java.jdt.ls.java.home" = "${pkgs.openjdk17}/lib/openjdk";
 
     "codestats.apikey" = gzpPrivateStuff.code-stat-skadi-api;
     "codestats.apiurl" = "https://codestats.net/api/";
     "codestats.username" = "phv";
+
+    "java.configuration.runtimes" = [{
+      name = "JavaSE-17";
+      path = "${pkgs.openjdk17}/lib/openjdk";
+      default = true;
+    }];
   };
 }

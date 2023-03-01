@@ -28,10 +28,7 @@ let
   solanaTools = pkgs.callPackage ../../pkgs/blockchain/solana.nix { };
 
   # configs
-  gzpPrivateStuff = import ../../priv/gzp-stuff.nix {
-    inherit config;
-    inherit lib;
-  };
+  gzpPrivateStuff = import ../../priv/gzp-stuff.nix { inherit lib; };
   vsCodeConfig = import ../../pkgs/vscode.nix {
     inherit gzpPrivateStuff;
     inherit pkgs;
@@ -95,8 +92,11 @@ in {
       git-crypt
 
       redis
-      openjdk17
       datadog-agent
+
+      # java stuff
+      openjdk17
+      # gradle
 
       rofimoji
       rofiBluetooth
@@ -131,6 +131,7 @@ in {
       awscli2
       github-cli
       go-migrate
+      pgsync
       terraform
       wakatime
       gitleaks
@@ -139,6 +140,7 @@ in {
       mtpfs # trying to get kindle working
       gmtp
       gparted
+      signal-desktop
 
       neovide
 
@@ -150,6 +152,9 @@ in {
       # jetbrains.idea-ultimate
     ] ++ [ # bash scripts
       bashidsScript
+    ] ++ [ # yubikey
+      yubikey-manager # cli
+      yubikey-manager-qt # gui
     ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
     ++ haskellTools.extraPkgs ++ clojureTools.extraPkgs ++ nodeTools.extraPkgs
     ++ elixirTools.extraPkgs ++ rustTools.extraPkgs
@@ -162,7 +167,7 @@ in {
     userEmail = "hvprithvi09@gmail.com";
     signing = {
       key = "C14F829C5E50AF56";
-      signByDefault = true;
+      # signByDefault = true;
     };
     extraConfig = { push = { autoSetupRemote = true; }; };
   };

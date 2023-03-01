@@ -5,10 +5,7 @@
 inputs@{ lib, config, pkgs, ... }:
 
 let
-  gzp-vpn = import ./../priv/gzp-stuff.nix {
-    inherit config;
-    inherit lib;
-  };
+  gzp-vpn = import ./../priv/gzp-stuff.nix { inherit lib; };
   hroneTokenScript = import ./../priv/hrone.token.nix { inherit pkgs; };
 in {
   imports = [ # Include the results of the hardware scan.
@@ -263,6 +260,10 @@ in {
       }];
     };
   };
+
+  # services.yubikey-agent = { enable = true; };
+  # services.pcscd.enable = true;
+  # services.udev.packages = with pkgs; [ yubikey-personalization ];
 
   services.zookeeper = { enable = false; };
   services.apache-kafka = { enable = false; };

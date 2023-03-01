@@ -6,11 +6,11 @@ let
   stdenv = pkgs.stdenv;
   inherit (pkgs) callPackage fetchurl;
 
-  # copy the below part from: https://github.com/NixOS/nixpkgs/blob/nixos-22.05/pkgs/applications/networking/instant-messengers/discord/default.nix
-   versions = if stdenv.isLinux then {
-    stable = "0.0.22";
-    ptb = "0.0.35";
-    canary = "0.0.143";
+  # copy the below part from: https://github.com/NixOS/nixpkgs/blob/nixos-22.11/pkgs/applications/networking/instant-messengers/discord/default.nix
+  versions = if stdenv.isLinux then {
+    stable = "0.0.25";
+    ptb = "0.0.38";
+    canary = "0.0.148";
   } else {
     stable = "0.0.264";
     ptb = "0.0.59";
@@ -20,16 +20,19 @@ let
   srcs = rec {
     x86_64-linux = {
       stable = fetchurl {
-        url = "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
-        sha256 = "F1xzdx4Em6Ref7HTe9EH7whx49iFc0DFpaQKdFquq6c=";
+        url =
+          "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
+        sha256 = "sha256-WBcmy9fwGPq3Vs1+7lIOR7OiW/d0kZNIKp4Q5NRYBCw=";
       };
       ptb = fetchurl {
-        url = "https://dl-ptb.discordapp.net/apps/linux/${version}/discord-ptb-${version}.tar.gz";
-        sha256 = "bnp5wfcR21s7LMPxFgj5G3UsxPWlFj4t6CbeosiufHY=";
+        url =
+          "https://dl-ptb.discordapp.net/apps/linux/${version}/discord-ptb-${version}.tar.gz";
+        sha256 = "bPg7ZNQQxEpRSpp8j5/XLBDEJyId8mDGxS6tqkzzI1s=";
       };
       canary = fetchurl {
-        url = "https://dl-canary.discordapp.net/apps/linux/${version}/discord-canary-${version}.tar.gz";
-        sha256 = "sha256-K+yyg9GTAvggfn4JQCTmq016tMyyzq+nD7aL3+bWFlo=";
+        url =
+          "https://dl-canary.discordapp.net/apps/linux/${version}/discord-canary-${version}.tar.gz";
+        sha256 = "sha256-2ZrSDyPj3AHriCWZ/bb303H3J97TTun//WjmInNEmwk=";
       };
     };
     x86_64-darwin = {
@@ -38,11 +41,13 @@ let
         sha256 = "1jvlxmbfqhslsr16prsgbki77kq7i3ipbkbn67pnwlnis40y9s7p";
       };
       ptb = fetchurl {
-        url = "https://dl-ptb.discordapp.net/apps/osx/${version}/DiscordPTB.dmg";
+        url =
+          "https://dl-ptb.discordapp.net/apps/osx/${version}/DiscordPTB.dmg";
         sha256 = "sha256-LS7KExVXkOv8O/GrisPMbBxg/pwoDXIOo1dK9wk1yB8=";
       };
       canary = fetchurl {
-        url = "https://dl-canary.discordapp.net/apps/osx/${version}/DiscordCanary.dmg";
+        url =
+          "https://dl-canary.discordapp.net/apps/osx/${version}/DiscordCanary.dmg";
         sha256 = "0mqpk1szp46mih95x42ld32rrspc6jx1j7qdaxf01whzb3d4pi9l";
       };
     };

@@ -28,6 +28,9 @@ https://gist.github.com/matthewbauer/68775d50d371eafb0de41a49f81f9cca
 ## Gamezop
 - `vpn-action gzp-dev <start/stop>` connects and disconnects vpn, with DNS
 
+## Random
+https://www.reddit.com/r/programming/comments/q0oqai/what_is_wrong_with_geeksforgeeks_why_forcing_to/ <- add this to ublock origin
+
 # Changelog
 All notable changes to this project will be documented in this file.
 
@@ -59,3 +62,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - dracula for rofi
 
 ## [phv] - unknown
+
+
+## TODO: 
+- deprecate SOPs for git crypt
+    moved `~/.config/sops/age/keys.txt` need to clean up file on ~/.keybox
+- record all VSCODE plugins properly

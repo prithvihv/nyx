@@ -45,6 +45,8 @@ in {
     enable = true;
     hooks = {
       postswitch = {
+
+        # TODO: to support 4k screen properly after switching check if it's on and run scale
         "change-background" = wallpaperStr;
         "launchPolybar" = launchPolybarStr;
       };
@@ -63,7 +65,10 @@ in {
       "focus_big" = {
         inherit fingerprint;
         config = {
-          DP-3 = _4kScreen // { rotate = "normal"; };
+          DP-3 = _4kScreen // {
+            mode = "3840x2160";
+            rotate = "normal";
+          };
           eDP-1.enable = false;
           DP-1.enable = false;
         };
