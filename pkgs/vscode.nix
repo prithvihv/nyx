@@ -91,6 +91,7 @@
       ms-vscode-remote.remote-ssh
       redhat.java
       vscodevim.vim
+      haskell.haskell
 
       dbaeumer.vscode-eslint
     ];
@@ -267,6 +268,7 @@
 
     "calva.clojureLspPath" = "/etc/profiles/per-user/phv/bin/clojure-lsp";
     "java.jdt.ls.java.home" = "${pkgs.openjdk17}/lib/openjdk";
+    "haskell.serverExecutablePath" = "${pkgs.haskell-language-server}/";
 
     "codestats.apikey" = gzpPrivateStuff.code-stat-skadi-api;
     "codestats.apiurl" = "https://codestats.net/api/";
