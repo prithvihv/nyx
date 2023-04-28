@@ -1,25 +1,19 @@
 {
-  description = "nyx config";
+  description = "configuration and workflows";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-21-11.url = "github:NixOS/nixpkgs/nixos-21.11-small";
-    # nixpkgs.url = "github:NixOS/nixpkgs/master";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    neovim.url = "github:nix-community/neovim-nightly-overlay";
-    neovim.inputs.nixpkgs.follows = "nixpkgs";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-22.11";
-    # solana-nix.url = "github:drozdziak1/nix-solana-sdk/master";
     home-manager.inputs.nixpkgs.follows =
       "nixpkgs"; # ask hm to use pinned nixpkgs
   };
 
-  outputs = { self, nixpkgs, nixpkgs-21-11, neovim, home-manager, sops-nix }:
+  outputs = { self, nixpkgs, nixpkgs-21-11, home-manager, sops-nix }:
     let
       system = "x86_64-linux";
-      # gnupg= = callPackage ./pkgs/gnupg/22.nix { };
       pkgs = import nixpkgs {
         inherit system;
         config = {
@@ -30,16 +24,13 @@
         overlays = let
           # to upgrade discord: https://github.com/NixOS/nixpkgs/commit/1f2b951a1f68ae56986aa3831f0889615aa7ebaf
           overlay-discord = import ./pkgs/discord/discord.nix;
-          overlay-logseq = import ./pkgs/logseq/logseq.nix;
           overlay-gnupg = (self: super:
             with super; {
               gnupg = nixpkgs-21-11.legacyPackages.x86_64-linux.gnupg;
             });
         in [
           overlay-discord
-          # overlay-logseq
           overlay-gnupg
-          neovim.overlay
         ];
       };
 
