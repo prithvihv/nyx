@@ -25,7 +25,7 @@
         config = {
           allowUnfree = true;
           permittedInsecurePackages =
-            [ "electron-9.4.4" "electron-13.6.9" ];
+            [ "electron-9.4.4" "electron-13.6.9" "electron-12.2.3" ];
         };
         overlays = let
           # to upgrade discord: https://github.com/NixOS/nixpkgs/commit/1f2b951a1f68ae56986aa3831f0889615aa7ebaf

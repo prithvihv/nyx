@@ -14,6 +14,11 @@
 - [ ] switch to i3 blocks
 - [ ] switch to [vitesse](https://marketplace.visualstudio.com/items?itemName=antfu.theme-vitesse&ssr=false#overview) color palette
 
+## MacOS TODO:
+- [ ] commit nixos
+- [ ] setup SSH
+- [ ] sign in Gamezop 
+
 # XPS hardware config references:
 https://gist.github.com/matthewbauer/68775d50d371eafb0de41a49f81f9cca
 
@@ -68,3 +73,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - deprecate SOPs for git crypt
     moved `~/.config/sops/age/keys.txt` need to clean up file on ~/.keybox
 - record all VSCODE plugins properly
+
+
+- fzf: https://andrew-quinn.me/fzf/
+
+
+### LUKS:
+- https://scs.community/2023/02/24/impact-of-disk-encryption/
+- overview: https://infosecwriteups.com/how-luks-works-with-full-disk-encryption-in-linux-6452ad1a42e8
+- broke pendrive: https://ubuntuforums.org/showthread.php?t=2472411
+    `cryptsetup -y -v luksFormat /dev/sdb1` failed then pendrive was write protected

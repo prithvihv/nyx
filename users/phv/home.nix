@@ -110,10 +110,16 @@ in {
       # example convert -scale 2560x1440 source-image.jpg lockscreen.png
       ffmpeg
       inetutils # telnet
+      cryptsetup # LUKS
+      hdparm # set drive parameters
+      etcher # make bootable pendrive
+      parted
+      gptfdisk
 
       # docs content files
       # https://pandoc.org/MANUAL.html
       pandoc
+      pdftk
       tex
       mypaint
 
@@ -150,6 +156,11 @@ in {
       jetbrains.datagrip
       jetbrains.goland
       # jetbrains.idea-ultimate
+
+
+      # dual audio playback
+      paprefs # pulse audio preference
+      dconf
     ] ++ [ # bash scripts
       bashidsScript
     ] ++ [ # yubikey
