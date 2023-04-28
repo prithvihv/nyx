@@ -90,6 +90,7 @@
       ms-vsliveshare.vsliveshare
       ms-vscode-remote.remote-ssh
       redhat.java
+      vscodevim.vim
 
       dbaeumer.vscode-eslint
     ];
