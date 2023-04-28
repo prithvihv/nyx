@@ -8,8 +8,8 @@
         mktplcRef = {
           name = "theme-vitesse";
           publisher = "antfu";
-          version = "0.5.1";
-          sha256 = "0wni9sriin54ci8rly2s68lkfx8rj1cys6mgcizvps9sam6377w6";
+          version = "0.6.4";
+          sha256 = "sha256-6nIzHJsLsIG3O6p97Q+YdDKxHj7r+pEwiq0UbJ/vlf4=";
         };
         meta = with pkgs.lib; {
           description = "Vitesse theme for VS Code";
@@ -19,42 +19,65 @@
           license = licenses.mit;
         };
       };
-      makefile-tools = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+      code-spell-checker = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
         mktplcRef = {
-          name = "makefile-tools";
-          publisher = "ms-vscode";
-          version = "0.5.0";
-          sha256 = "oBYABz6qdV9g7WdHycL1LrEaYG5be3e4hlo4ILhX4KI=";
+          name = "code-spell-checker";
+          publisher = "streetsidesoftware";
+          version = "2.20.4";
+          sha256 = "sha256-GOXKXZPEynyqRUUY0pdNwt+141kJleg74IbCP4/34R8=";
         };
         meta = with pkgs.lib; {
-          description = "Makefile Tools";
+          description =
+            "A basic spell checker that works well with code and documents.";
           downloadPage =
-            "https://marketplace.visualstudio.com/items?itemName=ms-vscode.makefile-tools";
+            "https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker";
           homepage = "no";
           license = licenses.mit;
         };
       };
-      c-cpp-runner = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+      vscode-jest = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
         mktplcRef = {
-          name = "c-cpp-runner";
-          publisher = "franneck94";
-          version = "4.0.4";
-          sha256 = "mJUxSAp2SkmLYtE/VQJfKy84k0qo0YoxBIzFY+a5CSI=";
+          name = "vscode-jest";
+          publisher = "orta";
+          version = "5.2.3";
+          sha256 = "sha256-cPHwBO7dI44BZJwTPtLR7bfdBcLjaEcyLVvl2Qq+BgE=";
         };
         meta = with pkgs.lib; {
-          description = "Makefile Tools";
+          description =
+            "This extension provides an extensible user interface for running your tests in VS Code. It can be used with any testing framework if there is a corresponding Test Adapter extension.";
           downloadPage =
-            "https://marketplace.visualstudio.com/items?itemName=franneck94.c-cpp-runner";
+            "https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-test-explorer";
           homepage = "no";
           license = licenses.mit;
         };
       };
+      vscode-test-explorer = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "vscode-test-explorer";
+          publisher = "hbenl";
+          version = "2.21.1";
+          sha256 = "sha256-fHyePd8fYPt7zPHBGiVmd8fRx+IM3/cSBCyiI/C0VAg=";
+        };
+        meta = with pkgs.lib; {
+          description =
+            "This extension supports full jest features in vscode environment to make testing more intuitive and fun. It should work out-of-the-box for most common jest projects. ";
+          downloadPage =
+            "https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker";
+          homepage = "no";
+          license = licenses.mit;
+        };
+      };
+
     in [
+      vscode-jest
+      vscode-test-explorer
       bbenoist.nix
       brettm12345.nixfmt-vscode
+      code-spell-checker
+      eamodio.gitlens
       golang.go
       elixir-lsp.vscode-elixir-ls
-      # Prisma.prisma
+      prisma.prisma
       redhat.vscode-yaml
       esbenp.prettier-vscode
       # vscodevim.vim
@@ -65,9 +88,7 @@
       scala-lang.scala
       scalameta.metals
       ms-vsliveshare.vsliveshare
-      # ms-vscode.cpptools
-      # c-cpp-runner
-      makefile-tools
+      ms-vscode-remote.remote-ssh
       redhat.java
 
       dbaeumer.vscode-eslint
