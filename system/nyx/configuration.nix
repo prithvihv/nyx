@@ -5,8 +5,8 @@
 inputs@{ lib, config, pkgs, ... }:
 
 let
-  gzp-vpn = import ./../priv/gzp-stuff.nix { inherit lib; };
-  hroneTokenScript = import ./../priv/hrone.token.nix { inherit pkgs; };
+  gzp-vpn = import ./../../priv/gzp-stuff.nix { inherit lib; };
+  hroneTokenScript = import ./../../priv/hrone.token.nix { inherit pkgs; };
 in {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -59,7 +59,7 @@ in {
 
   # Secret management
   sops = {
-    defaultSopsFile = ../sops/secrets/nyx.yaml;
+    defaultSopsFile = ../../sops/secrets/nyx.yaml;
     age.keyFile = "/home/phv/.keybox/age.sops.txt";
     secrets = let
       secrets = [

@@ -14,34 +14,36 @@
   outputs = { self, nixpkgs, nixpkgs-21-11, home-manager, sops-nix }:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
-          permittedInsecurePackages =
-            [ "electron-9.4.4" "electron-13.6.9" "electron-12.2.3" ];
-        };
-        overlays = let
-          # to upgrade discord: https://github.com/NixOS/nixpkgs/commit/1f2b951a1f68ae56986aa3831f0889615aa7ebaf
-          overlay-discord = import ./pkgs/discord/discord.nix;
-          overlay-gnupg = (self: super:
-            with super; {
-              gnupg = nixpkgs-21-11.legacyPackages.x86_64-linux.gnupg;
-            });
-        in [
-          overlay-discord
-          overlay-gnupg
-        ];
-      };
-
       lib = nixpkgs.lib;
     in {
       nixosConfigurations = {
-        nyx = lib.nixosSystem {
+        dell-latitude-7390 = let
+        in {
+
+        };
+
+        nyx = let
+          pkgs = import nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+              permittedInsecurePackages =
+                [ "electron-9.4.4" "electron-13.6.9" "electron-12.2.3" ];
+            };
+            overlays = let
+              # to upgrade discord: https://github.com/NixOS/nixpkgs/commit/1f2b951a1f68ae56986aa3831f0889615aa7ebaf
+              overlay-discord = import ./pkgs/discord/discord.nix;
+              overlay-gnupg = (self: super:
+                with super; {
+                  gnupg = nixpkgs-21-11.legacyPackages.x86_64-linux.gnupg;
+                });
+            in [ overlay-discord overlay-gnupg ];
+          };
+        in lib.nixosSystem {
           inherit system;
           inherit pkgs;
           modules = [
-            ./system/configuration.nix
+            ./system/nyx/configuration.nix
             sops-nix.nixosModules.sops
             #  solana-nix.packages.x86_64-linux.cargo-build-bpf
             #  solana-nix.packages.x86_64-linux
