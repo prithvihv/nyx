@@ -2,6 +2,7 @@
 let
 in {
   enable = true;
+  # package = pkgs.neovim;
   viAlias = true;
   vimAlias = true;
   vimdiffAlias = true;

@@ -211,6 +211,9 @@ in {
     settings = { color_scheme = 6; };
   };
 
+  programs.firefox = {
+    enable = true;
+  };
   programs.chromium = {
     enable = true;
     extensions = [
