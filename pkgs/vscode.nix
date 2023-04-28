@@ -51,6 +51,7 @@
       };
     in [
       bbenoist.nix
+      brettm12345.nixfmt-vscode
       golang.go
       elixir-lsp.vscode-elixir-ls
       # Prisma.prisma
