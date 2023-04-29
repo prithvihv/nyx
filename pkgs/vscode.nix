@@ -141,7 +141,7 @@
       "<C-c>" = false;
       "<C-d>" = false;
     };
-    "editor.fontFamily" = "JetBrains Mono,  Iosevka, FuraCode Nerd Font";
+    "editor.fontFamily" = "JetBrains Mono,  Iosevka, FuraCode Nerd Font, Material Icons";
     "editor.fontSize" = 12;
     "javascript.updateImportsOnFileMove.enabled" = "always";
     "diffEditor.ignoreTrimWhitespace" = false;
@@ -268,7 +268,7 @@
 
     "calva.clojureLspPath" = "/etc/profiles/per-user/phv/bin/clojure-lsp";
     "java.jdt.ls.java.home" = "${pkgs.openjdk17}/lib/openjdk";
-    "haskell.serverExecutablePath" = "${pkgs.haskell-language-server}/";
+    # "haskell.serverExecutablePath" = "${pkgs.haskell-language-server}/";
 
     "codestats.apikey" = gzpPrivateStuff.code-stat-skadi-api;
     "codestats.apiurl" = "https://codestats.net/api/";

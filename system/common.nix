@@ -27,12 +27,11 @@
 
   fonts = {
     fonts = with pkgs; [
-      emacs-all-the-icons-fonts
+      # emacs-all-the-icons-fonts
       hasklig
       iosevka
       source-code-pro
 
-      # TODO: this broke in 22.11
       # noto-fonts
       nerdfonts
       # ubuntu_font_family
@@ -43,7 +42,8 @@
       cantarell-fonts
       siji
       dejavu_fonts
-      material-icons
+      # material-icons <- this is google
+      material-design-icons
       cantarell-fonts
 
       # japanese
@@ -86,6 +86,7 @@
     isNormalUser = true;
     hashedPassword =
       "$6$iA.Ln4D87zK1nWpa$tS7r6fQE3a7kQs0PgAaO5UntgHRHB9c9GQ2Dw1LkqSDLD8Buv2Bs4Hdf3XmpS0HmGEhKC.A6YIIQ00AMUbUwr1";
+    description = "Prithvi";
     extraGroups =
       [ "wheel" "networkmanager" "lxd" "docker" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;

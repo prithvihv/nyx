@@ -34,7 +34,9 @@ https://gist.github.com/matthewbauer/68775d50d371eafb0de41a49f81f9cca
 - `vpn-action gzp-dev <start/stop>` connects and disconnects vpn, with DNS
 
 ## Random
-https://www.reddit.com/r/programming/comments/q0oqai/what_is_wrong_with_geeksforgeeks_why_forcing_to/ <- add this to ublock origin
+- https://www.reddit.com/r/programming/comments/q0oqai/what_is_wrong_with_geeksforgeeks_why_forcing_to/ <- add this to ublock origin
+- remember to `git add .`  before `nixos-rebuild`
+- To get `command-not-found` working, need to a channel and run update. https://discourse.nixos.org/t/command-not-found-unable-to-open-database/3807/7
 
 # Changelog
 All notable changes to this project will be documented in this file.
@@ -83,3 +85,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - overview: https://infosecwriteups.com/how-luks-works-with-full-disk-encryption-in-linux-6452ad1a42e8
 - broke pendrive: https://ubuntuforums.org/showthread.php?t=2472411
     `cryptsetup -y -v luksFormat /dev/sdb1` failed then pendrive was write protected
+
+### YUBIKEY:
+https://github.com/drduh/YubiKey-Guide#nixos
+
+
+### Minor things to keep in mind when buying next used laptop:
+1. home and end keys and their locations, they are located at the top for some keyboard and are not remapable to fn + arrow keys. You can use `xev` to test this.
