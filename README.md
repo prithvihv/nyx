@@ -19,6 +19,10 @@
 - [ ] setup SSH
 - [ ] sign in Gamezop 
 
+## Docs management linux
+- use convert to convert images into pdfs
+- pandoc to convert from other formats to pdfs like markdown
+
 # XPS hardware config references:
 https://gist.github.com/matthewbauer/68775d50d371eafb0de41a49f81f9cca
 

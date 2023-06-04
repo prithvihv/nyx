@@ -7,6 +7,20 @@
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
 
+  security.sudo.enable = true;
+  security.sudo.wheelNeedsPassword = true;
+  security.sudo.extraConfig = ''
+    phv ALL=(ALL) NOPASSWD: ALL
+  '';
+
+  services.upower = {
+    enable = true;
+    percentageLow = 15;
+    percentageCritical = 10;
+    percentageAction = 1;
+    criticalPowerAction = "Hibernate";
+  };
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   # console = {
@@ -24,6 +38,10 @@
     # fcitx5-configtool
     # fcitx5-m17n
   ];
+
+  # firefox touch screen support
+  # chromium is way better
+  environment.sessionVariables = { MOZ_USE_XINPUT2 = "1"; };
 
   fonts = {
     fonts = with pkgs; [

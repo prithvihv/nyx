@@ -114,6 +114,7 @@ in {
       hdparm # set drive parameters
       etcher # make bootable pendrive
       parted
+      upower
       gptfdisk
 
       # docs content files
@@ -130,6 +131,8 @@ in {
       rsync
       glxinfo
       glances
+
+      rclone
 
       gnome.sushi
       gnome.nautilus
@@ -156,6 +159,7 @@ in {
       gmtp
       gparted
       signal-desktop
+      powertop
 
       neovide
 
@@ -189,6 +193,10 @@ in {
       # signByDefault = true;
     };
     extraConfig = { push = { autoSetupRemote = true; }; };
+  };
+
+  services.dropbox = {
+    enable = true;
   };
 
   xdg.mimeApps = let

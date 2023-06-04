@@ -155,7 +155,6 @@ in {
 
     declarativePlugins = with pkgs.grafanaPlugins; [ grafana-piechart-panel ];
   };
-  services.upower.enable = true;
 
   services.jenkins = {
     enable = false;
