@@ -75,9 +75,29 @@
 
   # Enable the OpenSSH daemon.
   services.openssh = {
-    enable = true;
+    enable = false;
     # passwordAuthentication = false;
   };
+
+  services.printing.enable = true;
+  services.printing.drivers = with pkgs; [ hplip hplipWithPlugin cnijfilter2 canon-cups-ufr2  cups-bjnp sane-airscan];
+  services.udisks2.enable = true;
+  # # for a WiFi printer
+  # services.avahi.enable = true;
+  # services.avahi.nssmdns = true;
+  # services.avahi.openFirewall = true;
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = with pkgs; [
+    hplip
+    hplipWithPlugin
+    cnijfilter2
+    canon-cups-ufr2
+    cups-bjnp
+    sane-airscan
+  ];
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
+  services.avahi.openFirewall = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

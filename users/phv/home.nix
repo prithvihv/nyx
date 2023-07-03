@@ -116,6 +116,8 @@ in {
       parted
       upower
       gptfdisk
+      dig
+      simple-scan
 
       # docs content files
       # https://pandoc.org/MANUAL.html
@@ -144,6 +146,10 @@ in {
       gtk3
       gnome3.adwaita-icon-theme
       papirus-icon-theme
+
+      # printer
+      # canon-cups-ufr2
+      gnomeExtensions.printers
     ] ++ [ # dev applications
       # cli: external
       awscli2

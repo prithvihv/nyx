@@ -92,6 +92,7 @@
       redhat.java
       vscodevim.vim
       haskell.haskell
+      james-yu.latex-workshop
 
       dbaeumer.vscode-eslint
     ];
