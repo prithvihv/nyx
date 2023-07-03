@@ -1,6 +1,8 @@
-{ pkgs, lib, gzpPrivateStuff }: let
+{ pkgs, lib, gzpPrivateStuff }:
+let
   buildSshCmdProxy = { name, ip }: {
-    "gz-${name}" = "tmux split-window -h ssh ${name} & tmux split-window -v ssh ${name} && tmux split-window -h ssh ${name} && exit 0";
+    "gz-${name}" =
+      "tmux split-window -h ssh ${name} & tmux split-window -v ssh ${name} && tmux split-window -h ssh ${name} && exit 0";
   };
 in {
   enable = true;
@@ -75,7 +77,8 @@ in {
     "cd-gz" = "cd /home/phv/code/src/github.com/gamezop";
     "cd-config" = "cd /home/phv/.nyx";
     "cd-fzf" = "cd (${pkgs.fd}/bin/fd --type directory | fzf)"; # ALT-C
-    "code-ed" = "cd /home/phv/code/src/github.com/prithvihv/ed/groww-scraper && source ~/.secret.sh && code .";
+    "code-ed" =
+      "cd /home/phv/code/src/github.com/prithvihv/ed/groww-scraper && source ~/.secret.sh && code .";
 
     "l" = "${pkgs.exa}/bin/exa";
     "ll" = "${pkgs.exa}/bin/exa -l";
@@ -86,11 +89,14 @@ in {
     "gz-vpn_off" = "vpn-action gzp-dev stop";
     # "gz-coke" = "tmux split-window -h ssh rbac-coke-new & tmux split-window -v ssh rbac-coke-new && tmux split-window -h ssh rbac-coke-new && exit 0";
 
-    # linux
-    "lx-battery" =
-      "${pkgs.upower}/bin/upower -i /org/freedesktop/UPower/devices/battery_BAT0";
     "lx-k-taffy" = "/home/phv/.nyx/users/phv/cron/killtaffy.sh";
-  } // lib.foldl' lib.mergeAttrs { } (builtins.map buildSshCmdProxy gzpPrivateStuff.gzp-bastion2machines);
+  } // lib.foldl' lib.mergeAttrs { }
+    (builtins.map buildSshCmdProxy gzpPrivateStuff.gzp-bastion2machines)
+    // lib.attrsets.optionalAttrs pkgs.stdenv.isLinux {
+      # linux
+      "lx-battery" =
+        "${pkgs.upower}/bin/upower -i /org/freedesktop/UPower/devices/battery_BAT0";
+    };
 
   # // lib.foldl' lib.mergeAttrs { } (builtins.map buildSshCmdProxy gzpPrivateStuff.gzp-bastion2machines) ;
 }

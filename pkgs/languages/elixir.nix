@@ -1,12 +1,12 @@
 { pkgs }: {
-  extraPkgs = with pkgs; [
-    elixir
-    elixir_ls
-    inotify-tools
+  extraPkgs = with pkgs;
+    [
+      elixir
+      elixir_ls
 
-    beamPackages.rebar3
-    beamPackages.hex
+      beamPackages.rebar3
+      beamPackages.hex
 
-    asdf
-  ];
+      asdf
+    ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [ inotify-tools ];
 }

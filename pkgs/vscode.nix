@@ -19,6 +19,21 @@
           license = licenses.mit;
         };
       };
+      code-stats = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "code-stats-vscode";
+          publisher = "riussi";
+          version = "1.0.18";
+          sha256 = "9UyDK588qpeMWq5OBQwXYl+9qctXIDY3qd/CtosG4TU=";
+        };
+        meta = with pkgs.lib; {
+          description = "Code::Stats";
+          downloadPage =
+            "https://marketplace.visualstudio.com/items?itemName=riussi.code-stats-vscode";
+          homepage = "no";
+          license = licenses.mit;
+        };
+      };
       code-spell-checker = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "code-spell-checker";
@@ -51,6 +66,8 @@
           license = licenses.mit;
         };
       };
+      nixOsApps =
+        pkgs.lib.optionals pkgs.stdenv.isLinux [ ms-vsliveshare.vsliveshare ];
       vscode-test-explorer = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "vscode-test-explorer";
@@ -77,16 +94,21 @@
       eamodio.gitlens
       golang.go
       elixir-lsp.vscode-elixir-ls
+      bbenoist.nix
       prisma.prisma
       redhat.vscode-yaml
       esbenp.prettier-vscode
       # vscodevim.vim
       WakaTime.vscode-wakatime
       dracula-theme.theme-dracula
-      vitesse-theme
       arrterian.nix-env-selector
       scala-lang.scala
       scalameta.metals
+      arrterian.nix-env-selector
+      pkief.material-icon-theme
+      esbenp.prettier-vscode
+      # ms-vscode.cpptools
+      # c-cpp-runner
       ms-vsliveshare.vsliveshare
       ms-vscode-remote.remote-ssh
       redhat.java
@@ -95,7 +117,15 @@
       james-yu.latex-workshop
 
       dbaeumer.vscode-eslint
-    ];
+      streetsidesoftware.code-spell-checker
+      eamodio.gitlens
+      james-yu.latex-workshop
+      redhat.vscode-yaml
+      foxundermoon.shell-format
+
+      vitesse-theme
+      code-stats
+    ] ++ nixOsApps;
 
   userSettings = {
     "latex-workshop.kpsewhich.path" =
@@ -142,7 +172,8 @@
       "<C-c>" = false;
       "<C-d>" = false;
     };
-    "editor.fontFamily" = "JetBrains Mono,  Iosevka, FuraCode Nerd Font, Material Icons";
+    "editor.fontFamily" =
+      "JetBrains Mono,  Iosevka, FuraCode Nerd Font, Material Icons";
     "editor.fontSize" = 12;
     "javascript.updateImportsOnFileMove.enabled" = "always";
     "diffEditor.ignoreTrimWhitespace" = false;

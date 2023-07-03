@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, Security }:
 let
   nodeEnv = pkgs.callPackage ./node-env.nix { nodejs = pkgs.nodejs-14_x; };
 
