@@ -19,21 +19,6 @@
           license = licenses.mit;
         };
       };
-      jest = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
-        mktplcRef = {
-          name = "vscode-jest";
-          publisher = "orta";
-          version = "5.2.0";
-          sha256 = "E9VwEPclxLi33Y9HfMPnLqGQWZecLajCf3rCoKw89pQ=";
-        };
-        meta = with pkgs.lib; {
-          description = "Code::Stats";
-          downloadPage =
-            "https://marketplace.visualstudio.com/items?itemName=orta.vscode-jest";
-          homepage = "no";
-          license = licenses.mit;
-        };
-      };
       code-stats = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "code-stats-vscode";
@@ -140,7 +125,6 @@
 
       vitesse-theme
       code-stats
-      jest
     ] ++ nixOsApps;
 
   userSettings = {

@@ -22,7 +22,10 @@ let
   golangTools = import ../../pkgs/languages/golang.nix { inherit pkgs lib; };
   haskellTools = import ../../pkgs/languages/haskell.nix { inherit pkgs; };
   clojureTools = import ../../pkgs/languages/clojure.nix { inherit pkgs; };
-  nodeTools = import ../../pkgs/languages/node/node.nix { inherit pkgs; };
+  nodeTools = import ../../pkgs/languages/node/node.nix {
+    inherit pkgs;
+    Security = pkgs.hello; # this doesn't matter
+  };
   elixirTools = import ../../pkgs/languages/elixir.nix { inherit pkgs; };
   rustTools = import ../../pkgs/languages/rust.nix { inherit pkgs; };
   solanaTools = pkgs.callPackage ../../pkgs/blockchain/solana.nix { };
@@ -201,9 +204,7 @@ in {
     extraConfig = { push = { autoSetupRemote = true; }; };
   };
 
-  services.dropbox = {
-    enable = true;
-  };
+  services.dropbox = { enable = true; };
 
   xdg.mimeApps = let
     mimeMapping = {
