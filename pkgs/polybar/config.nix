@@ -50,10 +50,11 @@ let
   common = {
     cursor-click = "pointer";
     font-0 = "Iosevka:size=12;3";
-    font-1 = "Noto Color Emoji:scale=10;2";
-    font-2 = "Font Awesome 5 Free Regular:style=Regular:size=12;0";
-    font-3 = "FuraCode Nerd Font:style=Bold:size=12;3";
-    font-4 = "Noto Sans Symbols2;3";
+    font-1 = "CaskaydiaCove Nerd Font Mono:style=Regular:size=16;2";
+    font-2 = "Noto Color Emoji:scale=10;2";
+    font-3 = "Material Design Icons:style=Regular;1";
+    # font-3 = "Font Awesome 5 Free Regular:style=Regular:size=12;1";
+    # font-3 = "FontAwesome5Free:size=10;1";
   };
 
   foreground = "#ccffffff";
@@ -114,13 +115,13 @@ in {
         label-volume = "%percentage%%";
         format-volume = "<ramp-volume> <label-volume>";
         label-muted-foreground = "#666";
-        ramp-volume-0 = "🕨";
-        ramp-volume-1 = "🕩";
-        ramp-volume-2 = "🕪";
+        ramp-volume-0 = "🔈";
+        ramp-volume-1 = "🔉";
+        ramp-volume-2 = "🔊";
         format-volume-padding = 1;
         format-volume-foreground = secondary;
         format-volume-background = primary;
-        label-muted = "🔇 Muted";
+        label-muted = "🔇  Muted";
         format-muted = "<label-muted>";
         format-muted-padding = 1;
         format-muted-foreground = secondary;
@@ -151,7 +152,7 @@ in {
 
         locale = "en_US.UTF-8";
         modules-right =
-          "cpu memory swap diskspace wireless volume battery date";
+          "cpu memory filesystem wireless volume battery date";
         modules-center = "time";
         modules-left = "xmonad";
         # tray-position = "\${env:MONITOR:}";
@@ -179,8 +180,9 @@ in {
       "module/date" = {
         type = "internal/date";
         internal = 5;
-        date = "%d.%m.%y";
+        date = "%A | %d.%m.%y";
 
+        format = " 🕓 <label> ";
         label = "%date%";
         format-background = primary;
         format-foreground = secondary;
@@ -188,49 +190,45 @@ in {
 
       "module/cpu" = {
         type = "internal/cpu";
+        # [module/cpu]
+
+        # label = %{T2}%percentage:2%%%{T-}
+        # label-background = ${colors.bg-alt}
+        # label-foreground = ${colors.fg}
+        # label-padding = 1
 
         interval = "0.5";
 
-        format = " <label>";
+        format = "<label>";
+        format-prefix = "%{T10}💻%{T-}";
+        # format-prefix-padding = 1
         format-background = primary;
         format-foreground = secondary;
         format-padding = 1;
 
-        label = "%percentage%%";
+        label = " %percentage%%";
       };
       "module/memory" = {
         type = "internal/memory";
 
         interval = 3;
 
-        format = " <label>";
+        format = "💾 <label>";
         format-background = primary;
         format-foreground = secondary;
         format-padding = 1;
 
-        label = "%gb_used%/%gb_free%";
-      };
-
-      "module/swap" = {
-        type = "internal/memory";
-
-        interval = 3;
-
-        format = "🖫 <label>";
-        format-background = primary;
-        format-foreground = secondary;
-        format-padding = 1;
-
-        label = "%percentage_used%%";
+        label = "%gb_used% %gb_swap_free%";
       };
 
       # they dont have foreground color :/
-      "module/diskspace" = {
+      "module/filesystem" = {
         type = "internal/fs";
         mount-0 = "/";
-        label-mounted = "%percentage_used%%, ◌: %free%";
+        # mount-1 = "/home";
+        label-mounted = "📁 %mountpoint% %free%";
 
-        format-mounted = "🖴 <label-mounted>";
+        format-mounted = "<label-mounted>";
         format-background = primary;
         format-foreground = secondary;
 
@@ -245,21 +243,21 @@ in {
 
         poll-interval = 5;
 
-        label-full = " 100%";
+        label-full = "🔋 100%";
         format-full-padding = 1;
         format-full-foreground = secondary;
         format-full-background = primary;
 
-        format-charging = " <animation-charging> <label-charging>";
+        format-charging = "🔌 <animation-charging> <label-charging>";
         format-charging-padding = 1;
         format-charging-foreground = secondary;
         format-charging-background = primary;
         label-charging = "%percentage%%";
-        animation-charging-0 = "";
-        animation-charging-1 = "";
-        animation-charging-2 = "";
-        animation-charging-3 = "";
-        animation-charging-4 = "";
+        animation-charging-0 = "󰁺";
+        animation-charging-1 = "󰁼";
+        animation-charging-2 = "󰁾";
+        animation-charging-3 = "󰂀";
+        animation-charging-4 = "󰁹";
         animation-charging-framerate = 500;
 
         format-discharging = "<ramp-capacity> <label-discharging>";
@@ -267,13 +265,13 @@ in {
         format-discharging-foreground = secondary;
         format-discharging-background = primary;
         label-discharging = "%percentage%%";
-        ramp-capacity-0 = "";
+        ramp-capacity-0 = "󰁺";
         ramp-capacity-0-foreground = urgency;
-        ramp-capacity-1 = "";
+        ramp-capacity-1 = "󰁼";
         ramp-capacity-1-foreground = urgency;
-        ramp-capacity-2 = "";
-        ramp-capacity-3 = "";
-        ramp-capacity-4 = "";
+        ramp-capacity-2 = "󰁾";
+        ramp-capacity-3 = "󰂀";
+        ramp-capacity-4 = "󰁹";
       };
       "module/wireless" = {
         type = "internal/network";
@@ -283,7 +281,7 @@ in {
         format-connected-padding = 1;
         format-connected-foreground = secondary;
         format-connected-background = primary;
-        format-connected = " <label-connected>";
+        format-connected = "📡 <label-connected>";
         label-connected = "%essid%";
       };
     };

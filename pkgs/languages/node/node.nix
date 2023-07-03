@@ -5,22 +5,22 @@ let
   # Updating this package will force an update for nodePackages.prisma. The
   # version of prisma-engines and nodePackages.prisma must be the same for them to
   # function correctly.
-  prisma-engine-4-3-1 = with pkgs;
+  prisma-engine = with pkgs;
     rustPlatform.buildRustPackage rec {
       pname = "prisma-engines";
-      version = "4.2.1";
+      version = "4.10.1";
 
       src = fetchFromGitHub {
         owner = "prisma";
         repo = "prisma-engines";
         rev = version;
-        sha256 = "sha256-TlKjAfpygQq2c77d6ZoMIBtWC0bAiMiKygFkh5GrBBc=";
+        sha256 = "sha256-TFLwpKh+FsstcpvBfTw7CNcQOGGSNI9qf8WJ6v75uL8=";
       };
 
       # Use system openssl.
       OPENSSL_NO_VENDOR = 1;
 
-      cargoSha256 = "sha256-KkCq7h6qqh37LvA4wQYjLk/LPKCg5Wgl6tEhH55qh8M=";
+      cargoSha256 = "sha256-EPym9MLwTMGBbJkVMKD/NEc6Vfm7nI4FaDkqy/0B14Q=";
 
       nativeBuildInputs = [ pkg-config ];
 
@@ -60,25 +60,25 @@ let
         ];
       };
     };
-  prisma-4-3-1 = with pkgs;
+  prisma = with pkgs;
     nodeEnv.buildNodePackage {
       name = "prisma";
       packageName = "prisma";
-      version = "4.2.1";
+      version = "4.10.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/prisma/-/prisma-4.2.1.tgz";
+        url = "https://registry.npmjs.org/prisma/-/prisma-4.10.1.tgz";
         sha512 =
-          "HuYqnTDgH8atjPGtYmY0Ql9XrrJnfW7daG1PtAJRW0E6gJxc50lY3vrIDn0yjMR3TvRlypjTcspQX8DT+xD4Sg==";
+          "sha512-0jDxgg+DruB1kHVNlcspXQB9au62IFfVg9drkhzXudszHNUAQn0lVuu+T8np0uC2z1nKD5S3qPeCyR8u5YFLnA==";
       };
       dependencies = [{
         name = "_at_prisma_slash_engines";
         packageName = "@prisma/engines";
-        version = "4.2.1";
+        version = "4.10.1";
         src = fetchurl {
           url =
-            "https://registry.npmjs.org/@prisma/engines/-/engines-4.2.1.tgz";
+            "https://registry.npmjs.org/@prisma/engines/-/engines-4.10.1.tgz";
           sha512 =
-            "0KqBwREUOjBiHwITsQzw2DWfLHjntvbqzGRawj4sBMnIiL5CXwyDUKeHOwXzKMtNr1rEjxEsypM14g0CzLRK3g==";
+            "sha512-B3tcTxjx196nuAu1GOTKO9cGPUgTFHYRdkPkTS4m5ptb2cejyBlH9X7GOfSt3xlI7p4zAJDshJP4JJivCg9ouA==";
         };
       }];
       buildInputs = [ ];
@@ -101,11 +101,11 @@ in {
   */
 
   extraPkgs = with pkgs; [
-    nodejs-16_x
+    nodejs
     yarn
     # prisma-engines 
     # nodePackages.prisma
-    prisma-4-3-1
-    prisma-engine-4-3-1
+    prisma
+    prisma-engine
   ];
 }

@@ -28,10 +28,7 @@ let
   solanaTools = pkgs.callPackage ../../pkgs/blockchain/solana.nix { };
 
   # configs
-  gzpPrivateStuff = import ../../priv/gzp-stuff.nix {
-    inherit config;
-    inherit lib;
-  };
+  gzpPrivateStuff = import ../../priv/gzp-stuff.nix { inherit lib; };
   vsCodeConfig = import ../../pkgs/vscode.nix {
     inherit gzpPrivateStuff;
     inherit pkgs;
@@ -95,8 +92,11 @@ in {
       git-crypt
 
       redis
-      openjdk17
       datadog-agent
+
+      # java stuff
+      openjdk17
+      # gradle
 
       rofimoji
       rofiBluetooth
@@ -110,27 +110,52 @@ in {
       # example convert -scale 2560x1440 source-image.jpg lockscreen.png
       ffmpeg
       inetutils # telnet
+      cryptsetup # LUKS
+      hdparm # set drive parameters
+      etcher # make bootable pendrive
+      parted
+      upower
+      gptfdisk
+      dig
+      simple-scan
 
       # docs content files
       # https://pandoc.org/MANUAL.html
       pandoc
+      pdftk
       tex
       mypaint
 
       gucharmap # find emojis
+      xorg.xev
 
       pciutils
       rsync
       glxinfo
       glances
 
+      rclone
+
+      gnome.sushi
+      gnome.nautilus
+      # cinnamon.nemo
+      # libsForQt5.dolphin
+      # pcmanfm
+      # lxqt.pcmanfm-qt
+
       gtk3
       gnome3.adwaita-icon-theme
+      papirus-icon-theme
+
+      # printer
+      # canon-cups-ufr2
+      gnomeExtensions.printers
     ] ++ [ # dev applications
       # cli: external
       awscli2
       github-cli
       go-migrate
+      pgsync
       terraform
       wakatime
       gitleaks
@@ -139,6 +164,8 @@ in {
       mtpfs # trying to get kindle working
       gmtp
       gparted
+      signal-desktop
+      powertop
 
       neovide
 
@@ -148,8 +175,15 @@ in {
       jetbrains.datagrip
       jetbrains.goland
       # jetbrains.idea-ultimate
+
+      # dual audio playback
+      paprefs # pulse audio preference
+      dconf
     ] ++ [ # bash scripts
       bashidsScript
+    ] ++ [ # yubikey
+      yubikey-manager # cli
+      yubikey-manager-qt # gui
     ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
     ++ haskellTools.extraPkgs ++ clojureTools.extraPkgs ++ nodeTools.extraPkgs
     ++ elixirTools.extraPkgs ++ rustTools.extraPkgs
@@ -162,13 +196,41 @@ in {
     userEmail = "hvprithvi09@gmail.com";
     signing = {
       key = "C14F829C5E50AF56";
-      signByDefault = true;
+      # signByDefault = true;
     };
     extraConfig = { push = { autoSetupRemote = true; }; };
   };
 
+  services.dropbox = {
+    enable = true;
+  };
+
+  xdg.mimeApps = let
+    mimeMapping = {
+      # https://discourse.nixos.org/t/set-default-application-for-mime-type-with-home-manager/17190/2
+      "application/pdf" = [ "code.desktop" ];
+      "inode/directory" = [ "org.gnome.Nautilus.desktop" ];
+
+      "x-scheme-handler/http" = [ "firefox.desktop" ];
+      "x-scheme-handler/https" = [ "firefox.desktop" ];
+      "x-scheme-handler/chrome" = [ "firefox.desktop" ];
+      "text/html" = [ "firefox.desktop" ];
+      "application/x-extension-htm" = [ "firefox.desktop" ];
+      "application/x-extension-html" = [ "firefox.desktop" ];
+      "application/x-extension-shtml" = [ "firefox.desktop" ];
+      "application/xhtml+xml" = [ "firefox.desktop" ];
+      "application/x-extension-xhtml" = [ "firefox.desktop" ];
+      "application/x-extension-xht" = [ "firefox.desktop" ];
+    };
+  in {
+    enable = true;
+    defaultApplications = mimeMapping;
+    associations.added = mimeMapping;
+  };
+
   programs.autorandr = xsessionPhv.autorandr;
 
+  # need to do a few more steps to get this working reference ##Random on README.md
   programs.command-not-found = { enable = true; };
 
   # explore stuff here https://www.freecodecamp.org/news/fzf-a-command-line-fuzzy-finder-missing-demo-a7de312403ff/
@@ -195,6 +257,7 @@ in {
     settings = { color_scheme = 6; };
   };
 
+  programs.firefox = { enable = true; };
   programs.chromium = {
     enable = true;
     extensions = [
