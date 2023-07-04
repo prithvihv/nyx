@@ -17,7 +17,10 @@ in {
     # done notification for teminal commands
       set __done_min_cmd_duration 3000
 
-      ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
+    ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
+
+    fish_add_path -m /run/current-system/sw/bin
+    fish_add_path -m /etc/profiles/per-user/phv/bin/ 
   '';
   # TODO: https://github.com/zx2c4/password-store/blob/master/src/completion/pass.fish-completion
 

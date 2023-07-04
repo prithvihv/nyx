@@ -114,3 +114,10 @@ e=/home/phv/.pnpm-store --exclude=/home/phv/.mozilla --exclude=/home/phv/.ivy2 -
  --exclude=/home/phv/.rustup --exclude=/home/phv/.nvm /
 
 rm -rf /home/phv/.cabal /home/phv/.minikube /home/phv/.npm /home/phv/.pnpm-store /home/phv/.ivy2 /home/phv/.sbt /home/phv/.rustup /home/phv/go /home/phv/code
+
+## darwin TODO:
+
+configure automator something like: https://github.com/MatthewWest/pass-alfred#readme
+
+## General notes on darwin:
+-  need to install homebrew, gpg suite manually

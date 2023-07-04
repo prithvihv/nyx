@@ -1,7 +1,7 @@
 #!/bin/sh
 pushd ~/.nyx
 git add .
-nix build ~/.nyx/darwin\#darwinConfigurations.gzp-mbp.system
+nix build ~/.nyx/darwin\#darwinConfigurations.mw-pprithv-GK4K.system
 
 # https://xyno.space/post/nix-darwin-introduction
 # printf 'run\tprivate/var/run\n' | sudo tee -a /etc/synthetic.conf # read below

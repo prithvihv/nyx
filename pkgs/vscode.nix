@@ -34,22 +34,6 @@
           license = licenses.mit;
         };
       };
-      code-spell-checker = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
-        mktplcRef = {
-          name = "code-spell-checker";
-          publisher = "streetsidesoftware";
-          version = "2.20.4";
-          sha256 = "sha256-GOXKXZPEynyqRUUY0pdNwt+141kJleg74IbCP4/34R8=";
-        };
-        meta = with pkgs.lib; {
-          description =
-            "A basic spell checker that works well with code and documents.";
-          downloadPage =
-            "https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker";
-          homepage = "no";
-          license = licenses.mit;
-        };
-      };
       vscode-jest = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "vscode-jest";
@@ -90,7 +74,6 @@
       vscode-test-explorer
       bbenoist.nix
       brettm12345.nixfmt-vscode
-      code-spell-checker
       eamodio.gitlens
       golang.go
       elixir-lsp.vscode-elixir-ls
@@ -109,7 +92,6 @@
       esbenp.prettier-vscode
       # ms-vscode.cpptools
       # c-cpp-runner
-      ms-vsliveshare.vsliveshare
       ms-vscode-remote.remote-ssh
       redhat.java
       vscodevim.vim
@@ -130,6 +112,7 @@
   userSettings = {
     "latex-workshop.kpsewhich.path" =
       "/etc/profiles/per-user/phv/bin/kpsewhich";
+    "git.path" = "/etc/profiles/per-user/phv/bin/git";
     "latex-workshop.latex.tools" = [{
       "name" = "latexmk";
       "command" = "latexmk";

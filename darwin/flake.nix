@@ -14,14 +14,22 @@
   };
 
   # add the inputs declared above to the argument attribute set
-  outputs = { self, nixpkgs, home-manager, darwin, neovim }: {
-    darwinConfigurations.gzp-mbp = darwin.lib.darwinSystem {
-      system = "aarch64-darwin"; # "x86_64-darwin" if you're using a pre M1 mac
+  outputs = { self, nixpkgs, home-manager, darwin, neovim }: let 
+     system = "aarch64-darwin"; # "x86_64-darwin" if you're using a pre M1 mac
+ nixpkgsConfig = {
+  config = {
+    allowUnfree = true;
+    allowUnsupportedSystem = true;
+  };};
+   in {
+    darwinConfigurations.mw-pprithv-GK4K = darwin.lib.darwinSystem {
+     inherit system;
       modules = [
         ./configuration.nix
         ./homebrew.nix
         home-manager.darwinModules.home-manager
-        {
+        { 
+nixpkgs = nixpkgsConfig;
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.phv = import ./home.nix;

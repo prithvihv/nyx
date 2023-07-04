@@ -29,6 +29,7 @@ in {
     [
       go-migrate
       nix-diff
+      git
 
       fd
       jq
@@ -45,6 +46,8 @@ in {
 
       pandoc
       tex
+
+      pass
     ] ++ [ git-crypt ] ++ golangTools.extraPkgs ++ nodeTools.extraPkgs
     ++ elixirTools.extraPkgs ++ haskellTools.extraPkgs;
 
