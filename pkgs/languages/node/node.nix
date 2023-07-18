@@ -1,4 +1,4 @@
-{ pkgs, Security }:
+{ pkgs, Security, includePrismaTools ? true }:
 let
   nodeEnv = pkgs.callPackage ./node-env.nix { nodejs = pkgs.nodejs-14_x; };
 
@@ -100,12 +100,13 @@ in {
      export PRISMA_FMT_BINARY="/nix/store/z6b2myc9bhgb94d3140hzww50d5y1csf-prisma-engines-4.2.1/bin/prisma-fmt"
   */
 
-  extraPkgs = with pkgs; [
-    nodejs
+  extraPkgs = with pkgs; let 
+      prismaTools = if includePrismaTools then [ prisma
+    prisma-engine] else  [];
+    in [
+    nodejs_latest
     yarn
     # prisma-engines 
     # nodePackages.prisma
-    prisma
-    prisma-engine
-  ];
+  ] ++ prismaTools ;
 }

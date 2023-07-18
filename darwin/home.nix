@@ -5,9 +5,11 @@ let
   nodeTools = import ../pkgs/languages/node/node.nix {
     inherit pkgs;
     Security = pkgs.darwin.apple_sdk.frameworks.Security;
+    includePrismaTools = false;
   };
   elixirTools = import ../pkgs/languages/elixir.nix { inherit pkgs; };
   haskellTools = import ../pkgs/languages/haskell.nix { inherit pkgs; };
+  gitConfig = import ../pkgs/git.nix { inherit pkgs; }; 
 
   tex = with pkgs;
     (texlive.combine {
@@ -20,7 +22,8 @@ let
   vsCodeConfig = import ../pkgs/vscode.nix { inherit gzpPrivateStuff pkgs; };
   fishConfig = import ../pkgs/fish.nix { inherit pkgs lib gzpPrivateStuff; };
 in {
-  home.stateVersion = "22.11";
+  home.stateVersion = "23.05";
+  # home.enableNixpkgsReleaseCheck = false;
   home.username = "phv";
   home.homeDirectory = "/Users/phv";
 
@@ -28,7 +31,9 @@ in {
   home.packages = with pkgs;
     [
       go-migrate
+      msgpack-tools
       nix-diff
+      git
 
       fd
       jq
@@ -45,6 +50,8 @@ in {
 
       pandoc
       tex
+
+      pass
     ] ++ [ git-crypt ] ++ golangTools.extraPkgs ++ nodeTools.extraPkgs
     ++ elixirTools.extraPkgs ++ haskellTools.extraPkgs;
 
@@ -58,6 +65,10 @@ in {
   programs.ssh = {
     enable = true;
     matchBlocks = { } // gzpPrivateStuff.gzp-ssh;
+  };
+  programs.git = gitConfig // {
+    userName = "prithvihv-wooga";
+    userEmail = "prithvi.virupaksha@wooga.net";
   };
 
   # Let Home Manager install and manage itself.
