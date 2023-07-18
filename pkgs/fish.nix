@@ -18,7 +18,7 @@ in {
       set __done_min_cmd_duration 3000
 
     ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
-  '' + lib.optionalString stdenv.isDarwin ''
+  '' + lib.optionalString pkgs.stdenv.isDarwin ''
     # incase you need to move the path up
     # fish_add_path -m /run/current-system/sw/bin
     # fish_add_path -m /etc/profiles/per-user/phv/bin/ 
