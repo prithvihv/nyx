@@ -50,6 +50,7 @@ let
         latexmk tlmgrbasics fontawesome;
     });
   # rofi-with-plugins = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
+  customPkgs = import ../pkgs/nixpkgs { inherit pkgs; };
 in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -191,7 +192,7 @@ in {
     ++ haskellTools.extraPkgs ++ clojureTools.extraPkgs ++ nodeTools.extraPkgs
     ++ elixirTools.extraPkgs ++ rustTools.extraPkgs
     # ++ solanaTools.tools
-    ++ polyBarConfig.extraPkgs;
+    ++ polyBarConfig.extraPkgs ++ customPkgs.all;
 
   programs.git = {
     enable = true;

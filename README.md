@@ -1,18 +1,11 @@
 ## Issues:
-- [X] move cron jobs to nix-store
-- [X] taffy bar has a memory leak: https://github.com/srid/nixos-config/issues/8 move to polybar
 - [ ] tmux resurrect continuum not restoring automatically 
 - [ ] learn and integrate tools to workflow:
     - [ ] ripgrep
     - [ ] fuzzy search
 - [ ] GC for nix
-- [ ] github p secrets
 - [X] i3 multi lock screen
 - [ ] toggling notifications
-- [ ] file manager broken
-- [X] remove krusader and dependencies
-- [ ] switch to i3 blocks
-- [ ] switch to [vitesse](https://marketplace.visualstudio.com/items?itemName=antfu.theme-vitesse&ssr=false#overview) color palette
 
 ## MacOS TODO:
 - [ ] commit nixos

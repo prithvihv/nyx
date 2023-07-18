@@ -9,7 +9,7 @@ let
   };
   elixirTools = import ../pkgs/languages/elixir.nix { inherit pkgs; };
   haskellTools = import ../pkgs/languages/haskell.nix { inherit pkgs; };
-  gitConfig = import ../pkgs/git.nix { inherit pkgs; }; 
+  gitConfig = import ../pkgs/git.nix { inherit pkgs; };
 
   tex = with pkgs;
     (texlive.combine {
@@ -21,6 +21,7 @@ let
   tmuxConfig = import ../pkgs/tmux.nix { inherit pkgs; };
   vsCodeConfig = import ../pkgs/vscode.nix { inherit gzpPrivateStuff pkgs; };
   fishConfig = import ../pkgs/fish.nix { inherit pkgs lib gzpPrivateStuff; };
+  customPkgs = import ../pkgs/nixpkgs { inherit pkgs; };
 in {
   home.stateVersion = "23.05";
   # home.enableNixpkgsReleaseCheck = false;
@@ -53,7 +54,7 @@ in {
 
       pass
     ] ++ [ git-crypt ] ++ golangTools.extraPkgs ++ nodeTools.extraPkgs
-    ++ elixirTools.extraPkgs ++ haskellTools.extraPkgs;
+    ++ elixirTools.extraPkgs ++ haskellTools.extraPkgs ++ customPkgs.all;
 
   programs.bash.enable = true;
   programs.zsh.enable = true;
