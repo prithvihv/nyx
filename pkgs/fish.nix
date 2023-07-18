@@ -18,10 +18,17 @@ in {
       set __done_min_cmd_duration 3000
 
     ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
-
-    fish_add_path -m /run/current-system/sw/bin
-    fish_add_path -m /etc/profiles/per-user/phv/bin/ 
-  '';
+  '' + lib.optionalString stdenv.isDarwin ''
+    # incase you need to move the path up
+    # fish_add_path -m /run/current-system/sw/bin
+    # fish_add_path -m /etc/profiles/per-user/phv/bin/ 
+    # need homebrew installs 
+    fish_add_path /opt/homebrew/bin
+  '' +
+    # wooga specific variables 
+    ''
+      export SBS_PROJECT_TOOLS_DOCKERLESS=true
+    '';
   # TODO: https://github.com/zx2c4/password-store/blob/master/src/completion/pass.fish-completion
 
   plugins = [

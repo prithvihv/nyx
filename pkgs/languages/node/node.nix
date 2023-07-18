@@ -104,7 +104,7 @@ in {
       prismaTools = if includePrismaTools then [ prisma
     prisma-engine] else  [];
     in [
-    nodejs
+    nodejs_latest
     yarn
     # prisma-engines 
     # nodePackages.prisma

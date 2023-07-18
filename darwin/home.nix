@@ -9,7 +9,7 @@ let
   };
   elixirTools = import ../pkgs/languages/elixir.nix { inherit pkgs; };
   haskellTools = import ../pkgs/languages/haskell.nix { inherit pkgs; };
-  gitConfig = import ../pkgs/git.nix { }; 
+  gitConfig = import ../pkgs/git.nix { inherit pkgs; }; 
 
   tex = with pkgs;
     (texlive.combine {
@@ -31,6 +31,7 @@ in {
   home.packages = with pkgs;
     [
       go-migrate
+      msgpack-tools
       nix-diff
       git
 

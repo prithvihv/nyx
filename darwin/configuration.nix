@@ -4,7 +4,6 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [ nixfmt ];
-
   # nixpkgs.config.allowUnsupportedSystem = true;
   # nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = pkg:
@@ -12,6 +11,7 @@
 
   environment.shells = [ pkgs.fish ];
 
+  services.postgresql.enable = true;
   users.users.phv = {
     name = "phv";
     home = "/Users/phv";
