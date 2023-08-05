@@ -13,6 +13,8 @@
     phv ALL=(ALL) NOPASSWD: ALL
   '';
 
+  programs.fish.enable = true;
+
   services.upower = {
     enable = true;
     percentageLow = 15;

@@ -25,6 +25,7 @@ let
   nodeTools = import ../../pkgs/languages/node/node.nix {
     inherit pkgs;
     Security = pkgs.hello; # this doesn't matter
+    includePrismaTools = false;
   };
   elixirTools = import ../../pkgs/languages/elixir.nix { inherit pkgs; };
   rustTools = import ../../pkgs/languages/rust.nix { inherit pkgs; };
@@ -50,7 +51,7 @@ let
         latexmk tlmgrbasics fontawesome;
     });
   # rofi-with-plugins = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
-  customPkgs = import ../pkgs/nixpkgs { inherit pkgs; };
+  customPkgs = import ../../pkgs/nixpkgs { inherit pkgs; };
 in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
