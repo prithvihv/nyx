@@ -1,6 +1,9 @@
 { pkgs, gzpPrivateStuff }: {
   enable = true;
   # package = pkgs.vscodium;
+
+  # if extensions stop working try this: https://github.com/nix-community/home-manager/issues/3507#issuecomment-1616803481
+
   extensions = with pkgs.vscode-extensions;
     let
       lib = pkgs.lib;
@@ -68,8 +71,25 @@
           license = licenses.mit;
         };
       };
-
+      vscode-test-adapter-converter = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "test-adapter-converter";
+          publisher = "ms-vscode";
+          version = "0.1.8";
+          sha256 = "sha256-ybb3Wud6MSVWEup9yNN4Y4f5lJRCL3kyrGbxB8SphDs=";
+        };
+        meta = with pkgs.lib; {
+          description =
+            "";
+          downloadPage =
+            "https://marketplace.visualstudio.com/items?itemName=ms-vscode.test-adapter-converter";
+          homepage = "no";
+          license = licenses.mit;
+        };
+      };
     in [
+      phoenixframework.phoenix
+      vscode-test-adapter-converter
       vscode-jest
       vscode-test-explorer
       bbenoist.nix
@@ -81,7 +101,6 @@
       prisma.prisma
       redhat.vscode-yaml
       esbenp.prettier-vscode
-      # vscodevim.vim
       WakaTime.vscode-wakatime
       dracula-theme.theme-dracula
       arrterian.nix-env-selector
@@ -89,7 +108,6 @@
       scalameta.metals
       arrterian.nix-env-selector
       pkief.material-icon-theme
-      esbenp.prettier-vscode
       # ms-vscode.cpptools
       # c-cpp-runner
       ms-vscode-remote.remote-ssh
@@ -108,6 +126,9 @@
       vitesse-theme
       code-stats
     ] ++ nixOsApps;
+
+  enableUpdateCheck = false;
+  enableExtensionUpdateCheck= false;
 
   userSettings = {
     "latex-workshop.kpsewhich.path" =
