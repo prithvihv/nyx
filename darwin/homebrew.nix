@@ -8,7 +8,6 @@
     casks = [ "gpg-suite" ] ++ [
       "vlc"
       "signal"
-      "visual-studio-code"
       "chromium"
       "spotify"
       # "alfred"

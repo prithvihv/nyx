@@ -11,9 +11,12 @@
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows =
       "nixpkgs"; # ask hm to use pinned nixpkgs
+
+    darwin.url = "github:lnl7/nix-darwin/master";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-21-11, home-manager, sops-nix }:
+  outputs = { self, nixpkgs, nixpkgs-21-11, home-manager, sops-nix, darwin }:
     let
       system = "x86_64-linux";
       insecurePakages = [
@@ -31,6 +34,30 @@
           gnupg = nixpkgs-21-11.legacyPackages.x86_64-linux.gnupg;
         });
     in {
+      darwinConfigurations.mw-pprithv-GK4K = let
+        system = "aarch64-darwin";
+        nixpkgsConfig = {
+          config = {
+            allowUnfree = true;
+            allowUnsupportedSystem = true;
+            permittedInsecurePackages = [ "nodejs-14.21.3" "openssl-1.1.1u" ];
+          };
+        };
+      in darwin.lib.darwinSystem {
+        inherit system;
+        modules = [
+          ./darwin/configuration.nix
+          ./darwin/homebrew.nix
+          home-manager.darwinModules.home-manager
+          {
+            nixpkgs = nixpkgsConfig;
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.phv = import ./darwin/home.nix;
+          }
+        ]; # will be important later
+      };
+
       nixosConfigurations = {
         dell-latitude-7390 = let
           pkgs = import nixpkgs {
