@@ -11,6 +11,7 @@
       "visual-studio-code"
       "chromium"
       "spotify"
+      # "alfred"
       "qtpass"
     ] ++ [
       # productivity

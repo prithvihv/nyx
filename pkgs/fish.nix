@@ -24,6 +24,7 @@ in {
     # fish_add_path -m /etc/profiles/per-user/phv/bin/ 
     # need homebrew installs 
     fish_add_path /opt/homebrew/bin
+    set -gx AWS_PROFILE wooga-sbs 
   '' +
     # wooga specific variables 
     ''
