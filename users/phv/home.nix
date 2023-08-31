@@ -37,6 +37,9 @@ let
     inherit gzpPrivateStuff;
     inherit pkgs;
   };
+  gitConfig = import ../../pkgs/git.nix {
+    inherit pkgs;
+  };
   configPassStore = "/home/phv/.password-store";
 
   # scripts
@@ -195,16 +198,7 @@ in {
     # ++ solanaTools.tools
     ++ polyBarConfig.extraPkgs ++ customPkgs.all;
 
-  programs.git = {
-    enable = true;
-    userName = "prithvihv";
-    userEmail = "hvprithvi09@gmail.com";
-    signing = {
-      key = "C14F829C5E50AF56";
-      # signByDefault = true;
-    };
-    extraConfig = { push = { autoSetupRemote = true; }; };
-  };
+  programs.git = gitConfig;
 
   services.dropbox = { enable = true; };
 
@@ -272,7 +266,8 @@ in {
 
   programs.ssh = {
     enable = true;
-    matchBlocks = { } // gzpPrivateStuff.gzp-ssh;
+    matchBlocks = {
+     } // gzpPrivateStuff.gzp-ssh;
   };
 
   programs.obs-studio.enable = true;

@@ -14,5 +14,6 @@ in {
   extraConfig = {
     push = { autoSetupRemote = true; };
     core = { excludesfile = "${global-gitignore}"; };
+    url = { "ssh://git@github" = { insteadOf = "https://github.com/"; }; };
   };
 }
