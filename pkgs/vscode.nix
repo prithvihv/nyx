@@ -176,6 +176,7 @@
       "<C-c>" = false;
       "<C-d>" = false;
       "<C-x>" = false;
+      "<C-p>" = false;
     };
     "editor.fontFamily" =
       "JetBrains Mono,  Iosevka, FuraCode Nerd Font, Material Icons";

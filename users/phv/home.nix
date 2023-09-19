@@ -37,9 +37,7 @@ let
     inherit gzpPrivateStuff;
     inherit pkgs;
   };
-  gitConfig = import ../../pkgs/git.nix {
-    inherit pkgs;
-  };
+  gitConfig = import ../../pkgs/git.nix { inherit pkgs; };
   configPassStore = "/home/phv/.password-store";
 
   # scripts
@@ -66,6 +64,36 @@ in {
   # service.polybar = {
   #   enable = true;
   # };
+
+  gtk = let common-extra-gtk = { gtk-application-prefer-dark-theme = 1; };
+  in {
+    enable = true;
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+    theme = {
+      name = "Flat-Remix-GTK-Blue-Darkest";
+      package = pkgs.flat-remix-gtk;
+    };
+    cursorTheme = {
+      package = pkgs.cinnamon.mint-cursor-themes;
+      # https://github.com/linuxmint/mint-cursor-themes/tree/master/usr/share/icons
+      # if you need to switch it up, use the above link
+      name = "Bibata-Modern-Classic";
+    };
+    font = { name = "Iosevka 13"; };
+    gtk3 = {
+      bookmarks = [
+        "file:///home/phv/code Code"
+      ];
+      extraConfig = common-extra-gtk;
+    };
+    # gtk2.extraConfig = common-extra-gtk;
+    gtk4.extraConfig = common-extra-gtk;
+  };
+
+  home.sessionVariables = { GTK_THEME = "Adwaita:dark"; };
 
   home.packages = with pkgs;
     [ gnumake nix-diff nixfmt any-nix-shell ] ++ [
@@ -100,7 +128,6 @@ in {
       git-crypt
 
       redis
-      datadog-agent
 
       # java stuff
       openjdk17
@@ -152,9 +179,6 @@ in {
       # lxqt.pcmanfm-qt
 
       gtk3
-      gnome3.adwaita-icon-theme
-      papirus-icon-theme
-
       # printer
       # canon-cups-ufr2
       gnomeExtensions.printers
@@ -181,8 +205,6 @@ in {
       postman
       lens
       jetbrains.datagrip
-      jetbrains.goland
-      # jetbrains.idea-ultimate
 
       # dual audio playback
       paprefs # pulse audio preference
@@ -227,8 +249,7 @@ in {
 
   programs.autorandr = xsessionPhv.autorandr;
 
-  # need to do a few more steps to get this working reference ##Random on README.md
-  programs.command-not-found = { enable = true; };
+  programs.nix-index = { enable = true; enableFishIntegration= true; };
 
   # explore stuff here https://www.freecodecamp.org/news/fzf-a-command-line-fuzzy-finder-missing-demo-a7de312403ff/
   # https://pragmaticpineapple.com/four-useful-fzf-tricks-for-your-terminal/
@@ -266,11 +287,11 @@ in {
 
   programs.ssh = {
     enable = true;
-    matchBlocks = {
-     } // gzpPrivateStuff.gzp-ssh;
+    matchBlocks = { } // gzpPrivateStuff.gzp-ssh;
   };
 
   programs.obs-studio.enable = true;
+  programs.bat.enable = true;
 
   programs.gpg = { enable = true; };
 
@@ -344,15 +365,6 @@ in {
       timeout = "00:00:20";
     };
   };
-  # not working
-  # gtk = {
-  #   enable = true;
-  #   theme = {
-  #     name = "Adwaita-dark";
-  #     package = pkgs.gnome.gnome-themes-extra;
-  #   };
-  # };
-  # env GTK_THEME=Adwaita:dark thunar
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

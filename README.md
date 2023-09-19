@@ -37,7 +37,6 @@ https://nixos.wiki/wiki/Scanners
 ## Random
 - https://www.reddit.com/r/programming/comments/q0oqai/what_is_wrong_with_geeksforgeeks_why_forcing_to/ <- add this to ublock origin
 - remember to `git add .`  before `nixos-rebuild`
-- To get `command-not-found` working, need to a channel and run update. https://discourse.nixos.org/t/command-not-found-unable-to-open-database/3807/7
 
 # Changelog
 All notable changes to this project will be documented in this file.

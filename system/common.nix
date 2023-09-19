@@ -138,4 +138,14 @@
   virtualisation.docker.enable = true;
 
   services.hardware.bolt.enable = true;
+
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+      "0 1 * * 1 phv ${pkgs.nix-index}/bin/nix-index"
+    ];
+  };
+
+  nix.settings.auto-optimise-store = true;
+  nix.gc.dates = "weekly";
 }
