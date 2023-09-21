@@ -4,7 +4,6 @@ let
   golangTools = import ../pkgs/languages/golang.nix { inherit lib pkgs; };
   nodeTools = import ../pkgs/languages/node/node.nix {
     inherit pkgs;
-    Security = pkgs.darwin.apple_sdk.frameworks.Security;
     includePrismaTools = false;
   };
   elixirTools = import ../pkgs/languages/elixir.nix { inherit pkgs; };

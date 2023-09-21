@@ -24,8 +24,7 @@ let
   clojureTools = import ../../pkgs/languages/clojure.nix { inherit pkgs; };
   nodeTools = import ../../pkgs/languages/node/node.nix {
     inherit pkgs;
-    Security = pkgs.hello; # this doesn't matter
-    includePrismaTools = false;
+    includePrismaTools = true;
   };
   elixirTools = import ../../pkgs/languages/elixir.nix { inherit pkgs; };
   rustTools = import ../../pkgs/languages/rust.nix { inherit pkgs; };
