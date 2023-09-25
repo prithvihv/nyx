@@ -16,4 +16,5 @@ in {
     core = { excludesfile = "${global-gitignore}"; };
     url = { "ssh://git@github" = { insteadOf = "https://github.com/"; }; };
   };
+  lfs.enable = true;
 }
