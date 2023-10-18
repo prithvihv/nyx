@@ -12,12 +12,12 @@ in {
     nvim-notify
     nvim-peekup
     nvim-scrollview
+    neoscroll-nvim
 
     # auto completes
     nvim-cmp
     cmp-nvim-lsp
     cmp-vsnip
-    vim-vsnip
 
     lspkind-nvim
 
@@ -26,9 +26,8 @@ in {
 
     dracula-vim
 
-    vim-nix
+    nix-develop-nvim
     vim-elixir
-    # alchemist
     vim-go
   ];
 

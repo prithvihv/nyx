@@ -180,7 +180,7 @@
     };
     "editor.fontFamily" =
       "JetBrains Mono,  Iosevka, FuraCode Nerd Font, Material Icons";
-    "editor.fontSize" = 12;
+    "editor.fontSize" = 11;
     "javascript.updateImportsOnFileMove.enabled" = "always";
     "diffEditor.ignoreTrimWhitespace" = false;
     "go.formatTool" = "goimports";

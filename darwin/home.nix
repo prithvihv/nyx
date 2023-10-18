@@ -9,6 +9,7 @@ let
   elixirTools = import ../pkgs/languages/elixir.nix { inherit pkgs; };
   haskellTools = import ../pkgs/languages/haskell.nix { inherit pkgs; };
   gitConfig = import ../pkgs/git.nix { inherit pkgs; };
+  vimConfig = import ../pkgs/vim.nix {inherit pkgs; };
 
   tex = with pkgs;
     (texlive.combine {
@@ -48,12 +49,19 @@ in {
       unp
       neovide
 
+      openjdk17
+
       pandoc
       tex
 
       pass
+      # gnused
+
+      # needed for asdf erlang
+      # openjdk17
+      # unixODBC
     ] ++ [ git-crypt ] ++ golangTools.extraPkgs ++ nodeTools.extraPkgs
-    ++ elixirTools.extraPkgs ++ haskellTools.extraPkgs ++ customPkgs.all;
+   ++ haskellTools.extraPkgs ++ customPkgs.all ++ elixirTools.extraPkgs;
 
   programs.bash.enable = true;
   programs.zsh.enable = true;
@@ -70,6 +78,7 @@ in {
     userName = "prithvihv-wooga";
     userEmail = "prithvi.virupaksha@wooga.net";
   };
+  programs.neovim = vimConfig;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

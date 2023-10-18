@@ -24,4 +24,4 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 set guifont=JetBrains\ Mono:h8
 " -- endif
 
-lua require('config')
+lua require('neoscroll').setup()
