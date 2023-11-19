@@ -13,7 +13,10 @@ in {
   userEmail = "hvprithvi09@gmail.com";
   extraConfig = {
     push = { autoSetupRemote = true; };
-    core = { excludesfile = "${global-gitignore}"; };
+    core = {
+      excludesfile = "${global-gitignore}";
+      editor = "vim";
+    };
     url = { "ssh://git@github" = { insteadOf = "https://github.com/"; }; };
   };
   lfs.enable = true;
