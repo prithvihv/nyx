@@ -71,22 +71,22 @@
           license = licenses.mit;
         };
       };
-      vscode-test-adapter-converter = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
-        mktplcRef = {
-          name = "test-adapter-converter";
-          publisher = "ms-vscode";
-          version = "0.1.8";
-          sha256 = "sha256-ybb3Wud6MSVWEup9yNN4Y4f5lJRCL3kyrGbxB8SphDs=";
+      vscode-test-adapter-converter =
+        pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+          mktplcRef = {
+            name = "test-adapter-converter";
+            publisher = "ms-vscode";
+            version = "0.1.8";
+            sha256 = "sha256-ybb3Wud6MSVWEup9yNN4Y4f5lJRCL3kyrGbxB8SphDs=";
+          };
+          meta = with pkgs.lib; {
+            description = "";
+            downloadPage =
+              "https://marketplace.visualstudio.com/items?itemName=ms-vscode.test-adapter-converter";
+            homepage = "no";
+            license = licenses.mit;
+          };
         };
-        meta = with pkgs.lib; {
-          description =
-            "";
-          downloadPage =
-            "https://marketplace.visualstudio.com/items?itemName=ms-vscode.test-adapter-converter";
-          homepage = "no";
-          license = licenses.mit;
-        };
-      };
     in [
       phoenixframework.phoenix
       vscode-test-adapter-converter
@@ -128,7 +128,7 @@
     ] ++ nixOsApps;
 
   enableUpdateCheck = false;
-  enableExtensionUpdateCheck= false;
+  enableExtensionUpdateCheck = false;
 
   userSettings = {
     "latex-workshop.kpsewhich.path" =
@@ -213,6 +213,8 @@
     "[dockercompose]" = {
       "editor.defaultFormatter" = "ms-azuretools.vscode-docker";
     };
+    "[elixir]" = { "editor.defaultFormatter" = "JakeBecker.elixir-ls"; };
+    "[css]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
     "json.schemas" = [ ];
     "go.toolsGopath" = "/etc/profiles/per-user/phv/bin/";
     "cSpell.userWords" = [

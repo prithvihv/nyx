@@ -52,10 +52,8 @@ let
     };
 in {
   extraPkgs = with pkgs; [
-    # go_1_17
-    # TODO: this broke in 22.11
     go
-    gcc
+    # gcc # issue with macOS, they use clang
     go-protobuf
     protobuf
     # protoc-gen-go

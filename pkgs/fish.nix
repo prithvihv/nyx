@@ -27,10 +27,14 @@ in {
     # need homebrew installs 
     fish_add_path /opt/homebrew/bin
     set -gx AWS_PROFILE wooga-sbs 
+    set -gx LDFLAGS "-L/opt/homebrew/opt/ncurses/lib"
+    set -gx CPPFLAGS "-I/opt/homebrew/opt/ncurses/include"
   '' +
     # wooga specific variables 
+    # TODO: default editor vim there's probably a better way to declare this
     ''
       export SBS_PROJECT_TOOLS_DOCKERLESS=true
+      export EDITOR=vim
     '';
   # TODO: https://github.com/zx2c4/password-store/blob/master/src/completion/pass.fish-completion
 
