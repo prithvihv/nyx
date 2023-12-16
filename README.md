@@ -1,4 +1,5 @@
 ## Issues:
+- [ ] when to auto hibernate? (for work-station atleast)
 - [ ] tmux resurrect continuum not restoring automatically 
 - [ ] learn and integrate tools to workflow:
     - [ ] ripgrep

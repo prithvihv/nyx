@@ -6,6 +6,7 @@ let
       .vscode
       *.ignorefile.*
     '';
+    executable = false;
   };
 in {
   enable = true;

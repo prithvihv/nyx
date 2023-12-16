@@ -38,7 +38,7 @@ import XMonad.Util.EZConfig (additionalKeys)
 -- terminal
 myTerminal = "alacritty"
 
-myGUILauncher = "rofi -show drun"
+myGUILauncher = "rofi -dpi -show drun"
 
 myAutorandrlauncher = "rofiAutorandr"
 

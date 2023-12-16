@@ -136,27 +136,24 @@ in {
         fixed-center = true;
         enable-ipc = true;
         monitor = "\${env:MONITOR:}";
-        # module-margin = 1;
-        padding = 1;
-        separator = "|";
+        separator = " | ";
 
         override-redirect = true;
         wm-restack = "xmonad"; # currently not supported
 
-        height = 19;
-        # height = "2%";
+        height = "2%";
         width = "100%";
         background = background;
         foreground = foreground;
         # radius = 0;
 
         locale = "en_US.UTF-8";
-        modules-right =
-          "cpu memory filesystem wireless volume battery date";
-        modules-center = "time";
+        modules-right = "cpu memory wireless volume battery date time";
         modules-left = "xmonad";
-        # tray-position = "\${env:MONITOR:}";
         tray-position = "\${env:POLY_TRAY:}";
+
+        dpi-x = 0;
+        dpi-y = 0;
       } // common;
 
       "global/wm" = {
@@ -171,8 +168,8 @@ in {
 
       "module/time" = {
         type = "internal/date";
-        time = "%H:%M:%S";
-        label = "%time%";
+        time = "%I:%M %p";
+        label = "%time% ";
 
         format-foreground = tertiary;
       };
@@ -180,31 +177,31 @@ in {
       "module/date" = {
         type = "internal/date";
         internal = 5;
-        date = "%A | %d.%m.%y";
+        time = "| %H:%M:%S";
+        date = "%d.%m.%y | %A";
 
-        format = " 🕓 <label> ";
+        format = "🕓 <label>";
         label = "%date%";
-        format-background = primary;
-        format-foreground = secondary;
+        # label = "%date% %time%";
+        # format-background = primary;
+        # format-foreground = tertiary;
       };
 
       "module/cpu" = {
         type = "internal/cpu";
-        # [module/cpu]
 
         # label = %{T2}%percentage:2%%%{T-}
         # label-background = ${colors.bg-alt}
         # label-foreground = ${colors.fg}
         # label-padding = 1
 
-        interval = "0.5";
+        interval = "1";
 
         format = "<label>";
         format-prefix = "%{T10}💻%{T-}";
         # format-prefix-padding = 1
         format-background = primary;
         format-foreground = secondary;
-        format-padding = 1;
 
         label = " %percentage%%";
       };
@@ -213,19 +210,19 @@ in {
 
         interval = 3;
 
-        format = "💾 <label>";
+        format = "<label>";
         format-background = primary;
         format-foreground = secondary;
         format-padding = 1;
 
-        label = "%gb_used% %gb_swap_free%";
+        label = "💾 %gb_used% / %gb_total% ";
       };
 
       # they dont have foreground color :/
       "module/filesystem" = {
         type = "internal/fs";
         mount-0 = "/";
-        # mount-1 = "/home";
+        mount-1 = "/home";
         label-mounted = "📁 %mountpoint% %free%";
 
         format-mounted = "<label-mounted>";

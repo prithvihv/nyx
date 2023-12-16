@@ -1,12 +1,14 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, config, lib, osConfig, ... }:
 
 let
+  nixosSystemBuild = osConfig.nixos-system-build;
   taffyConfig = import ../../pkgs/taffybar-phv/taffybar.nix { inherit pkgs; };
   dunstConfig = import ../../pkgs/dunst.nix { inherit pkgs; };
   polyBarConfig = import ../../pkgs/polybar/config.nix { inherit pkgs; };
   xsessionPhv = import ./xsession.nix {
     inherit pkgs;
     inherit lib;
+    inherit nixosSystemBuild;
     launchPolybar = polyBarConfig.launchPolybar;
   };
 
@@ -83,9 +85,7 @@ in {
     };
     font = { name = "Iosevka 13"; };
     gtk3 = {
-      bookmarks = [
-        "file:///home/phv/code Code"
-      ];
+      bookmarks = [ "file:///home/phv/code Code" ];
       extraConfig = common-extra-gtk;
     };
     # gtk2.extraConfig = common-extra-gtk;
@@ -96,6 +96,7 @@ in {
 
   home.packages = with pkgs;
     [ gnumake nix-diff nixfmt any-nix-shell ] ++ [
+
 
       # gui applications
       slack
@@ -132,6 +133,7 @@ in {
       openjdk17
       # gradle
 
+      # TODO: these don't work with dpi, need to switch to use command like initiation 
       rofimoji
       rofiBluetooth
     ] ++ [ # linux software terminal / cli / system
@@ -201,7 +203,7 @@ in {
       neovide
 
       # gui
-      postman
+      # postman # TODO: not working right now
       lens
       jetbrains.datagrip
 
@@ -248,7 +250,10 @@ in {
 
   programs.autorandr = xsessionPhv.autorandr;
 
-  programs.nix-index = { enable = true; enableFishIntegration= true; };
+  programs.nix-index = {
+    enable = true;
+    enableFishIntegration = true;
+  };
 
   # explore stuff here https://www.freecodecamp.org/news/fzf-a-command-line-fuzzy-finder-missing-demo-a7de312403ff/
   # https://pragmaticpineapple.com/four-useful-fzf-tricks-for-your-terminal/

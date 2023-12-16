@@ -2,13 +2,13 @@
   description = "configuration and workflows";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-21-11.url = "github:NixOS/nixpkgs/nixos-21.11-small";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     # neovim.url = "github:nix-community/neovim-nightly-overlay";
     # neovim.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager/release-23.05";
+    home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows =
       "nixpkgs"; # ask hm to use pinned nixpkgs
 
@@ -22,23 +22,29 @@
 
   };
 
-  outputs = { self, nixpkgs, nixpkgs-21-11, home-manager, sops-nix, darwin, elixir-extra }:
+  outputs = { self, nixpkgs, nixpkgs-21-11, home-manager, sops-nix, darwin
+    , elixir-extra }:
     let
       system = "x86_64-linux";
       insecurePakages = [
         "electron-9.4.4"
         "electron-13.6.9"
         "electron-12.2.3"
+        "electron-19.1.9"
         "electron-20.3.11"
+        "electron-25.9.0"
       ];
       lib = nixpkgs.lib;
       # to upgrade discord: https://github.com/NixOS/nixpkgs/commit/1f2b951a1f68ae56986aa3831f0889615aa7ebaf
       overlay-discord = import ./pkgs/discord/discord.nix;
-      overlay-signal = import ./pkgs/signal-desktop;
-      overlay-gnupg = (self: super:
-        with super; {
-          gnupg = nixpkgs-21-11.legacyPackages.x86_64-linux.gnupg;
-        });
+      linux-nixpkgs = import nixpkgs {
+        inherit system;
+        config = {
+          allowUnfree = true;
+          permittedInsecurePackages = insecurePakages;
+        };
+        overlays = [ overlay-discord elixir-extra.overlay ];
+      };
     in {
       darwinConfigurations.mw-pprithv-GK4K = let
         system = "aarch64-darwin";
@@ -61,32 +67,16 @@
             home-manager.useUserPackages = true;
             home-manager.users.phv = import ./darwin/home.nix;
           }
-        ]; # will be important later
+        ];
       };
 
       nixosConfigurations = {
-        dell-latitude-7390 = let
-          pkgs = import nixpkgs {
-            inherit system;
-            config = {
-              allowUnfree = true;
-              permittedInsecurePackages = insecurePakages;
-            };
-            overlays = [
-              overlay-discord
-              # overlay-signal
-              elixir-extra.overlay
-              #neovim.overlay
-            ];
-          };
+        work-station = let pkgs = linux-nixpkgs;
         in lib.nixosSystem {
           inherit system;
           inherit pkgs;
           modules = [
-            ./system/dell-latitude-7390/configuration.nix
-            # sops-nix.nixosModules.sops
-            #  solana-nix.packages.x86_64-linux.cargo-build-bpf
-            #  solana-nix.packages.x86_64-linux
+            ./system/work-station/configuration.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -96,14 +86,34 @@
           ];
         };
 
+        dell-latitude-7390 = let pkgs = linux-nixpkgs;
+        in lib.nixosSystem {
+          inherit system;
+          inherit pkgs;
+          modules = [
+            ./system/dell-latitude-7390/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.phv = import ./users/phv/home.nix;
+            }
+          ];
+        };
+
+        # TODO: deprecate nyx
         nyx = let
+          overlay-gnupg = (self: super:
+            with super; {
+              gnupg = nixpkgs-21-11.legacyPackages.x86_64-linux.gnupg;
+            });
           pkgs = import nixpkgs {
             inherit system;
             config = {
               allowUnfree = true;
               permittedInsecurePackages = insecurePakages;
             };
-            overlays = [ overlay-discord overlay-gnupg overlay-signal ];
+            overlays = [ overlay-discord overlay-gnupg ];
           };
         in lib.nixosSystem {
           inherit system;
@@ -111,8 +121,6 @@
           modules = [
             ./system/nyx/configuration.nix
             sops-nix.nixosModules.sops
-            #  solana-nix.packages.x86_64-linux.cargo-build-bpf
-            #  solana-nix.packages.x86_64-linux
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

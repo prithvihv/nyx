@@ -8,10 +8,7 @@
   time.timeZone = "Europe/Berlin";
 
   security.sudo.enable = true;
-  security.sudo.wheelNeedsPassword = true;
-  security.sudo.extraConfig = ''
-    phv ALL=(ALL) NOPASSWD: ALL
-  '';
+  security.sudo.wheelNeedsPassword = false;
 
   programs.fish.enable = true;
 
@@ -43,28 +40,23 @@
 
   # firefox touch screen support
   # chromium is way better
+  # move this dell-latitude
   environment.sessionVariables = { MOZ_USE_XINPUT2 = "1"; };
 
   fonts = {
-    fonts = with pkgs; [
-      # emacs-all-the-icons-fonts
-      hasklig
+    packages = with pkgs; [
+      # consider looking into: https://github.com/cideM/dotfiles/blob/1dc395a83846ccfe2afd59f10706050863a5eb13/hosts/nixos/home.nix#L41-L46
       iosevka
-      source-code-pro
-
-      # noto-fonts
-      nerdfonts
-      # ubuntu_font_family
-      unifont
       jetbrains-mono
-      font-awesome
-      font-awesome_5
+
+      # emojis
+      openmoji-color
+      nerdfonts
+      unifont # this allows emojis to work in vscode for somereason
+
+      # Additional
       cantarell-fonts
-      siji
       dejavu_fonts
-      # material-icons <- this is google
-      material-design-icons
-      cantarell-fonts
 
       # japanese
       ipafont
@@ -73,26 +65,23 @@
     fontconfig = {
       enable = true;
 
-      # might need to enable this to make it look nicer
-      # ultimate.enable = true;
-
-      # might need to set up default fonts
-      # defaultFonts = {};
+      # https://fonts.google.com/noto/use#how-are-noto-fonts-organized
     };
   };
 
   # Enable the GNOME Desktop Environment.
   services.xserver = {
     enable = true;
-    # dpi = 196;
     # videoDrivers = [ "nvidia" ];
     libinput = {
       enable = true;
       touchpad.naturalScrolling = true;
     };
+    # desktopManager.gnome.enable = true;
     displayManager = {
       defaultSession = "xsession";
-      lightdm.enable = true;
+      # lightdm.enable = true;
+      gdm.enable = true;
       session = [{
         manage = "desktop";
         name = "xsession";
@@ -114,9 +103,21 @@
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio = {
+
+  # Enable sound with pipewire.
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
     enable = true;
-    package = pkgs.pulseaudioFull;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+
+    # use the example session manager (no others are packaged yet so this is enabled by default,
+    # no need to redefine it in your config for now)
+    #media-session.enable = true;
   };
 
   # bluetooth
@@ -141,9 +142,7 @@
 
   services.cron = {
     enable = true;
-    systemCronJobs = [
-      "0 1 * * 1 phv ${pkgs.nix-index}/bin/nix-index"
-    ];
+    systemCronJobs = [ "0 1 * * 1 phv ${pkgs.nix-index}/bin/nix-index" ];
   };
 
   nix.settings.auto-optimise-store = true;

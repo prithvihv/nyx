@@ -1,7 +1,8 @@
-{ pkgs, lib, launchPolybar }:
+{ pkgs, lib, launchPolybar, nixosSystemBuild }:
 let
   xmonadPhv = import ../../pkgs/xmonad-phv/default.nix { inherit pkgs; };
   wallpaperStr = lib.readFile (pkgs.callPackage ./scripts/wallpaper.nix { });
+  builds = import ../../system/builds.nix;
 
   launchPolybarStr = lib.readFile "${launchPolybar}/bin/launchPolybar";
 
@@ -9,6 +10,7 @@ let
     layout=$(${pkgs.autorandr}/bin/autorandr | rofi -dmenu -p "Layout")
     ${pkgs.autorandr}/bin/autorandr --load $layout
   '';
+  isWorkStation = nixosSystemBuild == builds.work-station;
   # TODO: on switching need to change DPI
   # https://blog.summercat.com/configuring-mixed-dpi-monitors-with-xrandr.html
   # Graphics card is configured can consider using 4k now
@@ -16,8 +18,12 @@ in {
   # to fill this part
   # use autorandr --config
   # and autorandr --fingerprint
+
   autorandr = let
-    fingerprint = {
+    fingerprint = if isWorkStation then {
+      DP-3 =
+        "00ffffffffffff001e6d077719870700081f0104b53c22789e3e31ae5047ac270c50542108007140818081c0a9c0d1c08100010101014dd000a0f0703e803020650c58542100001a286800a0f0703e800890650c58542100001a000000fd00383d1e8738000a202020202020000000fc004c472048445220344b0a20202001be02031c7144900403012309070783010000e305c000e6060501605550023a801871382d40582c450058542100001e565e00a0a0a029503020350058542100001a0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001e";
+    } else {
       eDP-1 =
         "00ffffffffffff0030e4480500000000001a0104a51d1178ea0c35a251469d270c505400000001010101010101010101010101010101293680a070381f403020350026a51000001a1e2480a070381f403020350026a51000001a000000fe004c4720446973706c61790a2020000000fe004c503133335746352d535044320056";
       HDMI-1 =
@@ -80,12 +86,35 @@ in {
           eDP-1.enable = false;
         };
       };
+
+      "main_work_station" = {
+        inherit fingerprint;
+        config = {
+          DP-3 = _4kScreen // {
+            rotate = "normal";
+            crtc = 0;
+            mode = "3840x2160";
+            dpi = 192;
+            enable = true;
+          };
+          eDP-1.enable = false;
+          HDMI-1.enable = false;
+        };
+      };
     };
   };
 
   xsession = {
     enable = true;
-    initExtra = ''
+    initExtra = let
+      extra = (if isWorkStation then ''
+        ${pkgs.xorg.xrandr}/bin/xrandr --output DP-3 --dpi 192
+
+        export QT_AUTO_SCREEN_SCALE_FACTOR=1
+        export QT_ENABLE_HIGHDPI_SCALING=1
+      '' else
+        "");
+    in extra + ''
       ${wallpaperStr}
       ${pkgs.volctl}/bin/volctl & disown
       ${launchPolybarStr}
@@ -99,12 +128,6 @@ in {
       go env -w GOPRIVATE=github.com/gamezop
     '';
     windowManager.command = "${xmonadPhv}/bin/xmonad-x86_64-linux";
-
-    # xmonad = {
-    #     enable  = true;
-    #     enableContribAndExtras = true;
-    #     config  = xmonadPhv.xmonadHs; 
-    # };
   };
 
   extraPkgs = with pkgs; [
@@ -112,7 +135,7 @@ in {
     rofi
     clipmenu
     xclip
-    pinentry_qt
+    pinentry-qt
     feh
     lf
     libnotify
