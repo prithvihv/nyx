@@ -15,6 +15,7 @@ in {
     in [
       nodejs_latest
       yarn
+      # openssl
       # nodePackages.prisma
     ] ++ prismaTools;
 }

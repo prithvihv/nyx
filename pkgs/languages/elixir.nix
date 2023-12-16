@@ -6,5 +6,9 @@
       beamPackages.hex
 
       asdf
-    ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [ inotify-tools ];
+    ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [ 
+      inotify-tools
+
+      livebook
+    ];
 }

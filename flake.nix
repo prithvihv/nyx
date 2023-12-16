@@ -12,11 +12,17 @@
     home-manager.inputs.nixpkgs.follows =
       "nixpkgs"; # ask hm to use pinned nixpkgs
 
+    # darwin stuff
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    # extra
+    elixir-extra.url = "github:hauleth/nix-elixir/master";
+    elixir-extra.inputs.nixpkgs.follows = "nixpkgs";
+
   };
 
-  outputs = { self, nixpkgs, nixpkgs-21-11, home-manager, sops-nix, darwin }:
+  outputs = { self, nixpkgs, nixpkgs-21-11, home-manager, sops-nix, darwin, elixir-extra }:
     let
       system = "x86_64-linux";
       insecurePakages = [
@@ -68,7 +74,8 @@
             };
             overlays = [
               overlay-discord
-              overlay-signal
+              # overlay-signal
+              elixir-extra.overlay
               #neovim.overlay
             ];
           };
