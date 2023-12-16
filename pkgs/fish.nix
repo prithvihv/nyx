@@ -80,9 +80,9 @@ in {
 
     "lines-count" = "git ls-files | xargs cat | wc -l";
 
-    "l" = "${pkgs.exa}/bin/exa";
-    "ll" = "${pkgs.exa}/bin/exa -l";
-    "ls" = "l";
+    "l" = "${pkgs.eza}/bin/eza -l";
+    "ll" = "${pkgs.eza}/bin/eza -l";
+    "ls" = "ll";
 
     "gz-vpn_on" = "vpn-action gzp-dev start";
     "gz-vpn_off" = "vpn-action gzp-dev stop";
