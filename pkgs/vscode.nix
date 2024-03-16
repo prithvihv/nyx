@@ -11,8 +11,8 @@
         mktplcRef = {
           name = "theme-vitesse";
           publisher = "antfu";
-          version = "0.6.4";
-          sha256 = "sha256-6nIzHJsLsIG3O6p97Q+YdDKxHj7r+pEwiq0UbJ/vlf4=";
+          version = "0.7.6";
+          sha256 = "sha256-HNNUltGIgxKRjMMDm3yRzR/sQk/0Tl3RsT9jreWwjJA=";
         };
         meta = with pkgs.lib; {
           description = "Vitesse theme for VS Code";
@@ -53,6 +53,20 @@
           license = licenses.mit;
         };
       };
+      vscode-one-dark-pro = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "material-theme";
+          publisher = "zhuangtongfa";
+          version = "3.17.0";
+          sha256 = "sha256-UZK4ZWTnp4G9ue/GfD6kUw+l50C5ms61aZiXqpYjzr8=";
+        };
+        meta = with pkgs.lib; {
+          description = "";
+          downloadPage = "";
+          homepage = "no";
+          license = licenses.mit;
+        };
+      };
       nixOsApps =
         pkgs.lib.optionals pkgs.stdenv.isLinux [ ms-vsliveshare.vsliveshare ];
       vscode-test-explorer = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
@@ -87,7 +101,24 @@
             license = licenses.mit;
           };
         };
+      vscode-elixir-mix-formatter =
+        pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+          mktplcRef = {
+            name = "vscode-elixir-mix-formatter";
+            publisher = "animus-coop";
+            version = "1.0.1";
+            sha256 = "sha256-wAAU70zVJVNa7boIhniOY4nHBTXSGfRuB5kGtP7NZ/M=";
+          };
+          meta = with pkgs.lib; {
+            description = "";
+            downloadPage =
+              "https://marketplace.visualstudio.com/items?itemName=animus-coop.vscode-elixir-mix-formatter";
+            homepage = "no";
+            license = licenses.mit;
+          };
+        };
     in [
+      hashicorp.terraform
       phoenixframework.phoenix
       vscode-test-adapter-converter
       vscode-jest
@@ -124,7 +155,9 @@
       foxundermoon.shell-format
 
       vitesse-theme
+      vscode-one-dark-pro
       code-stats
+      vscode-elixir-mix-formatter
     ] ++ nixOsApps;
 
   enableUpdateCheck = false;
@@ -155,7 +188,8 @@
     };
     "go.coverOnSingleTest" = true;
 
-    "workbench.colorTheme" = "Vitesse Dark";
+    "workbench.colorTheme" = "One Dark Pro Darker";
+    # "workbench.colorTheme" = "Vitesse Light";
     # "workbench.colorTheme" = "Dracula";
     "workbench.editor.enablePreview" = false;
     "vetur.format.defaultFormatterOptions" = {
@@ -165,7 +199,7 @@
         "wrapAttributes" = false;
       };
     };
-    "workbench.sideBar.location" = "right";
+    "workbench.sideBar.location" = "left";
     "editor.lineNumbers" = "relative";
     "editor.fontLigatures" = true;
     "vim.handleKeys" = {
@@ -178,6 +212,7 @@
       "<C-x>" = false;
       "<C-p>" = false;
     };
+
     "editor.fontFamily" =
       "JetBrains Mono,  Iosevka, FuraCode Nerd Font, Material Icons";
     "editor.fontSize" = 11;
@@ -208,12 +243,17 @@
       "editor.formatOnPaste" = true;
     };
     "[typescript]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
+    "[typescriptreact]" = {
+      "editor.defaultFormatter" = "esbenp.prettier-vscode";
+    };
     "[jsonc]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
     "[nix]" = { "editor.defaultFormatter" = "brettm12345.nixfmt-vscode"; };
     "[dockercompose]" = {
       "editor.defaultFormatter" = "ms-azuretools.vscode-docker";
     };
-    "[elixir]" = { "editor.defaultFormatter" = "JakeBecker.elixir-ls"; };
+    "[elixir]" = {
+      "editor.defaultFormatter" = "animus-coop.vscode-elixir-mix-formatter";
+    };
     "[css]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
     "json.schemas" = [ ];
     "go.toolsGopath" = "/etc/profiles/per-user/phv/bin/";
@@ -319,5 +359,7 @@
       path = "${pkgs.openjdk17}/lib/openjdk";
       default = true;
     }];
+
+    "gitlens.ai.experimental.provider" = "gpt-4-1106-preview";
   };
 }
