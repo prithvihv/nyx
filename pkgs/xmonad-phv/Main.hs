@@ -44,7 +44,8 @@ myAutorandrlauncher = "rofiAutorandr"
 
 myToggleStatusBar = "togglePolybar"
 
-myPasswordLauncher = "clipctl disable && rofi-pass &&  clipctl enable"
+myPasswordLauncher = "clipctl disable && rofi-pass && clipctl enable"
+
 myBlueToothLauncher = "rofi-bluetooth.sh"
 
 myEmojiLauncher = "rofimoji"
