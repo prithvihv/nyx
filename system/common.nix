@@ -72,10 +72,14 @@
   # Enable the GNOME Desktop Environment.
   services.xserver = {
     enable = true;
+    exportConfiguration = false;
     # videoDrivers = [ "nvidia" ];
     libinput = {
       enable = true;
       touchpad.naturalScrolling = true;
+      # mouse config does not work :/
+      mouse = { naturalScrolling = true; };
+      # mouse.naturalScrolling = true;
     };
     # desktopManager.gnome.enable = true;
     displayManager = {
