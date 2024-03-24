@@ -2,7 +2,6 @@
 
 let
   nixosSystemBuild = osConfig.nixos-system-build;
-  taffyConfig = import ../../pkgs/taffybar-phv/taffybar.nix { inherit pkgs; };
   dunstConfig = import ../../pkgs/dunst.nix { inherit pkgs; };
   polyBarConfig = import ../../pkgs/polybar/config.nix { inherit pkgs; };
   xsessionPhv = import ./xsession.nix {
@@ -59,12 +58,6 @@ in {
   # paths it should manage.
   home.username = "phv";
   home.homeDirectory = "/home/phv";
-
-  # FIXME: memory leak :/
-  #  services.taffybar = taffyConfig;
-  # service.polybar = {
-  #   enable = true;
-  # };
 
   gtk = let common-extra-gtk = { gtk-application-prefer-dark-theme = 1; };
   in {
