@@ -28,7 +28,6 @@ in {
   home.username = "phv";
   home.homeDirectory = "/Users/phv";
 
-  # TODO: this is not working
   home.packages = with pkgs;
     [
       go-migrate
