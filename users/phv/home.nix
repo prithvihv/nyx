@@ -91,12 +91,20 @@ in {
     # gtk2.extraConfig = common-extra-gtk;
     gtk4.extraConfig = common-extra-gtk;
   };
+  home.pointerCursor = {
+    name = "Bibata-Modern-Classic";
+    package = pkgs.cinnamon.mint-cursor-themes;
+    size = 42;
+    x11 = {
+      enable = true;
+      defaultCursor = "Bibata-Modern-Classic";
+    };
+  };
 
   home.sessionVariables = { GTK_THEME = "Adwaita:dark"; };
 
   home.packages = with pkgs;
     [ gnumake nix-diff nixfmt any-nix-shell ] ++ [
-
 
       # gui applications
       slack
