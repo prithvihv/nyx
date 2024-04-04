@@ -35,15 +35,13 @@
         "electron-25.9.0"
       ];
       lib = nixpkgs.lib;
-      # to upgrade discord: https://github.com/NixOS/nixpkgs/commit/1f2b951a1f68ae56986aa3831f0889615aa7ebaf
-      overlay-discord = import ./pkgs/discord/discord.nix;
       linux-nixpkgs = import nixpkgs {
         inherit system;
         config = {
           allowUnfree = true;
           permittedInsecurePackages = insecurePakages;
         };
-        overlays = [ overlay-discord elixir-extra.overlay ];
+        overlays = [ elixir-extra.overlay ];
       };
     in {
       darwinConfigurations.mw-pprithv-GK4K = let
@@ -113,7 +111,7 @@
               allowUnfree = true;
               permittedInsecurePackages = insecurePakages;
             };
-            overlays = [ overlay-discord overlay-gnupg ];
+            overlays = [ overlay-gnupg ];
           };
         in lib.nixosSystem {
           inherit system;
