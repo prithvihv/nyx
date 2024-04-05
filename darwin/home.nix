@@ -46,7 +46,6 @@ in {
       awscli2
       wakatime
       unp
-      neovide
 
       openjdk17
 
@@ -62,7 +61,7 @@ in {
     ] ++ [ git-crypt ] ++ golangTools.extraPkgs ++ nodeTools.extraPkgs
    ++ haskellTools.extraPkgs ++ customPkgs.all ++ elixirTools.extraPkgs;
 
-  programs.bash.enable = true;
+  programs.bash.enable = false;
   programs.zsh.enable = true;
 
   programs.alacritty = alacrittyConfig;
