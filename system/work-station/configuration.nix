@@ -15,6 +15,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  services.mullvad-vpn.enable = true;
+  services.mullvad-vpn.package = pkgs.mullvad-vpn;
+
   networking.hostName = "work-station"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -42,7 +45,6 @@
   #   LC_TELEPHONE = "de_DE.UTF-8";
   #   LC_TIME = "de_DE.UTF-8";
   # };
-
 
   # Configure keymap in X11
   # services.xserver = {
