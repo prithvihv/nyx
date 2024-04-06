@@ -1,17 +1,11 @@
 ## Issues:
+- [ ] after unlocking from lock screen / hibernation keyboard stops working. Only Mouse is working.
 - [ ] when to auto hibernate? (for work-station atleast)
 - [ ] tmux resurrect continuum not restoring automatically 
-- [ ] learn and integrate tools to workflow:
-    - [ ] ripgrep
-    - [ ] fuzzy search
-- [ ] GC for nix
+- [X] GC for nix
 - [X] i3 multi lock screen
 - [ ] toggling notifications
 
-## MacOS TODO:
-- [ ] commit nixos
-- [ ] setup SSH
-- [ ] sign in Gamezop 
 
 ## Docs management linux
 - use convert to convert images into pdfs
@@ -28,8 +22,6 @@ https://gist.github.com/matthewbauer/68775d50d371eafb0de41a49f81f9cca
 - run `make editSopsSecret` with secrets in env
 - need to add key in configuration.nix
 
-## Gamezop
-- `vpn-action gzp-dev <start/stop>` connects and disconnects vpn, with DNS
 
 ## Scanner
 https://nixos.wiki/wiki/Scanners
@@ -37,48 +29,6 @@ https://nixos.wiki/wiki/Scanners
 
 ## Random
 - https://www.reddit.com/r/programming/comments/q0oqai/what_is_wrong_with_geeksforgeeks_why_forcing_to/ <- add this to ublock origin
-- remember to `git add .`  before `nixos-rebuild`
-
-# Changelog
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## Unreleased
-### Added for new features.
-### Changed for changes in existing functionality.
-### Deprecated for soon-to-be removed features.
-### Removed for now removed features.
-### Fixed for any bug fixes.
-### Security in case of vulnerabilities.
-
-
-## [phv3] - 2022-08-13
-### Added
-- nvidia drivers / steam
-## [phv2] - 2022-01-23
-### Added for new features.
-- autorandr setup
-
-## [phv1] - 2022-01-22
-### Added for new features.
-- polyBar 
-- ALOT of fonts
-- xmonad log push on bus
-### Changed
-- dracula for rofi
-
-## [phv] - unknown
-
-
-## TODO: 
-- deprecate SOPs for git crypt
-    moved `~/.config/sops/age/keys.txt` need to clean up file on ~/.keybox
-- record all VSCODE plugins properly
-
-
-- fzf: https://andrew-quinn.me/fzf/
 
 
 ### LUKS:
@@ -96,21 +46,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 https://github.com/drduh/YubiKey-Guide#nixos
 
 
-### Minor things to keep in mind when buying next used laptop:
-1. home and end keys and their locations, they are located at the top for some keyboard and are not remapable to fn + arrow keys. You can use `xev` to test this.
 
-udo tar -czf ./backup2.tar.gz --exclude=./backup2.tar.gz --exclude=./backup.tar.
-gz --exclude=/dev --exclude=/mnt --exclude=/proc --exclude=/sys --exclude=/tmp --exclude=/lost+found --exclude=/nix --exclude=/
-var/lib/docker --exclude=/var/lib/postgresql --exclude=/swapfile --exclude=/nix --exclude=/home/phv/.cache --exclude=/hom
-e/phv/.stack --exclude=/home/phv/.cabal --exclude=/home/phv/.minikube --exclude=/home/phv/.npm --exclud
-e=/home/phv/.pnpm-store --exclude=/home/phv/.mozilla --exclude=/home/phv/.ivy2 --exclude=/home/phv/.sbt
- --exclude=/home/phv/.rustup --exclude=/home/phv/.nvm /
 
-rm -rf /home/phv/.cabal /home/phv/.minikube /home/phv/.npm /home/phv/.pnpm-store /home/phv/.ivy2 /home/phv/.sbt /home/phv/.rustup /home/phv/go /home/phv/code
 
-## darwin TODO:
-
-configure automator something like: https://github.com/MatthewWest/pass-alfred#readme
 
 ## General notes on darwin:
 -  need to install homebrew, gpg suite manually

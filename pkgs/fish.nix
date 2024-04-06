@@ -9,7 +9,6 @@ in {
   functions = {
     gitignore = "curl -sL https://www.gitignore.io/api/$argv";
     pux = "${pkgs.tmux}/bin/tmux new-session -A -s (pwd).tmux";
-    vpn-action = "sudo systemctl $argv[2] wg-quick-$argv[1].service";
   };
 
   shellInit = ''
