@@ -15,7 +15,6 @@ let
   fishConfig = import ../../pkgs/fish.nix {
     inherit pkgs;
     inherit lib;
-    inherit gzpPrivateStuff;
   };
   tmuxConfig = import ../../pkgs/tmux.nix { inherit pkgs; };
   vimConfig = import ../../pkgs/vim.nix { inherit pkgs; };
@@ -34,8 +33,8 @@ let
   # configs
   gzpPrivateStuff = import ../../priv/gzp-stuff.nix { inherit lib; };
   vsCodeConfig = import ../../pkgs/vscode.nix {
-    inherit gzpPrivateStuff;
     inherit pkgs;
+    inherit gzpPrivateStuff;
   };
   gitConfig = import ../../pkgs/git.nix { inherit pkgs; };
   configPassStore = "/home/phv/.password-store";
@@ -292,7 +291,7 @@ in {
 
   programs.ssh = {
     enable = true;
-    matchBlocks = { } // gzpPrivateStuff.gzp-ssh;
+    matchBlocks = { };
   };
 
   programs.obs-studio.enable = true;

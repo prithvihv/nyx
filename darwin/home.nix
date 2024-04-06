@@ -9,7 +9,7 @@ let
   elixirTools = import ../pkgs/languages/elixir.nix { inherit pkgs; };
   haskellTools = import ../pkgs/languages/haskell.nix { inherit pkgs; };
   gitConfig = import ../pkgs/git.nix { inherit pkgs; };
-  vimConfig = import ../pkgs/vim.nix {inherit pkgs; };
+  vimConfig = import ../pkgs/vim.nix { inherit pkgs; };
 
   tex = with pkgs;
     (texlive.combine {
@@ -20,7 +20,7 @@ let
   alacrittyConfig = import ../pkgs/alacritty.nix { };
   tmuxConfig = import ../pkgs/tmux.nix { inherit pkgs; };
   vsCodeConfig = import ../pkgs/vscode.nix { inherit gzpPrivateStuff pkgs; };
-  fishConfig = import ../pkgs/fish.nix { inherit pkgs lib gzpPrivateStuff; };
+  fishConfig = import ../pkgs/fish.nix { inherit pkgs lib; };
   customPkgs = import ../pkgs/nixpkgs { inherit pkgs; };
 in {
   home.stateVersion = "23.05";
@@ -59,7 +59,7 @@ in {
       # openjdk17
       # unixODBC
     ] ++ [ git-crypt ] ++ golangTools.extraPkgs ++ nodeTools.extraPkgs
-   ++ haskellTools.extraPkgs ++ customPkgs.all ++ elixirTools.extraPkgs;
+    ++ haskellTools.extraPkgs ++ customPkgs.all ++ elixirTools.extraPkgs;
 
   programs.bash.enable = false;
   programs.zsh.enable = true;
@@ -70,7 +70,7 @@ in {
   programs.fish = fishConfig;
   programs.ssh = {
     enable = true;
-    matchBlocks = { } // gzpPrivateStuff.gzp-ssh;
+    matchBlocks = { };
   };
   programs.git = gitConfig // {
     userName = "prithvihv-wooga";

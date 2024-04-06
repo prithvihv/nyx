@@ -1,4 +1,4 @@
-{ pkgs, lib, gzpPrivateStuff }:
+{ pkgs, lib }:
 let
   buildSshCmdProxy = { name, ip }: {
     "gz-${name}" =
@@ -75,9 +75,6 @@ in {
   shellAliases = {
     "..." = "cd ../..";
     "db-local" = "psql -U postgres";
-    "db-dev-priv" = ''psql "${gzpPrivateStuff.gzp-dev-psql.urlPrivate}"'';
-    "db-dev-public" = ''psql "${gzpPrivateStuff.gzp-dev-psql.urlPublic}"'';
-
     "lines-count" = "git ls-files | xargs cat | wc -l";
 
     "l" = "${pkgs.eza}/bin/eza -l";
@@ -86,13 +83,9 @@ in {
 
     "gz-vpn_on" = "vpn-action gzp-dev start";
     "gz-vpn_off" = "vpn-action gzp-dev stop";
-  } // lib.foldl' lib.mergeAttrs { }
-    (builtins.map buildSshCmdProxy gzpPrivateStuff.gzp-bastion2machines)
-    // lib.attrsets.optionalAttrs pkgs.stdenv.isLinux {
-      # linux
-      "lx-battery" =
-        "${pkgs.upower}/bin/upower -i /org/freedesktop/UPower/devices/battery_BAT0";
-    };
-
-  # // lib.foldl' lib.mergeAttrs { } (builtins.map buildSshCmdProxy gzpPrivateStuff.gzp-bastion2machines) ;
+  } // lib.attrsets.optionalAttrs pkgs.stdenv.isLinux {
+    # linux
+    "lx-battery" =
+      "${pkgs.upower}/bin/upower -i /org/freedesktop/UPower/devices/battery_BAT0";
+  };
 }
