@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }:
 let
-  gzpPrivateStuff = import ../priv/gzp-stuff.nix { inherit lib; };
   golangTools = import ../pkgs/languages/golang.nix { inherit lib pkgs; };
   nodeTools = import ../pkgs/languages/node/node.nix {
     inherit pkgs;
@@ -19,7 +18,7 @@ let
     });
   alacrittyConfig = import ../pkgs/alacritty.nix { };
   tmuxConfig = import ../pkgs/tmux.nix { inherit pkgs; };
-  vsCodeConfig = import ../pkgs/vscode.nix { inherit gzpPrivateStuff pkgs; };
+  vsCodeConfig = import ../pkgs/vscode.nix { inherit pkgs; };
   fishConfig = import ../pkgs/fish.nix { inherit pkgs lib; };
   customPkgs = import ../pkgs/nixpkgs { inherit pkgs; };
 in {

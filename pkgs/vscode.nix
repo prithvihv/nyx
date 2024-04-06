@@ -1,4 +1,6 @@
-{ pkgs, gzpPrivateStuff }: {
+{ pkgs }:
+let priv = import ../priv/priv.nix { };
+in {
   enable = true;
   # package = pkgs.vscodium;
 
@@ -350,7 +352,7 @@
     "java.jdt.ls.java.home" = "${pkgs.openjdk17}/lib/openjdk";
     # "haskell.serverExecutablePath" = "${pkgs.haskell-language-server}/";
 
-    "codestats.apikey" = gzpPrivateStuff.code-stat-skadi-api;
+    "codestats.apikey" = priv.code-stat-skadi-api;
     "codestats.apiurl" = "https://codestats.net/api/";
     "codestats.username" = "phv";
 

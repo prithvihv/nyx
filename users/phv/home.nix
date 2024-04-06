@@ -31,11 +31,7 @@ let
   solanaTools = pkgs.callPackage ../../pkgs/blockchain/solana.nix { };
 
   # configs
-  gzpPrivateStuff = import ../../priv/gzp-stuff.nix { inherit lib; };
-  vsCodeConfig = import ../../pkgs/vscode.nix {
-    inherit pkgs;
-    inherit gzpPrivateStuff;
-  };
+  vsCodeConfig = import ../../pkgs/vscode.nix { inherit pkgs; };
   gitConfig = import ../../pkgs/git.nix { inherit pkgs; };
   configPassStore = "/home/phv/.password-store";
 
