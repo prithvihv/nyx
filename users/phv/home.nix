@@ -100,7 +100,6 @@ in {
       vlc
       logseq
       gimp
-      authy
       calibre
       okular
       spotify
@@ -132,6 +131,8 @@ in {
       # TODO: these don't work with dpi, need to switch to use command like initiation 
       rofimoji
       rofiBluetooth
+
+      android-file-transfer
     ] ++ [ # linux software terminal / cli / system
       fd
       jq
@@ -144,7 +145,6 @@ in {
       inetutils # telnet
       cryptsetup # LUKS
       hdparm # set drive parameters
-      etcher # make bootable pendrive
       parted
       upower
       gptfdisk
@@ -297,7 +297,7 @@ in {
 
   services.gpg-agent = {
     enable = true;
-    pinentryFlavor = "qt";
+    # pinentryFlavor = "qt";
   };
 
   # TODO: figur out dropbox configuration

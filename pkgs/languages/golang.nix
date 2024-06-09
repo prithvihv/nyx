@@ -12,9 +12,7 @@ in {
     mockgen
     gopls
     go-outline
-    gocode
     gopkgs
-    gocode-gomod
     godef
     golint
     delve # dlv used in vscode debugging
