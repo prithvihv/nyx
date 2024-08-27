@@ -44,7 +44,7 @@
         overlays = [ elixir-extra.overlay ];
       };
     in {
-      darwinConfigurations.mw-pprithv-GK4K = let
+      darwinConfigurations.mw-pvirupa-GK4K = let
         system = "aarch64-darwin";
         nixpkgsConfig = {
           config = {
