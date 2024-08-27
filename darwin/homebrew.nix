@@ -13,19 +13,15 @@
     ];
     # updates homebrew packages on activation,
     # can make darwin-rebuild much slower (otherwise i'd forget to do it ever though)
-    casks = [ "gpg-suite" ] ++ [
+    casks = [ "gpg-suite" "yubico-yubikey-manager" ] ++ [
       "vlc"
       "signal"
-      "whatsapp"
-      "chromium"
       "spotify"
       # "alfred"
-      "qtpass"
     ] ++ [
       # productivity
-      "jumpcut"
+      "maccy"
       "amethyst"
-      "anki"
       "logseq"
     ] ++ [
       # devtools GUIs
@@ -41,3 +37,4 @@
     ];
   };
 }
+

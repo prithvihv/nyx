@@ -1,7 +1,7 @@
 { pkgs }: {
   extraPkgs = with pkgs;
     [
-      elixir_1_14
+      elixir_1_16
       beamPackages.rebar3
       beamPackages.hex
 

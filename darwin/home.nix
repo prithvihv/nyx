@@ -57,8 +57,9 @@ in {
       # needed for asdf erlang
       # openjdk17
       # unixODBC
-    ] ++ [ git-crypt ] ++ golangTools.extraPkgs ++ nodeTools.extraPkgs
-    ++ haskellTools.extraPkgs ++ customPkgs.all ++ elixirTools.extraPkgs;
+    ] ++ [ git-crypt ] ++ [ kubectl aws-iam-authenticator ]
+    ++ golangTools.extraPkgs ++ nodeTools.extraPkgs ++ haskellTools.extraPkgs
+    ++ customPkgs.all ++ elixirTools.extraPkgs;
 
   programs.bash.enable = false;
   programs.zsh.enable = true;
