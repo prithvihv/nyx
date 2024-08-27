@@ -63,7 +63,7 @@
             nixpkgs = nixpkgsConfig;
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.prithvi.virupaksha = import ./darwin/home.nix;
+            home-manager.users."prithvi.virupaksha" = import ./darwin/home.nix;
           }
         ];
       };
