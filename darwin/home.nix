@@ -24,8 +24,8 @@ let
 in {
   home.stateVersion = "23.05";
   # home.enableNixpkgsReleaseCheck = false;
-  home.username = "phv";
-  home.homeDirectory = "/Users/phv";
+  home.username = "prithvi.virupaksha";
+  home.homeDirectory = "/Users/prithvi.virupaksha";
 
   home.packages = with pkgs;
     [

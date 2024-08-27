@@ -12,9 +12,9 @@
   environment.shells = [ pkgs.fish ];
 
   services.postgresql.enable = true;
-  users.users.phv = {
-    name = "phv";
-    home = "/Users/phv";
+  users.users.prithvi.virupaksha = {
+    name = "prithvi.virupaksha";
+    home = "/Users/prithvi.virupaksha";
     shell = pkgs.fish;
   };
 
