@@ -73,7 +73,7 @@ in {
     };
     font = { name = "Iosevka 13"; };
     gtk3 = {
-      bookmarks = [ "file:///home/phv/code Code" ];
+      bookmarks = [ "file:///home/phv/code Code" "file:///home/phv/code/phv/resume/cuts Resume-Cuts" ];
       extraConfig = common-extra-gtk;
     };
     # gtk2.extraConfig = common-extra-gtk;
@@ -287,7 +287,13 @@ in {
 
   programs.ssh = {
     enable = true;
-    matchBlocks = { };
+    matchBlocks = {
+      "github-wooga.com" = {
+        hostname = "github.com";
+        user = "prithvihv-wooga";
+        identityFile = "/home/phv/.ssh/phv-wooga-macbook/id_rsa";
+      };
+    };
   };
 
   programs.obs-studio.enable = true;

@@ -33,6 +33,7 @@
         "electron-19.1.9"
         "electron-20.3.11"
         "electron-25.9.0"
+        "electron-27.3.11"
       ];
       lib = nixpkgs.lib;
       linux-nixpkgs = import nixpkgs {
