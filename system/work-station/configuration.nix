@@ -34,6 +34,8 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
+  programs.steam = { enable = true; };
+
   # i18n.extraLocaleSettings = {
   #   LC_ADDRESS = "de_DE.UTF-8";
   #   LC_IDENTIFICATION = "de_DE.UTF-8";
