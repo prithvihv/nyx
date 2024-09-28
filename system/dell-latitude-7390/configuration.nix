@@ -85,7 +85,6 @@
     cups-bjnp
     sane-airscan
   ];
-  services.udisks2.enable = true;
   # # for a WiFi printer
   # services.avahi.enable = true;
   # services.avahi.nssmdns = true;

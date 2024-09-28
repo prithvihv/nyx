@@ -149,6 +149,11 @@
     systemCronJobs = [ "0 1 * * 1 phv ${pkgs.nix-index}/bin/nix-index" ];
   };
 
+  services.udisks2 = {
+    enable = true;
+    # automount = true;
+  };
+
   nix.settings.auto-optimise-store = true;
   nix.gc.dates = "weekly";
 }
