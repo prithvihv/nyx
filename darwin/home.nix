@@ -57,7 +57,7 @@ in {
       # needed for asdf erlang
       # openjdk17
       # unixODBC
-    ] ++ [ git-crypt ] ++ [ kubectl aws-iam-authenticator ]
+    ] ++ [ git-crypt ] ++ [ kubectl kubectx kafkactl aws-iam-authenticator  terraform]
     ++ golangTools.extraPkgs ++ nodeTools.extraPkgs ++ haskellTools.extraPkgs
     ++ customPkgs.all ++ elixirTools.extraPkgs;
 
