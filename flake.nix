@@ -99,35 +99,6 @@
             }
           ];
         };
-
-        # TODO: deprecate nyx
-        nyx = let
-          overlay-gnupg = (self: super:
-            with super; {
-              gnupg = nixpkgs-21-11.legacyPackages.x86_64-linux.gnupg;
-            });
-          pkgs = import nixpkgs {
-            inherit system;
-            config = {
-              allowUnfree = true;
-              permittedInsecurePackages = insecurePakages;
-            };
-            overlays = [ overlay-gnupg ];
-          };
-        in lib.nixosSystem {
-          inherit system;
-          inherit pkgs;
-          modules = [
-            ./system/nyx/configuration.nix
-            sops-nix.nixosModules.sops
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.phv = import ./users/phv/home.nix;
-            }
-          ];
-        };
       };
     };
 }
