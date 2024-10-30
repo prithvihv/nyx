@@ -167,6 +167,7 @@ in {
   enableExtensionUpdateCheck = false;
 
   userSettings = {
+    "editor.cursorSmoothCaretAnimation" = true;
     "latex-workshop.kpsewhich.path" =
       "/etc/profiles/per-user/phv/bin/kpsewhich";
     "git.path" = "/etc/profiles/per-user/phv/bin/git";
