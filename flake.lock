@@ -95,22 +95,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-21-11": {
-      "locked": {
-        "lastModified": 1659446231,
-        "narHash": "sha256-hekabNdTdgR/iLsgce5TGWmfIDZ86qjPhxDg/8TlzhE=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "eabc38219184cc3e04a974fe31857d8e0eac098d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-21.11-small",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1729973466,
@@ -133,7 +117,6 @@
         "elixir-extra": "elixir-extra",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-21-11": "nixpkgs-21-11",
         "sops-nix": "sops-nix"
       }
     },

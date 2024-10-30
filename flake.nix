@@ -3,11 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    nixpkgs-21-11.url = "github:NixOS/nixpkgs/nixos-21.11-small";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    # neovim.url = "github:nix-community/neovim-nightly-overlay";
-    # neovim.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows =
       "nixpkgs"; # ask hm to use pinned nixpkgs
@@ -22,7 +19,7 @@
 
   };
 
-  outputs = { self, nixpkgs, nixpkgs-21-11, home-manager, sops-nix, darwin
+  outputs = { self, nixpkgs, home-manager, sops-nix, darwin
     , elixir-extra }:
     let
       system = "x86_64-linux";
