@@ -135,7 +135,7 @@ in {
       prisma.prisma
       redhat.vscode-yaml
       esbenp.prettier-vscode
-      WakaTime.vscode-wakatime
+      wakatime.vscode-wakatime
       dracula-theme.theme-dracula
       arrterian.nix-env-selector
       scala-lang.scala
@@ -167,7 +167,7 @@ in {
   enableExtensionUpdateCheck = false;
 
   userSettings = {
-    "editor.cursorSmoothCaretAnimation" = true;
+    "editor.cursorSmoothCaretAnimation" = "on";
     "latex-workshop.kpsewhich.path" =
       "/etc/profiles/per-user/phv/bin/kpsewhich";
     "git.path" = "/etc/profiles/per-user/phv/bin/git";
