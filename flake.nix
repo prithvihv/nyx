@@ -10,7 +10,7 @@
       "nixpkgs"; # ask hm to use pinned nixpkgs
 
     # darwin stuff
-    darwin.url = "github:lnl7/nix-darwin/master";
+    darwin.url = "github:lnl7/nix-darwin/nix-darwin-24.11";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     # extra
