@@ -20,7 +20,7 @@ in {
     go-swag
     go-swagger
     gotests
-    gotools
+    gotools # ruby_3 conflicts
 
     graphviz # pprof golang needs this
 

@@ -22,14 +22,15 @@ in {
   '' + lib.optionalString pkgs.stdenv.isDarwin ''
     # incase you need to move the path up
     # fish_add_path -m /run/current-system/sw/bin
-    # fish_add_path -m /etc/profiles/per-user/phv/bin/ 
-    # need homebrew installs 
+    # fish_add_path -m /etc/profiles/per-user/phv/bin/
+    # need homebrew installs
     fish_add_path /opt/homebrew/bin
-    set -gx AWS_PROFILE wooga-sbs 
+    set -gx AWS_PROFILE wooga-sbs
     set -gx LDFLAGS "-L/opt/homebrew/opt/ncurses/lib"
     set -gx CPPFLAGS "-I/opt/homebrew/opt/ncurses/include"
+    source "$HOME/.cargo/env.fish"
   '' +
-    # wooga specific variables 
+    # wooga specific variables
     # TODO: default editor vim there's probably a better way to declare this
     ''
       export SBS_PROJECT_TOOLS_DOCKERLESS=true

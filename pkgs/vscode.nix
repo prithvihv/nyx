@@ -1,5 +1,5 @@
 { pkgs }:
-let 
+let
   # priv = import ../priv/priv.nix { };
 in {
   enable = true;
@@ -365,5 +365,7 @@ in {
     }];
 
     "gitlens.ai.experimental.provider" = "gpt-4-1106-preview";
+
+    "chat.editing.alwaysSaveWithGeneratedChanges" = true;
   };
 }

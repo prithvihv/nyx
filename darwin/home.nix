@@ -10,15 +10,16 @@ let
   gitConfig = import ../pkgs/git.nix { inherit pkgs; };
   vimConfig = import ../pkgs/vim.nix { inherit pkgs; };
 
-  tex = with pkgs;
-    (texlive.combine {
-      inherit (texlive)
-        scheme-medium titlesec marvosym xcolor enumitem hyperref fancyhdr
-        latexmk tlmgrbasics fontawesome;
-    });
+  # tex = with pkgs;
+  #   (texlive.combine {
+  #     inherit (texlive)
+  #       scheme-medium titlesec marvosym xcolor enumitem hyperref fancyhdr
+  #       latexmk tlmgrbasics fontawesome;
+  #   });
   alacrittyConfig = import ../pkgs/alacritty.nix { };
   tmuxConfig = import ../pkgs/tmux.nix { inherit pkgs; };
   vsCodeConfig = import ../pkgs/vscode.nix { inherit pkgs; };
+  zedConfig = import ../pkgs/zed.nix { inherit pkgs; };
   fishConfig = import ../pkgs/fish.nix { inherit pkgs lib; };
   customPkgs = import ../pkgs/nixpkgs { inherit pkgs; };
 in {
@@ -32,10 +33,12 @@ in {
       go-migrate
       msgpack-tools
       nix-diff
+      nixd
       git
 
       fd
       jq
+      fzf
       codespell
       gnumake
       pgsync
@@ -49,15 +52,18 @@ in {
       openjdk17
 
       pandoc
-      tex
+      # tex
 
       pass
       # gnused
 
+      when
+
       # needed for asdf erlang
       # openjdk17
       # unixODBC
-    ] ++ [ git-crypt ] ++ [ kubectl kubectx kafkactl aws-iam-authenticator  terraform]
+    ] ++ [ git-crypt ]
+    ++ [ kubectl kubectx kafkactl aws-iam-authenticator terraform ]
     ++ golangTools.extraPkgs ++ nodeTools.extraPkgs ++ haskellTools.extraPkgs
     ++ customPkgs.all ++ elixirTools.extraPkgs;
 
@@ -66,6 +72,8 @@ in {
 
   programs.alacritty = alacrittyConfig;
   programs.vscode = vsCodeConfig;
+  # TODO: zed is marked as broken in nixpkgs unstable, wait till they fix that
+  # programs.zed-editor = zedConfig;
   programs.tmux = tmuxConfig;
   programs.fish = fishConfig;
   programs.ssh = {

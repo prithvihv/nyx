@@ -92,7 +92,7 @@ in {
   home.sessionVariables = { GTK_THEME = "Adwaita:dark"; };
 
   home.packages = with pkgs;
-    [ gnumake nix-diff nixfmt any-nix-shell ] ++ [
+    [ gnumake nix-diff nixfmt nixd any-nix-shell ] ++ [
 
       # gui applications
       slack
@@ -128,9 +128,11 @@ in {
       openjdk17
       # gradle
 
-      # TODO: these don't work with dpi, need to switch to use command like initiation 
+      # TODO: these don't work with dpi, need to switch to use command like initiation
       rofimoji
       rofiBluetooth
+
+      when
 
       android-file-transfer
     ] ++ [ # linux software terminal / cli / system
@@ -259,8 +261,8 @@ in {
     enableFishIntegration = true;
     changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type directory"; # ALT-C
     historyWidgetOptions = [ ];
-    # TODO: terminal auto complete with ** 
-    # TODO: 
+    # TODO: terminal auto complete with **
+    # TODO:
   };
 
   # programs.go = {
