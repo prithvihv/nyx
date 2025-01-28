@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
@@ -16,11 +17,10 @@
     # extra
     elixir-extra.url = "github:hauleth/nix-elixir/master";
     elixir-extra.inputs.nixpkgs.follows = "nixpkgs";
-
   };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix, darwin
-    , elixir-extra }:
+  outputs = { self, nixpkgs, home-manager, sops-nix, darwin, elixir-extra
+    , nixos-unstable }:
     let
       system = "x86_64-linux";
       insecurePakages = [
@@ -44,12 +44,22 @@
     in {
       darwinConfigurations.mw-pvirupa-GK4K = let
         system = "aarch64-darwin";
-        nixpkgsConfig = {
+        darwin-unstable-nixpkgs = import nixos-unstable {
+          inherit system;
+          config = {
+            allowUnfree = true;
+            permittedInsecurePackages = insecurePakages;
+          };
+        };
+        darwin-nixpkgs = {
           config = {
             allowUnfree = true;
             allowUnsupportedSystem = true;
             permittedInsecurePackages = [ "nodejs-14.21.3" "openssl-1.1.1u" ];
           };
+          overlays = [
+            (final: prev: { terraform = darwin-unstable-nixpkgs.terraform; })
+          ];
         };
       in darwin.lib.darwinSystem {
         inherit system;
@@ -58,7 +68,7 @@
           ./darwin/homebrew.nix
           home-manager.darwinModules.home-manager
           {
-            nixpkgs = nixpkgsConfig;
+            nixpkgs = darwin-nixpkgs;
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users."prithvi.virupaksha" = import ./darwin/home.nix;

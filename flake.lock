@@ -79,6 +79,22 @@
         "type": "github"
       }
     },
+    "nixos-unstable": {
+      "locked": {
+        "lastModified": 1737885589,
+        "narHash": "sha256-Zf0hSrtzaM1DEz8//+Xs51k/wdSajticVrATqDrfQjg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "852ff1d9e153d8875a83602e03fdef8a63f0ecf8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1737885640,
@@ -100,6 +116,7 @@
         "darwin": "darwin",
         "elixir-extra": "elixir-extra",
         "home-manager": "home-manager",
+        "nixos-unstable": "nixos-unstable",
         "nixpkgs": "nixpkgs",
         "sops-nix": "sops-nix"
       }
