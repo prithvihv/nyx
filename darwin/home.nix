@@ -63,7 +63,7 @@ in {
       # openjdk17
       # unixODBC
     ] ++ [ git-crypt ]
-    ++ [ kubectl kubectx kafkactl aws-iam-authenticator terraform ]
+    ++ [ kubectl kubectx kafkactl aws-iam-authenticator terraform gh ]
     ++ golangTools.extraPkgs ++ nodeTools.extraPkgs ++ haskellTools.extraPkgs
     ++ customPkgs.all ++ elixirTools.extraPkgs;
 
