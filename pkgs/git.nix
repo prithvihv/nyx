@@ -4,7 +4,10 @@ let
     name = ".global-gitignore";
     text = ''
       .vscode
+      .project-plan
+      .elixir_ls
       *.ignorefile.*
+      .nvimlog
     '';
     executable = false;
   };

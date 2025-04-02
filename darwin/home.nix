@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, sbs, ... }:
 let
   golangTools = import ../pkgs/languages/golang.nix { inherit lib pkgs; };
   nodeTools = import ../pkgs/languages/node/node.nix {
@@ -62,10 +62,18 @@ in {
       # needed for asdf erlang
       # openjdk17
       # unixODBC
-    ] ++ [ git-crypt ]
-    ++ [ kubectl kubectx kafkactl aws-iam-authenticator terraform gh ]
-    ++ golangTools.extraPkgs ++ nodeTools.extraPkgs ++ haskellTools.extraPkgs
-    ++ customPkgs.all ++ elixirTools.extraPkgs;
+    ] ++ [ git-crypt ] ++ [
+      kubectl
+      kubectx
+      kafkactl
+      kubernetes-helm
+      aws-iam-authenticator
+      terraform
+      tflint
+      gh
+      chart-testing
+    ] ++ golangTools.extraPkgs ++ nodeTools.extraPkgs ++ haskellTools.extraPkgs
+    ++ customPkgs.all ++ elixirTools.extraPkgs ++ sbs.binary-collection;
 
   programs.bash.enable = false;
   programs.zsh.enable = true;

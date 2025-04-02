@@ -73,6 +73,8 @@ in {
   };
 
   shellAliases = {
+    "k" = "kubectl";
+    "t" = "terraform";
     "..." = "cd ../..";
     "db-local" = "psql -U postgres";
     "lines-count" = "git ls-files | xargs cat | wc -l";

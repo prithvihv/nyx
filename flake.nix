@@ -17,10 +17,14 @@
     # extra
     elixir-extra.url = "github:hauleth/nix-elixir/master";
     elixir-extra.inputs.nixpkgs.follows = "nixpkgs";
+
+    # sbs
+    sbs.url =
+      "git+ssh://git@github.com/wooga/sbs-nix.git?ref=binary_file_formats";
   };
 
   outputs = { self, nixpkgs, home-manager, sops-nix, darwin, elixir-extra
-    , nixos-unstable }:
+    , nixos-unstable, sbs }:
     let
       system = "x86_64-linux";
       insecurePakages = [
@@ -58,7 +62,7 @@
             permittedInsecurePackages = [ "nodejs-14.21.3" "openssl-1.1.1u" ];
           };
           overlays = [
-            (final: prev: { terraform = darwin-unstable-nixpkgs.terraform; })
+            # (final: prev: { terraform = darwin-unstable-nixpkgs.terraform; })
           ];
         };
       in darwin.lib.darwinSystem {
@@ -72,6 +76,9 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users."prithvi.virupaksha" = import ./darwin/home.nix;
+            home-manager.extraSpecialArgs = {
+              sbs = sbs.packages.${system};
+            };
           }
         ];
       };

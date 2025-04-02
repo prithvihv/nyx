@@ -237,7 +237,10 @@ in {
     "[javascript]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
     "workbench.editorAssociations" = { "*.ipynb" = "jupyter-notebook"; };
     "redhat.telemetry.enabled" = false;
-    "[yaml]" = { "editor.defaultFormatter" = "redhat.vscode-yaml"; };
+    "[yaml]" = { 
+      "editor.defaultFormatter" = "redhat.vscode-yaml";
+      "editor.formatOnSave" = false;
+    };
     "[json]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
     "[html]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
     "[prisma]" = { "editor.defaultFormatter" = "Prisma.prisma"; };
