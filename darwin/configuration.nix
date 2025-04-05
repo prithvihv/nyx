@@ -9,13 +9,15 @@
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (pkgs.lib.getName pkg) [ "vscode" ];
 
-  environment.shells = [ pkgs.fish ];
+  # TODO: this does not work, need to run command manually:
+  # chsh -s /etc/profiles/per-user/prithvi.virupaksha/bin/fish
+  environment.shells = [ "/etc/profiles/per-user/prithvi.virupaksha/bin/fish" ];
 
   services.postgresql.enable = true;
   users.users."prithvi.virupaksha" = {
     name = "prithvi.virupaksha";
     home = "/Users/prithvi.virupaksha";
-    shell = pkgs.fish;
+    shell = "/etc/profiles/per-user/prithvi.virupaksha/bin/fish";
   };
 
   # Use a custom configuration.nix location.
