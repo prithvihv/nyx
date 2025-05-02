@@ -97,6 +97,10 @@ in {
     };
   };
   programs.git = gitConfig;
+  # programs.git = gitConfig // {
+  #   userName = "prithvihv-wooga";
+  #   userEmail = "prithvi.virupaksha@wooga.net";
+  # };
   programs.neovim = vimConfig;
 
   # Let Home Manager install and manage itself.
