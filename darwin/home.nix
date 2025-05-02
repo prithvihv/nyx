@@ -10,12 +10,12 @@ let
   gitConfig = import ../pkgs/git.nix { inherit pkgs; };
   vimConfig = import ../pkgs/vim.nix { inherit pkgs; };
 
-  # tex = with pkgs;
-  #   (texlive.combine {
-  #     inherit (texlive)
-  #       scheme-medium titlesec marvosym xcolor enumitem hyperref fancyhdr
-  #       latexmk tlmgrbasics fontawesome;
-  #   });
+  tex = with pkgs;
+    (texlive.combine {
+      inherit (texlive)
+        scheme-medium titlesec marvosym xcolor enumitem hyperref fancyhdr
+        latexmk tlmgrbasics fontawesome;
+    });
   alacrittyConfig = import ../pkgs/alacritty.nix { };
   tmuxConfig = import ../pkgs/tmux.nix { inherit pkgs; };
   vsCodeConfig = import ../pkgs/vscode.nix { inherit pkgs; };
@@ -52,7 +52,8 @@ in {
       openjdk17
 
       pandoc
-      # tex
+      tex
+      # texliveTeTeX
 
       pass
       # gnused
@@ -73,7 +74,8 @@ in {
       gh
       chart-testing
     ] ++ golangTools.extraPkgs ++ nodeTools.extraPkgs ++ haskellTools.extraPkgs
-    ++ customPkgs.all ++ elixirTools.extraPkgs ++ sbs.binary-collection;
+    ++ customPkgs.all ++ elixirTools.extraPkgs;
+  #++ sbs.binary-collection;
 
   programs.bash.enable = false;
   programs.zsh.enable = true;
@@ -86,12 +88,15 @@ in {
   programs.fish = fishConfig;
   programs.ssh = {
     enable = true;
-    matchBlocks = { };
+    matchBlocks = {
+      "phv.github.com" = {
+        hostname = "github.com";
+        user = "prthvihv";
+        identityFile = "/Users/prithvi.virupaksha/.ssh/prithvihv/id_ed25519";
+      };
+    };
   };
-  programs.git = gitConfig // {
-    userName = "prithvihv-wooga";
-    userEmail = "prithvi.virupaksha@wooga.net";
-  };
+  programs.git = gitConfig;
   programs.neovim = vimConfig;
 
   # Let Home Manager install and manage itself.
