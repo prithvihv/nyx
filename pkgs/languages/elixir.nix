@@ -2,6 +2,7 @@
   extraPkgs = with pkgs;
     [
       elixir_1_16
+      beamPackages.erlang
       beamPackages.rebar3
       beamPackages.hex
 

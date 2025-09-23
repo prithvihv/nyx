@@ -2,7 +2,7 @@
   homebrew = {
     enable = true;
     onActivation.upgrade = true;
-    brews = [ "saml2aws" "asdf" ] ++ [
+    brews = [ "saml2aws" ] ++ [
       # needs these for erlang asdf
       # https://github.com/asdf-vm/asdf-erlang#osx
       "ncurses"
@@ -28,6 +28,7 @@
       "postman"
       "lens"
       "datagrip"
+      "rider"
     ] ++ [
       "android-platform-tools"
       "android-file-transfer"

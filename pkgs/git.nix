@@ -21,7 +21,7 @@ in {
       excludesfile = "${global-gitignore}";
       editor = "vim";
     };
-    url = { "ssh://git@github" = { insteadOf = "https://github.com/"; }; };
+    # url = { "ssh://git@github" = { insteadOf = "https://github.com/"; }; };
   };
   lfs.enable = true;
 }

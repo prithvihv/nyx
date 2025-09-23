@@ -38,6 +38,7 @@ in {
 
       fd
       jq
+      yq
       fzf
       codespell
       gnumake
@@ -63,18 +64,25 @@ in {
       # needed for asdf erlang
       # openjdk17
       # unixODBC
+      # mise
+      k9s
     ] ++ [ git-crypt ] ++ [
       kubectl
       kubectx
       kafkactl
       kubernetes-helm
       aws-iam-authenticator
-      terraform
+      # terraform
       tflint
       gh
       chart-testing
-    ] ++ golangTools.extraPkgs ++ nodeTools.extraPkgs ++ haskellTools.extraPkgs
-    ++ customPkgs.all ++ elixirTools.extraPkgs;
+
+
+      sbs.sbs-docker-compose
+      sbs.sbs-env
+    ] ++ [ dotnetCorePackages.sdk_8_0_3xx ] ++ golangTools.extraPkgs
+    ++ nodeTools.extraPkgs ++ haskellTools.extraPkgs ++ customPkgs.all
+    ++ elixirTools.extraPkgs;
   #++ sbs.binary-collection;
 
   programs.bash.enable = false;

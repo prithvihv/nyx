@@ -259,7 +259,8 @@ in {
       "editor.defaultFormatter" = "ms-azuretools.vscode-docker";
     };
     "[elixir]" = {
-      "editor.defaultFormatter" = "animus-coop.vscode-elixir-mix-formatter";
+      # "editor.defaultFormatter" = "animus-coop.vscode-elixir-mix-formatter";
+      "editor.defaultFormatter" = "saratravi.elixir-formatter";
     };
     "[css]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
     "json.schemas" = [ ];
