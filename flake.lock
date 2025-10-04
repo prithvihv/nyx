@@ -126,20 +126,56 @@
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "sbs-project-tools": "sbs-project-tools",
+        "sbs-rbac": "sbs-rbac"
       },
       "locked": {
-        "lastModified": 1759127346,
-        "narHash": "sha256-+CfjK/kuhp5bHW8i68B9cMiwCIn/yv0M7qvkhCCpBAE=",
+        "lastModified": 1759611897,
+        "narHash": "sha256-jXShlX0GINuUX3V25aj5zPITe1p9ZTw8GEPKEdJGO74=",
         "ref": "refs/heads/master",
-        "rev": "a9258d16f7d1e4eeba1fdb0638493fa07cb550ee",
-        "revCount": 19,
+        "rev": "fe28d9caaad8ed47e306b93120ad3786965b5bfd",
+        "revCount": 22,
         "type": "git",
         "url": "ssh://git@github.com/wooga/sbs-nix.git"
       },
       "original": {
         "type": "git",
         "url": "ssh://git@github.com/wooga/sbs-nix.git"
+      }
+    },
+    "sbs-project-tools": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1756722013,
+        "narHash": "sha256-Q/uGbx9mRrctfQ5TKfuJBvnCcPKX76tFEcxCFEm9HYc=",
+        "ref": "d6560355f75557849d3a1c6fc1c13aaec6802ea7",
+        "rev": "d6560355f75557849d3a1c6fc1c13aaec6802ea7",
+        "revCount": 720,
+        "type": "git",
+        "url": "ssh://git@github.com/wooga/sbs-project-tools.git"
+      },
+      "original": {
+        "ref": "d6560355f75557849d3a1c6fc1c13aaec6802ea7",
+        "type": "git",
+        "url": "ssh://git@github.com/wooga/sbs-project-tools.git"
+      }
+    },
+    "sbs-rbac": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1757506842,
+        "narHash": "sha256-8M90yG+qjlx9d2K4MHnPDz3Qr5ny4UoNBjm4+ngjI1c=",
+        "ref": "486afe610b149a3c7ee78a0c6761e9da14b7533b",
+        "rev": "486afe610b149a3c7ee78a0c6761e9da14b7533b",
+        "revCount": 216,
+        "type": "git",
+        "url": "ssh://git@github.com/wooga/sbs-rbac.git"
+      },
+      "original": {
+        "ref": "486afe610b149a3c7ee78a0c6761e9da14b7533b",
+        "type": "git",
+        "url": "ssh://git@github.com/wooga/sbs-rbac.git"
       }
     },
     "sops-nix": {

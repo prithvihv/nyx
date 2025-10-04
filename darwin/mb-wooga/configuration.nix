@@ -1,6 +1,8 @@
 { config, pkgs, lib, ... }:
 
 {
+  ids.gids.nixbld = 30000;
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [ nixfmt ];
@@ -27,12 +29,14 @@
   # environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
 
   nix.enable = true;
-  # nix.package = pkgs.nix;
-  nix.package = pkgs.lixPackageSets.latest.lix;
+  nix.package = pkgs.nix;
+  # nix.package = pkgs.lixPackageSets.latest.lix;
   nix.extraOptions = ''
     extra-platforms = aarch64-darwin x86_64-darwin
     experimental-features = nix-command flakes
   '';
+
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   system.stateVersion = 5;
 }
