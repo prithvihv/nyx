@@ -28,16 +28,11 @@
 
   nix.enable = true;
   # nix.package = pkgs.nix;
-  nix.package = pkgs.lixPackageSets.stable.lix;
+  nix.package = pkgs.lixPackageSets.latest.lix;
   nix.extraOptions = ''
     extra-platforms = aarch64-darwin x86_64-darwin
     experimental-features = nix-command flakes
   '';
-
-  # Create /etc/zshrc that loads the nix-darwin environment.
-  programs.zsh.enable = true; # default shell on catalina
-  programs.fish.enable = true;
-  programs.bash.enable = true;
 
   system.stateVersion = 5;
 }
