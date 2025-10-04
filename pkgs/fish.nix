@@ -1,9 +1,5 @@
-{ pkgs, lib }:
+{ pkgs, lib, isWoogaMachine }:
 let
-  buildSshCmdProxy = { name, ip }: {
-    "gz-${name}" =
-      "tmux split-window -h ssh ${name} & tmux split-window -v ssh ${name} && tmux split-window -h ssh ${name} && exit 0";
-  };
 in {
   enable = true;
   functions = {
@@ -12,32 +8,23 @@ in {
   };
 
   shellInit = ''
-
     # done notification for teminal commands
       set __done_min_cmd_duration 3000
 
     # fzf_configure_bindings --help to learn more
       fzf_configure_bindings
     ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
-  '' + lib.optionalString pkgs.stdenv.isDarwin ''
+  '' + lib.optionalString (pkgs.stdenv.isDarwin && isWoogaMachine) ''
     # incase you need to move the path up
     # fish_add_path -m /run/current-system/sw/bin
     # fish_add_path -m /etc/profiles/per-user/phv/bin/
     # need homebrew installs
     fish_add_path /opt/homebrew/bin
     set -gx AWS_PROFILE wooga-sbs
-    set -gx LDFLAGS "-L/opt/homebrew/opt/ncurses/lib"
-    set -gx CPPFLAGS "-I/opt/homebrew/opt/ncurses/include"
+    export SBS_PROJECT_TOOLS_DOCKERLESS=true
+    export EDITOR=vim
     source "$HOME/.cargo/env.fish"
-  '' +
-    # wooga specific variables
-    # TODO: default editor vim there's probably a better way to declare this
-    ''
-      export SBS_PROJECT_TOOLS_DOCKERLESS=true
-      export EDITOR=vim
-    '';
-  # TODO: https://github.com/zx2c4/password-store/blob/master/src/completion/pass.fish-completion
-
+  '';
   plugins = let
     custom = [{
       name = "theme-batman";

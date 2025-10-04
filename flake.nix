@@ -76,6 +76,31 @@
         ];
       };
 
+      darwinConfigurations.mbp-m4 = let
+        system = "aarch64-darwin";
+        darwin-nixpkgs = {
+          config = {
+            allowUnfree = true;
+            allowUnsupportedSystem = true;
+            # permittedInsecurePackages = [ "nodejs-14.21.3" "openssl-1.1.1u" ];
+          };
+        };
+      in darwin.lib.darwinSystem {
+        inherit system;
+        modules = [
+          ./darwin/mbp-m4/configuration.nix
+          {system.configurationRevision = self.rev or self.dirtyRev or null;}
+          # ./darwin/mbp-m4/homebrew.nix
+          home-manager.darwinModules.home-manager
+          {
+            nixpkgs = darwin-nixpkgs;
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users."phv" = import ./darwin/mbp-m4/home.nix;
+          }
+        ];
+      };
+
       nixosConfigurations = {
         work-station = let pkgs = linux-nixpkgs;
         in lib.nixosSystem {
