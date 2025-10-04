@@ -13,16 +13,17 @@
 
   # TODO: this does not work, need to run command manually:
   # chsh -s /etc/profiles/per-user/prithvi.virupaksha/bin/fish
-  environment.shells = [ "/etc/profiles/per-user/prithvi.virupaksha/bin/fish" ];
+  environment.shells = [ pkgs.fish ];
 
   services.postgresql.enable = true;
   users.users."prithvi.virupaksha" = {
     name = "prithvi.virupaksha";
     home = "/Users/prithvi.virupaksha";
-    shell = "/etc/profiles/per-user/prithvi.virupaksha/bin/fish";
     # extraGroups = [ "wheel"];
   };
   system.primaryUser = "prithvi.virupaksha";
+
+  programs.fish.enable = true;
 
   # Use a custom configuration.nix location.
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix

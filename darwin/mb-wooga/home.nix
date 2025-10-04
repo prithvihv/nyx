@@ -20,7 +20,7 @@ let
   tmuxConfig = import ../../pkgs/tmux.nix { inherit pkgs; };
   vsCodeConfig = import ../../pkgs/vscode.nix { inherit pkgs; };
   zedConfig = import ../../pkgs/zed.nix { inherit pkgs; };
-  fishConfig = import ../../pkgs/fish.nix { inherit pkgs lib; };
+  fishConfig = import ../../pkgs/fish.nix { inherit pkgs lib; isWoogaMachine = true; };
   customPkgs = import ../../pkgs/nixpkgs { inherit pkgs; };
 in {
   home.stateVersion = "23.05";
