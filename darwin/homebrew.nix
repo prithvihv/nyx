@@ -28,6 +28,7 @@
       "postman"
       "lens"
       "datagrip"
+      "cursor"
       "rider"
     ] ++ [
       "android-platform-tools"

@@ -18,14 +18,15 @@
     name = "prithvi.virupaksha";
     home = "/Users/prithvi.virupaksha";
     shell = "/etc/profiles/per-user/prithvi.virupaksha/bin/fish";
+    # extraGroups = [ "wheel"];
   };
+  system.primaryUser = "prithvi.virupaksha";
 
   # Use a custom configuration.nix location.
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
   # environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  nix.enable = true;
   nix.package = pkgs.nix;
   nix.extraOptions = ''
     extra-platforms = aarch64-darwin x86_64-darwin

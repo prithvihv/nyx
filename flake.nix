@@ -2,16 +2,16 @@
   description = "configuration and workflows";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows =
       "nixpkgs"; # ask hm to use pinned nixpkgs
 
     # darwin stuff
-    darwin.url = "github:lnl7/nix-darwin/nix-darwin-24.11";
+    darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     # extra
@@ -29,12 +29,6 @@
     let
       system = "x86_64-linux";
       insecurePakages = [
-        "electron-9.4.4"
-        "electron-13.6.9"
-        "electron-12.2.3"
-        "electron-19.1.9"
-        "electron-20.3.11"
-        "electron-25.9.0"
         "electron-27.3.11"
       ];
       lib = nixpkgs.lib;

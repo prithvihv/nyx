@@ -31,7 +31,7 @@ in {
   home.packages = with pkgs;
     [
       go-migrate
-      msgpack-tools
+      # msgpack-tools
       nix-diff
       nixd
       git
