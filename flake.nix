@@ -63,14 +63,14 @@
       in darwin.lib.darwinSystem {
         inherit system;
         modules = [
-          ./darwin/configuration.nix
-          ./darwin/homebrew.nix
+          ./darwin/mb-wooga/configuration.nix
+          ./darwin/mb-wooga/homebrew.nix
           home-manager.darwinModules.home-manager
           {
             nixpkgs = darwin-nixpkgs;
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users."prithvi.virupaksha" = import ./darwin/home.nix;
+            home-manager.users."prithvi.virupaksha" = import ./darwin/mb-wooga/home.nix;
             home-manager.extraSpecialArgs = { sbs = sbs.packages.${system}; };
           }
         ];
