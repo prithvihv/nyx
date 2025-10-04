@@ -27,7 +27,8 @@
   # environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
 
   nix.enable = true;
-  nix.package = pkgs.nix;
+  # nix.package = pkgs.nix;
+  nix.package = pkgs.lixPackageSets.stable.lix;
   nix.extraOptions = ''
     extra-platforms = aarch64-darwin x86_64-darwin
     experimental-features = nix-command flakes
