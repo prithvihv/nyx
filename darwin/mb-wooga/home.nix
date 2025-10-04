@@ -1,14 +1,14 @@
 { config, pkgs, lib, sbs, ... }:
 let
-  golangTools = import ../pkgs/languages/golang.nix { inherit lib pkgs; };
-  nodeTools = import ../pkgs/languages/node/node.nix {
+  golangTools = import ../../pkgs/languages/golang.nix { inherit lib pkgs; };
+  nodeTools = import ../../pkgs/languages/node/node.nix {
     inherit pkgs;
     includePrismaTools = false;
   };
-  elixirTools = import ../pkgs/languages/elixir.nix { inherit pkgs; };
-  haskellTools = import ../pkgs/languages/haskell.nix { inherit pkgs; };
-  gitConfig = import ../pkgs/git.nix { inherit pkgs; };
-  vimConfig = import ../pkgs/vim.nix { inherit pkgs; };
+  elixirTools = import ../../pkgs/languages/elixir.nix { inherit pkgs; };
+  haskellTools = import ../../pkgs/languages/haskell.nix { inherit pkgs; };
+  gitConfig = import ../../pkgs/git.nix { inherit pkgs; };
+  vimConfig = import ../../pkgs/vim.nix { inherit pkgs; };
 
   tex = with pkgs;
     (texlive.combine {
@@ -16,12 +16,12 @@ let
         scheme-medium titlesec marvosym xcolor enumitem hyperref fancyhdr
         latexmk tlmgrbasics fontawesome;
     });
-  alacrittyConfig = import ../pkgs/alacritty.nix { };
-  tmuxConfig = import ../pkgs/tmux.nix { inherit pkgs; };
-  vsCodeConfig = import ../pkgs/vscode.nix { inherit pkgs; };
-  zedConfig = import ../pkgs/zed.nix { inherit pkgs; };
-  fishConfig = import ../pkgs/fish.nix { inherit pkgs lib; };
-  customPkgs = import ../pkgs/nixpkgs { inherit pkgs; };
+  alacrittyConfig = import ../../pkgs/alacritty.nix { };
+  tmuxConfig = import ../../pkgs/tmux.nix { inherit pkgs; };
+  vsCodeConfig = import ../../pkgs/vscode.nix { inherit pkgs; };
+  zedConfig = import ../../pkgs/zed.nix { inherit pkgs; };
+  fishConfig = import ../../pkgs/fish.nix { inherit pkgs lib; };
+  customPkgs = import ../../pkgs/nixpkgs { inherit pkgs; };
 in {
   home.stateVersion = "23.05";
   # home.enableNixpkgsReleaseCheck = false;
