@@ -76,8 +76,7 @@
         ];
       };
 
-      darwinConfigurations.mbp-m4 = let
-        system = "aarch64-darwin";
+      darwinConfigurations.mbp-m4 = let system = "aarch64-darwin";
         darwin-nixpkgs = {
           config = {
             allowUnfree = true;

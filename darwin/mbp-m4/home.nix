@@ -9,6 +9,15 @@ in
   programs.fish = fishConfig;
   programs.git = gitConfig;
 
+  programs.home-manager.enable = true;
+
+  home.packages = with pkgs; [
+    qtpass
+    pass
+    gnutar
+    gnupg # does not show up in Application dir, currently openning it manually
+  ];
+
   # The state version is required and should stay at the version you
   # originally installed.
   home.stateVersion = "25.05";
