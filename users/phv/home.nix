@@ -73,8 +73,8 @@ in {
     };
     font = { name = "Iosevka 13"; };
     gtk3 = {
-      bookmarks = [ "file:///home/phv/code Code" "file:///home/phv/code/phv/resume/cuts Resume-Cuts" ];
       extraConfig = common-extra-gtk;
+      bookmarks = [ "file:///home/phv/code Code" "file:///home/phv/code/resume/cuts Resume Cuts"];
     };
     # gtk2.extraConfig = common-extra-gtk;
     gtk4.extraConfig = common-extra-gtk;
@@ -307,6 +307,7 @@ in {
     enable = true;
     pinentryPackage = pkgs.pinentry-qt;
     # pinentryFlavor = "qt";
+    pinentryPackage =  pkgs.pinentry-qt;
   };
 
   # TODO: figur out dropbox configuration
