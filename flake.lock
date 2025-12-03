@@ -111,22 +111,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1751274312,
-        "narHash": "sha256-/bVBlRpECLVzjV19t5KMdMFWSwKLtb5RyXdjz3LJT+g=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "50ab793786d9de88ee30ec4e4c24fb4236fc2674",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-24.11",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "darwin": "darwin",
@@ -134,62 +118,7 @@
         "home-manager": "home-manager",
         "nixos-unstable": "nixos-unstable",
         "nixpkgs": "nixpkgs",
-        "sbs": "sbs",
         "sops-nix": "sops-nix"
-      }
-    },
-    "sbs": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_2",
-        "sbs-project-tools": "sbs-project-tools",
-        "sbs-rbac": "sbs-rbac"
-      },
-      "locked": {
-        "lastModified": 1760956257,
-        "narHash": "sha256-n6m/oRPNV7eIRAYPspxAr56fbwApirV9gWRI2NloxDo=",
-        "ref": "refs/heads/master",
-        "rev": "8b75e85303f3e792ca2976cd74efb69114cb592e",
-        "revCount": 25,
-        "type": "git",
-        "url": "ssh://git@github.com/wooga/sbs-nix.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/wooga/sbs-nix.git"
-      }
-    },
-    "sbs-project-tools": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1756722013,
-        "narHash": "sha256-Q/uGbx9mRrctfQ5TKfuJBvnCcPKX76tFEcxCFEm9HYc=",
-        "ref": "d6560355f75557849d3a1c6fc1c13aaec6802ea7",
-        "rev": "d6560355f75557849d3a1c6fc1c13aaec6802ea7",
-        "revCount": 720,
-        "type": "git",
-        "url": "ssh://git@github.com/wooga/sbs-project-tools.git"
-      },
-      "original": {
-        "ref": "d6560355f75557849d3a1c6fc1c13aaec6802ea7",
-        "type": "git",
-        "url": "ssh://git@github.com/wooga/sbs-project-tools.git"
-      }
-    },
-    "sbs-rbac": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1757506842,
-        "narHash": "sha256-8M90yG+qjlx9d2K4MHnPDz3Qr5ny4UoNBjm4+ngjI1c=",
-        "ref": "486afe610b149a3c7ee78a0c6761e9da14b7533b",
-        "rev": "486afe610b149a3c7ee78a0c6761e9da14b7533b",
-        "revCount": 216,
-        "type": "git",
-        "url": "ssh://git@github.com/wooga/sbs-rbac.git"
-      },
-      "original": {
-        "ref": "486afe610b149a3c7ee78a0c6761e9da14b7533b",
-        "type": "git",
-        "url": "ssh://git@github.com/wooga/sbs-rbac.git"
       }
     },
     "sops-nix": {

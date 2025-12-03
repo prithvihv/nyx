@@ -19,13 +19,13 @@
     elixir-extra.inputs.nixpkgs.follows = "nixpkgs";
 
     # sbs
-    sbs.url =
-      "git+ssh://git@github.com/wooga/sbs-nix.git";
+    # sbs.url =
+      # "git+ssh://git@github.com/wooga/sbs-nix.git";
     # sbs.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, home-manager, sops-nix, darwin, elixir-extra
-    , nixos-unstable, sbs }:
+    , nixos-unstable }:
     let
       system = "x86_64-linux";
       insecurePakages = [
@@ -72,7 +72,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users."prithvi.virupaksha" = import ./darwin/mb-wooga/home.nix;
-            home-manager.extraSpecialArgs = { sbs = sbs.packages.${system}; };
+            # home-manager.extraSpecialArgs = { sbs = sbs.packages.${system}; };
           }
         ];
       };
@@ -129,6 +129,21 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.phv = import ./users/phv/home.nix;
+              home-manager.users.server = import ./users/server/home.nix;
+            }
+          ];
+        };
+
+        dell-latitude-7390-server = let pkgs = linux-nixpkgs;
+        in lib.nixosSystem {
+          inherit system;
+          inherit pkgs;
+          modules = [
+            ./system/dell-latitude-7390-server/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
               home-manager.users.server = import ./users/server/home.nix;
             }
           ];
