@@ -47,7 +47,7 @@ in {
       nixfmt
       nodePackages.serve
       awscli2
-      wakatime
+      wakatime-cli
       unp
       kubernetes
 
