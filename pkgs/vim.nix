@@ -27,7 +27,7 @@ in {
     dracula-vim
 
     nix-develop-nvim
-    vim-elixir
+    # vim-elixir
     vim-go
   ];
 

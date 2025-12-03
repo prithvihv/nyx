@@ -1,5 +1,5 @@
 { config, lib, pkgs, modulesPath, ... }: { # nix flakes
-  nix.package = pkgs.nixFlakes;
+  nix.package = pkgs.nixVersions.stable;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
@@ -51,7 +51,7 @@
 
       # emojis
       openmoji-color
-      nerdfonts
+      # (builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts)) # for everything nerd font
       unifont # this allows emojis to work in vscode for somereason
 
       # Additional
@@ -104,9 +104,6 @@
       ++ [ "scanner" "lp" ];
     shell = pkgs.fish;
   };
-
-  # Enable sound.
-  sound.enable = true;
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;

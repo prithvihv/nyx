@@ -15,6 +15,7 @@ let
   fishConfig = import ../../pkgs/fish.nix {
     inherit pkgs;
     inherit lib;
+    isWoogaMachine = false;
   };
   tmuxConfig = import ../../pkgs/tmux.nix { inherit pkgs; };
   vimConfig = import ../../pkgs/vim.nix { inherit pkgs; };
@@ -66,7 +67,7 @@ in {
       package = pkgs.flat-remix-gtk;
     };
     cursorTheme = {
-      package = pkgs.cinnamon.mint-cursor-themes;
+      package = pkgs.mint-cursor-themes;
       # https://github.com/linuxmint/mint-cursor-themes/tree/master/usr/share/icons
       # if you need to switch it up, use the above link
       name = "Bibata-Modern-Classic";
@@ -81,7 +82,7 @@ in {
   };
   home.pointerCursor = {
     name = "Bibata-Modern-Classic";
-    package = pkgs.cinnamon.mint-cursor-themes;
+    package = pkgs.mint-cursor-themes;
     size = 42;
     x11 = {
       enable = true;
@@ -95,16 +96,16 @@ in {
     [ gnumake nix-diff nixfmt nixd any-nix-shell ] ++ [
 
       # gui applications
-      slack
-      discord
+      # slack
+      # discord
       vlc
       logseq
       gimp
       calibre
-      okular
-      spotify
-      qbittorrent
-      brave
+      # kdePackages.okular
+      # spotify
+      # qbittorrent
+      # brave
       peek
 
       anki
@@ -112,10 +113,6 @@ in {
       zathura
 
       libreoffice
-
-      # these are broken but i want them
-      protonvpn-gui
-      protonvpn-cli
 
       # encrypt
       age
@@ -125,7 +122,7 @@ in {
       redis
 
       # java stuff
-      openjdk17
+      # openjdk17
       # gradle
 
       # TODO: these don't work with dpi, need to switch to use command like initiation
@@ -160,19 +157,18 @@ in {
       tex
       mypaint
 
-      gucharmap # find emojis
-      xorg.xev
+      # gucharmap # find emojis
+      # xorg.xev
 
       pciutils
       rsync
-      glxinfo
-      glances
+      # glxinfo
 
       rclone
 
-      gnome.sushi
-      gnome.nautilus
-      # cinnamon.nemo
+      sushi
+      nautilus
+      # nemo
       # libsForQt5.dolphin
       # pcmanfm
       # lxqt.pcmanfm-qt
@@ -180,7 +176,7 @@ in {
       gtk3
       # printer
       # canon-cups-ufr2
-      gnomeExtensions.printers
+      # gnomeExtensions.printers
     ] ++ [ # dev applications
       # cli: external
       awscli2
@@ -188,12 +184,12 @@ in {
       go-migrate
       pgsync
       terraform
-      wakatime
+      wakatime-cli
       gitleaks
       unp # "unpack (almost) everything with one command"
       unrar
       mtpfs # trying to get kindle working
-      gmtp
+      # gmtp remove :_(
       gparted
       signal-desktop
       powertop
@@ -202,8 +198,8 @@ in {
 
       # gui
       # postman # TODO: not working right now
-      lens
-      jetbrains.datagrip
+      # lens
+      # jetbrains.datagrip
 
       # dual audio playback
       paprefs # pulse audio preference
@@ -212,12 +208,14 @@ in {
       bashidsScript
     ] ++ [ # yubikey
       yubikey-manager # cli
-      yubikey-manager-qt # gui
-    ] ++ xsessionPhv.extraPkgs ++ golangTools.extraPkgs
-    ++ haskellTools.extraPkgs ++ clojureTools.extraPkgs ++ nodeTools.extraPkgs
-    ++ elixirTools.extraPkgs ++ rustTools.extraPkgs
+      # yubikey-mana # gui
+    ] ++ xsessionPhv.extraPkgs ++ customPkgs.all; 
+    # ++ golangTools.extraPkgs
+    # ++ haskellTools.extraPkgs ++ clojureTools.extraPkgs ++ nodeTools.extraPkgs
+    # ++ rustTools.extraPkgs
+    # ++ elixirTools.extraPkgs
     # ++ solanaTools.tools
-    ++ polyBarConfig.extraPkgs ++ customPkgs.all;
+    # ++ polyBarConfig.extraPkgs ;
 
   programs.git = gitConfig;
 
@@ -292,8 +290,8 @@ in {
     matchBlocks = {
       "github-wooga.com" = {
         hostname = "github.com";
-        user = "prithvihv-wooga";
-        identityFile = "/home/phv/.ssh/phv-wooga-macbook/id_rsa";
+        user = "git";
+        identityFile = "/home/phv/.ssh/phv-wooga-macbook/id_ed25519";
       };
     };
   };
@@ -307,7 +305,6 @@ in {
     enable = true;
     pinentryPackage = pkgs.pinentry-qt;
     # pinentryFlavor = "qt";
-    pinentryPackage =  pkgs.pinentry-qt;
   };
 
   # TODO: figur out dropbox configuration

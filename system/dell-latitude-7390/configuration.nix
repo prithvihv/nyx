@@ -20,6 +20,7 @@
   networking.hostName = "Dell-Latitude-7390"; # Define your hostname.
   networking.networkmanager.enable =
     true; # Easiest to use and most distros use this by default.
+  networking.resolvconf.enable = true;
 
   # Set your time zone.
   # time.timeZone = "Europe/Amsterdam";
