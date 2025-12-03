@@ -49,6 +49,7 @@ in {
       awscli2
       wakatime
       unp
+      kubernetes
 
       openjdk17
 

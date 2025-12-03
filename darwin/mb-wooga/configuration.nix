@@ -35,6 +35,8 @@
   nix.extraOptions = ''
     extra-platforms = aarch64-darwin x86_64-darwin
     experimental-features = nix-command flakes
+    # Uncomment and set path after downloading your corporate CA certificate:
+    ssl-cert-file = /Users/prithvi.virupaksha/corporate-ca-cert.pem
   '';
 
   security.pam.services.sudo_local.touchIdAuth = true;
