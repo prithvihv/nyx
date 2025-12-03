@@ -63,6 +63,9 @@
       "networkmanager"
     ];
     shell = pkgs.fish;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFU/2xyaZ7ibaJCWKzNMnVG8XytT/p1l4Y4KvNZ0PukH prithvi.virupaksha@mw-pvirupa-GK4K"
+    ];
   };
 
   # Select internationalisation properties.
