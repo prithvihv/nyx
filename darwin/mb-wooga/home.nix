@@ -98,10 +98,10 @@ in {
   programs.ssh = {
     enable = true;
     matchBlocks = {
-      "phv.github.com" = {
-        hostname = "github.com";
-        user = "prthvihv";
-        identityFile = "/Users/prithvi.virupaksha/.ssh/prithvihv/id_ed25519";
+      "home.server" = {
+        hostname = "192.168.0.51";
+        user = "server";
+        identityFile = "/Users/prithvi.virupaksha/.ssh/id_ed25519";
       };
     };
   };

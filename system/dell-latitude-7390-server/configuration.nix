@@ -117,6 +117,34 @@
     passwordAuthentication = false;
   };
 
+  # Enable Pi-hole FTL (DNS server)
+  services.pihole-ftl = {
+    enable = true;
+    openFirewallDNS = true;
+    openFirewallWebserver = true;
+    settings = {
+      dns = {
+        upstream = [
+          "1.1.1.1"
+          "1.0.0.1"
+          "8.8.8.8"
+          "8.8.4.4"
+        ];
+      };
+      webserver = {
+        port = 4938;
+      };
+      privacy = {
+        level = 0;
+      };
+    };
+    # lists = {
+    #   # Add some common blocklists
+    #   # Format: "url" = "comment";
+    #   # You can add more blocklists here if needed
+    # };
+  };
+
   # # for a WiFi printer
   # services.avahi.enable = true;
   # services.avahi.nssmdns = true;
