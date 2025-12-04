@@ -132,10 +132,10 @@
         ];
       };
       webserver = {
-        port = 4938;
+        port = "4938";
       };
-      privacy = {
-        level = 0;
+      misc = {
+        privacylevel = 0;
       };
     };
     # lists = {
