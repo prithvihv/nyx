@@ -1,4 +1,10 @@
-{ config, pkgs, lib, sbs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  sbs,
+  ...
+}:
 let
   golangTools = import ../../pkgs/languages/golang.nix { inherit lib pkgs; };
   nodeTools = import ../../pkgs/languages/node/node.nix {
@@ -10,25 +16,40 @@ let
   gitConfig = import ../../pkgs/git.nix { inherit pkgs; };
   vimConfig = import ../../pkgs/vim.nix { inherit pkgs; };
 
-  tex = with pkgs;
+  tex =
+    with pkgs;
     (texlive.combine {
       inherit (texlive)
-        scheme-medium titlesec marvosym xcolor enumitem hyperref fancyhdr
-        latexmk tlmgrbasics fontawesome;
+        scheme-medium
+        titlesec
+        marvosym
+        xcolor
+        enumitem
+        hyperref
+        fancyhdr
+        latexmk
+        tlmgrbasics
+        fontawesome
+        ;
     });
   alacrittyConfig = import ../../pkgs/alacritty.nix { };
   tmuxConfig = import ../../pkgs/tmux.nix { inherit pkgs; };
   vsCodeConfig = import ../../pkgs/vscode.nix { inherit pkgs; };
   zedConfig = import ../../pkgs/zed.nix { inherit pkgs; };
-  fishConfig = import ../../pkgs/fish.nix { inherit pkgs lib; isWoogaMachine = true; };
+  fishConfig = import ../../pkgs/fish.nix {
+    inherit pkgs lib;
+    isWoogaMachine = true;
+  };
   customPkgs = import ../../pkgs/nixpkgs { inherit pkgs; };
-in {
+in
+{
   home.stateVersion = "23.05";
   # home.enableNixpkgsReleaseCheck = false;
   home.username = "prithvi.virupaksha";
   home.homeDirectory = "/Users/prithvi.virupaksha";
 
-  home.packages = with pkgs;
+  home.packages =
+    with pkgs;
     [
       go-migrate
       # msgpack-tools
@@ -56,6 +77,8 @@ in {
       pandoc
       tex
       # texliveTeTeX
+      husky
+      cmake
 
       pass
       # gnused
@@ -67,22 +90,35 @@ in {
       # unixODBC
       # mise
       k9s
-    ] ++ [ git-crypt ] ++ [
+    ]
+    ++ [ git-crypt ]
+    ++ [
       kubectl
       kubectx
       kafkactl
       kubernetes-helm
       aws-iam-authenticator
-      # terraform
+      terraform
       tflint
       gh
       chart-testing
 
-
       sbs.sbs-docker-compose
       sbs.sbs-env
-    ] ++ [ dotnetCorePackages.sdk_8_0_3xx ] ++ golangTools.extraPkgs
-    ++ nodeTools.extraPkgs ++ haskellTools.extraPkgs ++ customPkgs.all
+    ]
+    ++ [
+      sbt
+      scala_2_13
+      # corretto21
+      # dart
+      # flutter
+      # openai-whisper
+      # docker
+    ]
+    ++ golangTools.extraPkgs
+    ++ nodeTools.extraPkgs
+    ++ haskellTools.extraPkgs
+    ++ customPkgs.all
     ++ elixirTools.extraPkgs;
   #++ sbs.binary-collection;
 
@@ -97,6 +133,7 @@ in {
   programs.fish = fishConfig;
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = true;
     matchBlocks = {
       "home.server" = {
         hostname = "192.168.0.51";

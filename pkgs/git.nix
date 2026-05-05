@@ -8,14 +8,20 @@ let
       .elixir_ls
       *.ignorefile.*
       .nvimlog
+      .cursor
+      AGENTS.md
+      .claude
+      CLAUDE.md
     '';
     executable = false;
   };
 in {
   enable = true;
-  userName = "prithvihv";
-  userEmail = "hvprithvi09@gmail.com";
-  extraConfig = {
+  settings = {
+    user = {
+      name = "prithvihv";
+      email = "hvprithvi09@gmail.com";
+    };
     push = { autoSetupRemote = true; };
     core = {
       excludesfile = "${global-gitignore}";

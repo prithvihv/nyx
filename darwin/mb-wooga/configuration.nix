@@ -23,6 +23,11 @@
   };
   system.primaryUser = "prithvi.virupaksha";
 
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    meslo-lgs-nf
+  ];
+
   programs.fish.enable = true;
 
   # Use a custom configuration.nix location.

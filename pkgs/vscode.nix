@@ -7,7 +7,7 @@ in {
 
   # if extensions stop working try this: https://github.com/nix-community/home-manager/issues/3507#issuecomment-1616803481
 
-  extensions = with pkgs.vscode-extensions;
+  profiles.default.extensions = with pkgs.vscode-extensions;
     let
       lib = pkgs.lib;
       vitesse-theme = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
@@ -163,10 +163,10 @@ in {
       vscode-elixir-mix-formatter
     ] ++ nixOsApps;
 
-  enableUpdateCheck = false;
-  enableExtensionUpdateCheck = false;
+  profiles.default.enableUpdateCheck = false;
+  profiles.default.enableExtensionUpdateCheck = false;
 
-  userSettings = {
+  profiles.default.userSettings = {
     "editor.cursorSmoothCaretAnimation" = "on";
     "latex-workshop.kpsewhich.path" =
       "/etc/profiles/per-user/phv/bin/kpsewhich";
@@ -218,8 +218,9 @@ in {
     };
 
     "editor.fontFamily" =
-      "JetBrains Mono,  Iosevka, FuraCode Nerd Font, Material Icons";
+      "JetBrainsMono Nerd Font, JetBrains Mono, Iosevka, Material Icons, MesloLGS NF";
     "editor.fontSize" = 11;
+    "terminal.integrated.fontFamily" = "JetBrainsMono Nerd Font";
     "javascript.updateImportsOnFileMove.enabled" = "always";
     "diffEditor.ignoreTrimWhitespace" = false;
     "go.formatTool" = "goimports";
@@ -371,5 +372,8 @@ in {
     "gitlens.ai.experimental.provider" = "gpt-4-1106-preview";
 
     "chat.editing.alwaysSaveWithGeneratedChanges" = true;
+    "lexical.server.releasePathOverride"=  "/etc/profiles/per-user/prithvi.virupaksha/bin/lexical";
+    "lexical.server.erlangPath"= "/etc/profiles/per-user/prithvi.virupaksha/bin/erl";
+    "lexical.server.elixirPath"= "/etc/profiles/per-user/prithvi.virupaksha/bin/elixir";
   };
 }

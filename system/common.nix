@@ -48,6 +48,8 @@
       # consider looking into: https://github.com/cideM/dotfiles/blob/1dc395a83846ccfe2afd59f10706050863a5eb13/hosts/nixos/home.nix#L41-L46
       iosevka
       jetbrains-mono
+      nerd-fonts.jetbrains-mono
+      meslo-lgs-nf
 
       # emojis
       openmoji-color
