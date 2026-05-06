@@ -2,16 +2,16 @@
   description = "configuration and workflows";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows =
       "nixpkgs"; # ask hm to use pinned nixpkgs
 
     # darwin stuff
-    darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+    darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     # extra
@@ -19,9 +19,9 @@
     elixir-extra.inputs.nixpkgs.follows = "nixpkgs";
 
     # sbs
-    sbs.url =
-      "git+ssh://git@github.com/wooga/sbs-nix.git";
-    sbs.inputs.nixpkgs.follows = "nixpkgs";
+   sbs.url =
+     "git+ssh://git@github.com/wooga/sbs-nix.git";
+   sbs.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, home-manager, sops-nix, darwin, elixir-extra
@@ -30,6 +30,7 @@
       system = "x86_64-linux";
       insecurePakages = [
         "electron-27.3.11"
+        # "yubikey-manager-qt-1.2.5"
       ];
       lib = nixpkgs.lib;
       linux-nixpkgs = import nixpkgs {
@@ -56,9 +57,9 @@
             allowUnsupportedSystem = true;
             permittedInsecurePackages = [ "nodejs-14.21.3" "openssl-1.1.1u" ];
           };
-          overlays = [
-            (final: prev: { terraform = darwin-unstable-nixpkgs.terraform; })
-          ];
+          # overlays = [
+          #   (final: prev: { terraform = darwin-unstable-nixpkgs.terraform; })
+          # ];
         };
       in darwin.lib.darwinSystem {
         inherit system;
@@ -71,7 +72,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users."prithvi.virupaksha" = import ./darwin/mb-wooga/home.nix;
-            home-manager.extraSpecialArgs = { sbs = sbs.packages.${system}; };
+           home-manager.extraSpecialArgs = { sbs = sbs.packages.${system}; };
           }
         ];
       };
@@ -127,6 +128,22 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.phv = import ./users/phv/home.nix;
+              home-manager.users.server = import ./users/server/home.nix;
+            }
+          ];
+        };
+
+        dell-latitude-7390-server = let pkgs = linux-nixpkgs;
+        in lib.nixosSystem {
+          inherit system;
+          inherit pkgs;
+          modules = [
+            ./system/dell-latitude-7390-server/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.server = import ./users/server/home.nix;
             }
           ];
         };

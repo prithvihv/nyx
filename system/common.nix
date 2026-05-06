@@ -1,5 +1,5 @@
 { config, lib, pkgs, modulesPath, ... }: { # nix flakes
-  nix.package = pkgs.nixFlakes;
+  nix.package = pkgs.nixVersions.stable;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
@@ -48,10 +48,12 @@
       # consider looking into: https://github.com/cideM/dotfiles/blob/1dc395a83846ccfe2afd59f10706050863a5eb13/hosts/nixos/home.nix#L41-L46
       iosevka
       jetbrains-mono
+      nerd-fonts.jetbrains-mono
+      meslo-lgs-nf
 
       # emojis
       openmoji-color
-      nerdfonts
+      # (builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts)) # for everything nerd font
       unifont # this allows emojis to work in vscode for somereason
 
       # Additional
@@ -104,9 +106,6 @@
       ++ [ "scanner" "lp" ];
     shell = pkgs.fish;
   };
-
-  # Enable sound.
-  sound.enable = true;
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;

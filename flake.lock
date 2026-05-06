@@ -7,16 +7,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1757432263,
-        "narHash": "sha256-qHn+/0+IOz5cG68BZUwL9BV3EO/e9eNKCjH3+N7wMdI=",
+        "lastModified": 1772129556,
+        "narHash": "sha256-Utk0zd8STPsUJPyjabhzPc5BpPodLTXrwkpXBHYnpeg=",
         "owner": "nix-darwin",
         "repo": "nix-darwin",
-        "rev": "1fef4404de4d1596aa5ab2bd68078370e1b9dcdb",
+        "rev": "ebec37af18215214173c98cf6356d0aca24a2585",
         "type": "github"
       },
       "original": {
         "owner": "nix-darwin",
-        "ref": "nix-darwin-25.05",
+        "ref": "nix-darwin-25.11",
         "repo": "nix-darwin",
         "type": "github"
       }
@@ -65,27 +65,27 @@
         ]
       },
       "locked": {
-        "lastModified": 1758463745,
-        "narHash": "sha256-uhzsV0Q0I9j2y/rfweWeGif5AWe0MGrgZ/3TjpDYdGA=",
+        "lastModified": 1777851538,
+        "narHash": "sha256-Gp8qwTEYNoy2yvmErVGlvLOQvrtEECCAKbonW7VJef8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "3b955f5f0a942f9f60cdc9cacb7844335d0f21c3",
+        "rev": "cc09c0f9b7eaa95c2d9827338a5eb03d32505ca5",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "release-25.05",
+        "ref": "release-25.11",
         "repo": "home-manager",
         "type": "github"
       }
     },
     "nixos-unstable": {
       "locked": {
-        "lastModified": 1758427187,
-        "narHash": "sha256-pHpxZ/IyCwoTQPtFIAG2QaxuSm8jWzrzBGjwQZIttJc=",
+        "lastModified": 1777578337,
+        "narHash": "sha256-Ad49moKWeXtKBJNy2ebiTQUEgdLyvGmTeykAQ9xM+Z4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "554be6495561ff07b6c724047bdd7e0716aa7b46",
+        "rev": "15f4ee454b1dce334612fa6843b3e05cf546efab",
         "type": "github"
       },
       "original": {
@@ -97,16 +97,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1759580034,
-        "narHash": "sha256-YWo57PL7mGZU7D4WeKFMiW4ex/O6ZolUS6UNBHTZfkI=",
+        "lastModified": 1777673416,
+        "narHash": "sha256-5c2POKPOjU40Kh0MirOdScBLG0bu9TAuPYAtPRNZMBs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "3bcc93c5f7a4b30335d31f21e2f1281cba68c318",
+        "rev": "26ef669cffa904b6f6832ab57b77892a37c1a671",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-25.05",
+        "ref": "nixos-25.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -131,11 +131,11 @@
         "sbs-rbac": "sbs-rbac"
       },
       "locked": {
-        "lastModified": 1759611897,
-        "narHash": "sha256-jXShlX0GINuUX3V25aj5zPITe1p9ZTw8GEPKEdJGO74=",
+        "lastModified": 1769174588,
+        "narHash": "sha256-pBl7cp8xhfLWz0SJyiZ/EWufMetiaIu+KscKnuLlelo=",
         "ref": "refs/heads/master",
-        "rev": "fe28d9caaad8ed47e306b93120ad3786965b5bfd",
-        "revCount": 22,
+        "rev": "ff311c6a237776a6384bde02a7ab819e01be5bda",
+        "revCount": 32,
         "type": "git",
         "url": "ssh://git@github.com/wooga/sbs-nix.git"
       },
@@ -147,16 +147,16 @@
     "sbs-project-tools": {
       "flake": false,
       "locked": {
-        "lastModified": 1756722013,
-        "narHash": "sha256-Q/uGbx9mRrctfQ5TKfuJBvnCcPKX76tFEcxCFEm9HYc=",
-        "ref": "d6560355f75557849d3a1c6fc1c13aaec6802ea7",
-        "rev": "d6560355f75557849d3a1c6fc1c13aaec6802ea7",
-        "revCount": 720,
+        "lastModified": 1768909809,
+        "narHash": "sha256-bVQ22nuno+6PhjTon5pq1piUdrWdQvBGkXCTGBB+uI8=",
+        "ref": "refs/heads/master",
+        "rev": "441c9cdc4b44109aa8f249dfe2e4f09e34c7ea1c",
+        "revCount": 731,
         "type": "git",
         "url": "ssh://git@github.com/wooga/sbs-project-tools.git"
       },
       "original": {
-        "ref": "d6560355f75557849d3a1c6fc1c13aaec6802ea7",
+        "rev": "441c9cdc4b44109aa8f249dfe2e4f09e34c7ea1c",
         "type": "git",
         "url": "ssh://git@github.com/wooga/sbs-project-tools.git"
       }
@@ -166,14 +166,14 @@
       "locked": {
         "lastModified": 1757506842,
         "narHash": "sha256-8M90yG+qjlx9d2K4MHnPDz3Qr5ny4UoNBjm4+ngjI1c=",
-        "ref": "486afe610b149a3c7ee78a0c6761e9da14b7533b",
+        "ref": "refs/heads/master",
         "rev": "486afe610b149a3c7ee78a0c6761e9da14b7533b",
         "revCount": 216,
         "type": "git",
         "url": "ssh://git@github.com/wooga/sbs-rbac.git"
       },
       "original": {
-        "ref": "486afe610b149a3c7ee78a0c6761e9da14b7533b",
+        "rev": "486afe610b149a3c7ee78a0c6761e9da14b7533b",
         "type": "git",
         "url": "ssh://git@github.com/wooga/sbs-rbac.git"
       }
@@ -185,11 +185,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1758425756,
-        "narHash": "sha256-L3N8zV6wsViXiD8i3WFyrvjDdz76g3tXKEdZ4FkgQ+Y=",
+        "lastModified": 1777944972,
+        "narHash": "sha256-VfGRo1qTBKOe3s2gOv8LSoA6Fk19PvBlwQ1ECN0Evn8=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "e0fdaea3c31646e252a60b42d0ed8eafdb289762",
+        "rev": "c591bf665727040c6cc5cb409079acb22dcce33c",
         "type": "github"
       },
       "original": {
