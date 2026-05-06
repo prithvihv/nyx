@@ -24,7 +24,7 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.hostName = "Dell-Latitude-7390"; # Define your hostname.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
-  networking.resolvconf.enable = true;
+  networking.resolvconf.enable = false;
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -124,15 +124,19 @@
     openFirewallWebserver = true;
     settings = {
       dns = {
-        upstream = [
+        upstreams = [
           "1.1.1.1"
           "1.0.0.1"
           "8.8.8.8"
           "8.8.4.4"
         ];
       };
+      #"webserver.paths" = {
+       # webroot = "${pkgs.pihole-web}/share";
+      #};
       webserver = {
         port = "4938";
+      serve_all = true;
       };
       misc = {
         privacylevel = 0;
@@ -143,6 +147,13 @@
     #   # Format: "url" = "comment";
     #   # You can add more blocklists here if needed
     # };
+  };
+
+  services.pihole-web = {
+    enable = true;
+    ports = [ 4938 ];         # match webserver.port above
+    # optional, default is "pi.hole"
+    # hostName = "pi.hole";
   };
 
   # # for a WiFi printer
