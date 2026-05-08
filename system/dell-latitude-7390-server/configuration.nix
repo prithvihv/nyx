@@ -91,7 +91,7 @@
 
   # Enable sound.
   # sound.enable = false;
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -117,7 +117,7 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    passwordAuthentication = false;
+    settings.PasswordAuthentication = false;
   };
 
   services.forgejo = {
@@ -194,8 +194,8 @@
   services.upower.enable = true;
 
   # Keep running when the lid is closed
-  services.logind.lidSwitch = "ignore";
-  services.logind.lidSwitchExternalPower = "ignore";
+  services.logind.settings.Login.HandleLidSwitch = "ignore";
+  services.logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
 
   # Turn off backlight on lid close, restore on open
   services.acpid = {
