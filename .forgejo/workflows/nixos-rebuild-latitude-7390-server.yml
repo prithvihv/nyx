@@ -13,4 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Apply NixOS configuration
+        env:
+          PATH: /run/wrappers/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/usr/bin:/bin
         run: sh apply-latitude-7390-server.sh
