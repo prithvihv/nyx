@@ -13,4 +13,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Apply NixOS configuration
-        run: ./apply-latitude-7390-server.sh
+        run: sh apply-latitude-7390-server.sh
