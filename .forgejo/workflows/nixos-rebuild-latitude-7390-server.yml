@@ -1,0 +1,16 @@
+name: nixos-rebuild-latitude-7390-server
+
+on:
+  push:
+    branches:
+      - main
+      - "server-*"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: latitude-7390-server
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply NixOS configuration
+        run: ./apply-latitude-7390-server.sh

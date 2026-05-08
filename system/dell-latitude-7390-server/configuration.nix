@@ -9,6 +9,8 @@
     # Include the results of the hardware scan.
     ../builds.module.nix
     ../dell-latitude-7390/hardware-configuration.nix
+    ./power.nix
+    ./ci.nix
   ];
 
   nix.package = pkgs.nixVersions.stable;
@@ -65,6 +67,7 @@
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFU/2xyaZ7ibaJCWKzNMnVG8XytT/p1l4Y4KvNZ0PukH prithvi.virupaksha@mw-pvirupa-GK4K"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHXJuhA4KlC9bZfO1lSktbnTK2ca5ZDkGWAXompXPFjw phv@m4-mbp14.local"
     ];
   };
 
@@ -117,6 +120,32 @@
     passwordAuthentication = false;
   };
 
+  services.forgejo = {
+      enable = true;
+
+      settings = {
+        server = {
+          DOMAIN = "localhost";
+          ROOT_URL = "http://192.168.0.51:9753/";
+          HTTP_ADDR = "0.0.0.0";
+          HTTP_PORT = 9753;
+
+          SSH_DOMAIN = "192.168.0.51";
+          SSH_PORT = 2222;
+
+          LOCAL_ROOT_URL = "http://127.0.0.1:9753/";
+
+          START_SSH_SERVER = true;
+          SSH_LISTEN_HOST = "0.0.0.0";
+          SSH_LISTEN_PORT = 2222;
+        };
+
+        actions.ENABLED = true;
+      };
+    };
+
+
+
   # Enable Pi-hole FTL (DNS server)
   services.pihole-ftl = {
     enable = true;
@@ -162,8 +191,27 @@
   # services.avahi.openFirewall = true;
   services.avahi.enable = false;
 
+  services.upower.enable = true;
+
+  # Keep running when the lid is closed
+  services.logind.lidSwitch = "ignore";
+  services.logind.lidSwitchExternalPower = "ignore";
+
+  # Turn off backlight on lid close, restore on open
+  services.acpid = {
+    enable = true;
+    handlers.lid-close = {
+      event = "button/lid LID close";
+      action = "echo 0 > /sys/class/backlight/intel_backlight/brightness";
+    };
+    handlers.lid-open = {
+      event = "button/lid LID open";
+      action = "echo 1500 > /sys/class/backlight/intel_backlight/brightness";
+    };
+  };
+
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 9753 2222 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;

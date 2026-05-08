@@ -52,3 +52,6 @@ https://github.com/drduh/YubiKey-Guide#nixos
 
 ## General notes on darwin:
 -  need to install homebrew, gpg suite manually
+
+
+test
