@@ -5,6 +5,11 @@ when:
       - server-*
   - event: manual
 
+clone:
+  git:
+    settings:
+      lfs: false
+
 steps:
   - name: nixos-rebuild-latitude-7390-server
     image: local
