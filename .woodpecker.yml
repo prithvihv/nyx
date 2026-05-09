@@ -1,0 +1,12 @@
+when:
+  - event: push
+    branch:
+      - main
+      - server-*
+  - event: manual
+
+steps:
+  - name: nixos-rebuild-latitude-7390-server
+    image: local
+    commands:
+      - sudo /run/current-system/sw/bin/nixos-rebuild switch --flake .#dell-latitude-7390-server
