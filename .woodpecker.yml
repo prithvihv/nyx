@@ -7,6 +7,6 @@ when:
 
 steps:
   - name: nixos-rebuild-latitude-7390-server
-    image: local
+    image: bash
     commands:
       - sudo /run/current-system/sw/bin/nixos-rebuild switch --flake .#dell-latitude-7390-server
