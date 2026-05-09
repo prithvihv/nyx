@@ -21,19 +21,17 @@
   systemd.services.woodpecker-server.serviceConfig.EnvironmentFile =
     "/var/lib/woodpecker/server-secrets";
 
-  services.woodpecker-agent = {
+  services.woodpecker-agents.agents.main = {
     enable = true;
-    settings = {
+    environment = {
       WOODPECKER_SERVER        = "localhost:9000";  # gRPC
       WOODPECKER_BACKEND       = "local";
-      WOODPECKER_MAX_WORKFLOWS = 1;
+      WOODPECKER_MAX_WORKFLOWS = "1";
     };
+    # Secrets: create /var/lib/woodpecker/agent-secrets with:
+    #   WOODPECKER_AGENT_SECRET=<same random string as server>
+    environmentFile = [ "/var/lib/woodpecker/agent-secrets" ];
   };
-
-  # Secrets: create /var/lib/woodpecker/agent-secrets with:
-  #   WOODPECKER_AGENT_SECRET=<same random string as server>
-  systemd.services.woodpecker-agent.serviceConfig.EnvironmentFile =
-    "/var/lib/woodpecker/agent-secrets";
 
   # Allow the woodpecker agent to run nixos-rebuild only
   security.sudo.extraRules = [
