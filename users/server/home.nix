@@ -18,7 +18,7 @@ in
   home.homeDirectory = "/home/server";
 
   home.packages = with pkgs; [
-
+    git-lfs
   ];
 
   programs.htop = {
