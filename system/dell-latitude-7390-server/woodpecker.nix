@@ -30,23 +30,24 @@
     environmentFile = [ "/var/lib/woodpecker/agent-secrets" ];
   };
 
-  # Packages available to the woodpecker agent — add to this list as needed
-  systemd.services.woodpecker-agent-main.path = with pkgs; [
-    git
-  ];
+  # Run the agent as the server user (has git and other tools available)
+  systemd.services.woodpecker-agent-main.serviceConfig = {
+    User  = lib.mkForce "server";
+    Group = lib.mkForce "server";
+  };
 
-  # Allow the woodpecker agent to run nixos-rebuild only
-  security.sudo.extraRules = [
-    {
-      users = [ "woodpecker" ];
-      commands = [
-        {
-          command = "/run/current-system/sw/bin/nixos-rebuild";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
+  # Allow the server user to run nixos-rebuild only
+  # security.sudo.extraRules = [
+  #   {
+  #     users = [ "server" ];
+  #     commands = [
+  #       {
+  #         command = "/run/current-system/sw/bin/nixos-rebuild";
+      #     options = [ "NOPASSWD" ];
+      #   }
+      # ];
+  #   }
+  # ];
 
   # Open Woodpecker UI port
   networking.firewall.allowedTCPPorts = [ 8000 ];
