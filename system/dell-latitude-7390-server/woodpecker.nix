@@ -28,6 +28,22 @@
     # Secrets: create this file with:
     #   WOODPECKER_AGENT_SECRET=<same random string as server>
     environmentFile = [ "/var/lib/woodpecker/agent-secrets" ];
+
+    path = with pkgs; [
+        # Needed for default clone
+        woodpecker-plugin-git
+        git
+        git-lfs
+
+        # Needed for local backend shell steps
+        bash
+        coreutils
+        openssh
+
+        # Needed if your pipeline invokes Nix/NixOS commands
+        nix
+        config.system.build.nixos-rebuild
+      ];
   };
 
   # Run the agent as the server user (has git and other tools available)
