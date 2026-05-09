@@ -30,6 +30,11 @@
     environmentFile = [ "/var/lib/woodpecker/agent-secrets" ];
   };
 
+  # Packages available to the woodpecker agent — add to this list as needed
+  systemd.services.woodpecker-agent-main.path = with pkgs; [
+    git
+  ];
+
   # Allow the woodpecker agent to run nixos-rebuild only
   security.sudo.extraRules = [
     {
