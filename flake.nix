@@ -144,6 +144,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.server = import ./users/server/home.nix;
+              home-manager.users.woodpecker = import ./system/dell-latitude-7390-server/woodpecker-home.nix;
             }
           ];
         };

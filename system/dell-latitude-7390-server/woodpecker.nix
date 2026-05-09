@@ -1,15 +1,5 @@
 { config, pkgs, lib, ... }:
 
-let
-  # Declaratively define what tools the woodpecker agent has access to.
-  # Add packages here as needed — Nix manages the paths.
-  agentEnv = pkgs.buildEnv {
-    name = "woodpecker-agent-env";
-    paths = with pkgs; [
-      git
-    ];
-  };
-in
 {
   services.woodpecker-server = {
     enable = true;
@@ -34,7 +24,6 @@ in
       WOODPECKER_SERVER        = "localhost:9000";
       WOODPECKER_BACKEND       = "local";
       WOODPECKER_MAX_WORKFLOWS = "1";
-      PATH                     = "${agentEnv}/bin:/run/wrappers/bin";
     };
     # Secrets: create this file with:
     #   WOODPECKER_AGENT_SECRET=<same random string as server>
