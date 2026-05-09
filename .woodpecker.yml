@@ -5,8 +5,12 @@ when:
       - server-*
   - event: manual
 
+labels:
+  type: nixos-sync
+  host: dell-latitude-7390-server
+
 steps:
   - name: nixos-rebuild-latitude-7390-server
     image: bash
     commands:
-      - sudo /run/current-system/sw/bin/nixos-rebuild switch --flake .#dell-latitude-7390-server
+      - sudo nixos-rebuild switch --flake .#dell-latitude-7390-server
