@@ -1,5 +1,15 @@
 { config, pkgs, lib, ... }:
 
+let
+  # Declaratively define what tools the woodpecker agent has access to.
+  # Add packages here as needed — Nix manages the paths.
+  agentEnv = pkgs.buildEnv {
+    name = "woodpecker-agent-env";
+    paths = with pkgs; [
+      git
+    ];
+  };
+in
 {
   services.woodpecker-server = {
     enable = true;
@@ -7,7 +17,7 @@
       WOODPECKER_HOST        = "http://192.168.0.51:8000";
       WOODPECKER_SERVER_ADDR = ":8000";
       WOODPECKER_OPEN        = "false";
-      WOODPECKER_ADMIN       = "prithvihv";  # your Forgejo username
+      WOODPECKER_ADMIN       = "prithvihv";
       WOODPECKER_FORGEJO     = "true";
       WOODPECKER_FORGEJO_URL = "http://192.168.0.51:9753";
     };
@@ -24,6 +34,7 @@
       WOODPECKER_SERVER        = "localhost:9000";
       WOODPECKER_BACKEND       = "local";
       WOODPECKER_MAX_WORKFLOWS = "1";
+      PATH                     = "${agentEnv}/bin:/run/wrappers/bin";
     };
     # Secrets: create this file with:
     #   WOODPECKER_AGENT_SECRET=<same random string as server>
