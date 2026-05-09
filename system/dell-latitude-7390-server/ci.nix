@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   services.gitea-actions-runner = {
@@ -13,6 +13,9 @@
       labels = [ "latitude-7390-server:host" ];
     };
   };
+
+  # Allow sudo to escalate privileges (blocked by default with DynamicUser)
+  systemd.services.gitea-runner-default.serviceConfig.NoNewPrivileges = lib.mkForce false;
 
   # Allow the runner to call nixos-rebuild with sudo (nothing else)
   security.sudo.extraRules = [
