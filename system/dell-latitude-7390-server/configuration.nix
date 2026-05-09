@@ -141,6 +141,8 @@
         };
 
         actions.ENABLED = false;
+
+        webhook.ALLOWED_HOST_LIST = "loopback,private";
       };
     };
 
