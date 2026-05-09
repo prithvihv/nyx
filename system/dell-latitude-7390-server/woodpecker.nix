@@ -7,6 +7,7 @@
       WOODPECKER_HOST        = "http://192.168.0.51:8000";
       WOODPECKER_SERVER_ADDR = ":8000";
       WOODPECKER_OPEN        = "false";
+      WOODPECKER_ADMIN       = "prithvihv";  # your Forgejo username
       WOODPECKER_FORGEJO     = "true";
       WOODPECKER_FORGEJO_URL = "http://192.168.0.51:9753";
     };
