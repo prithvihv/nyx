@@ -11,6 +11,7 @@
     ../dell-latitude-7390/hardware-configuration.nix
     ./power.nix
     ./woodpecker.nix
+    ./home-assistant.nix
   ];
 
   nix.package = pkgs.nixVersions.stable;
