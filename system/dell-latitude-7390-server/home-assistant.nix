@@ -26,7 +26,7 @@
       default_config = {};
 
       # Lovelace UI in auto mode (managed via UI)
-      lovelace.mode = "auto";
+      lovelace.mode = "storage";
     };
   };
 }
