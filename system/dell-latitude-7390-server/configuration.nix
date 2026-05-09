@@ -10,7 +10,7 @@
     ../builds.module.nix
     ../dell-latitude-7390/hardware-configuration.nix
     ./power.nix
-    ./ci.nix
+    ./woodpecker.nix
   ];
 
   nix.package = pkgs.nixVersions.stable;
@@ -140,7 +140,7 @@
           SSH_LISTEN_PORT = 2222;
         };
 
-        actions.ENABLED = true;
+        actions.ENABLED = false;
       };
     };
 
