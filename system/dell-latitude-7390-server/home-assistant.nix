@@ -25,12 +25,8 @@
       # Enable the default dashboard and built-in integrations
       default_config = {};
 
-      # Allow access from the local network
-      http = {
-        server_host = "0.0.0.0";
-        trusted_proxies = [ "127.0.0.1" ];
-        ip_ban_enabled = false;
-      };
+      # Lovelace UI in auto mode (managed via UI)
+      lovelace.mode = "auto";
     };
   };
 }
