@@ -9,9 +9,11 @@
     # Include the results of the hardware scan.
     ../builds.module.nix
     ../dell-latitude-7390/hardware-configuration.nix
+    ./vars.nix
     ./power.nix
     ./woodpecker.nix
     ./home-assistant.nix
+    ./ingress.nix
   ];
 
   nix.package = pkgs.nixVersions.stable;
@@ -28,6 +30,7 @@
   networking.hostName = "Dell-Latitude-7390"; # Define your hostname.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
   networking.resolvconf.enable = false;
+  networking.networkmanager.insertNameservers = [ "192.168.0.51" ];
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -39,23 +42,6 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   programs.fish.enable = true;
-
-  users.users.phv = {
-    isNormalUser = true;
-    hashedPassword = "$6$iA.Ln4D87zK1nWpa$tS7r6fQE3a7kQs0PgAaO5UntgHRHB9c9GQ2Dw1LkqSDLD8Buv2Bs4Hdf3XmpS0HmGEhKC.A6YIIQ00AMUbUwr1";
-    description = "Prithvi";
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-      "lxd"
-      "docker"
-    ]
-    ++ [
-      "scanner"
-      "lp"
-    ];
-    shell = pkgs.fish;
-  };
 
   users.users.server = {
     isNormalUser = true;
@@ -126,8 +112,8 @@
 
       settings = {
         server = {
-          DOMAIN = "localhost";
-          ROOT_URL = "http://192.168.0.51:9753/";
+          DOMAIN = "git.local.prithvihv.xyz";
+          ROOT_URL = "https://git.local.prithvihv.xyz/";
           HTTP_ADDR = "0.0.0.0";
           HTTP_PORT = 9753;
 
@@ -173,12 +159,11 @@
       misc = {
         privacylevel = 0;
       };
+      ntp.sync.server.active = false;
     };
-    # lists = {
-    #   # Add some common blocklists
-    #   # Format: "url" = "comment";
-    #   # You can add more blocklists here if needed
-    # };
+    lists = [
+      { url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.txt"; }
+    ];
   };
 
   services.pihole-web = {

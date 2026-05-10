@@ -17,12 +17,12 @@ in
   services.woodpecker-server = {
     enable = true;
     environment = {
-      WOODPECKER_HOST        = "http://192.168.0.51:8000";
+      WOODPECKER_HOST        = "https://ci.local.prithvihv.xyz";
       WOODPECKER_SERVER_ADDR = ":8000";
       WOODPECKER_OPEN        = "false";
       WOODPECKER_ADMIN       = "prithvihv";
       WOODPECKER_FORGEJO     = "true";
-      WOODPECKER_FORGEJO_URL = "http://192.168.0.51:9753";
+      WOODPECKER_FORGEJO_URL = "https://git.local.prithvihv.xyz";
     };
     # Secrets: create this file with:
     #   WOODPECKER_FORGEJO_CLIENT=<oauth app client id>
