@@ -110,6 +110,8 @@
   services.forgejo = {
       enable = true;
 
+      lfs.enable = true;
+
       settings = {
         server = {
           DOMAIN = "git.local.prithvihv.xyz";
