@@ -8,6 +8,7 @@ let
     { name = "Forgejo";        subdomain = "git";            port = 9753; icon = "gitea.png";          description = "Git hosting";       group = "Development"; }
     { name = "Woodpecker CI";  subdomain = "ci";             port = 8000; icon = "woodpecker-ci.png";  description = "CI/CD pipelines";   group = "Development"; }
     { name = "Home Assistant"; subdomain = "home-assistant"; port = 8123; icon = "home-assistant.png"; description = "Home automation";   group = "Home";        }
+    { name = "Syncthing";      subdomain = "syncthing";      port = 8384; icon = "syncthing.png";      description = "File sync";         group = "System";      }
     { name = "Pi-hole";        subdomain = "pihole";         port = 4938; icon = "pi-hole.png";        description = "DNS & ad blocking"; group = "Network";     }
     { name = "Apps";           subdomain = "apps";           port = 8082; icon = "homepage.png";       description = "App dashboard";     group = "System";      }
   ];
