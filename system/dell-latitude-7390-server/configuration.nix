@@ -13,6 +13,7 @@
     ./power.nix
     ./woodpecker.nix
     ./home-assistant.nix
+    ./syncthing.nix
     ./ingress.nix
   ];
 
