@@ -11,6 +11,7 @@ let
     nix
     systemd
     config.system.build.nixos-rebuild
+    restic
   ]);
 in
 {
