@@ -35,7 +35,7 @@ in
     );
   };
 
-  systemd.services.caddy.serviceConfig.EnvironmentFile = [ "/var/lib/caddy/secrets" ];
+  systemd.services.caddy.serviceConfig.EnvironmentFile = [ "/home/phv/secrets/caddy/secrets" ];
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   # ── Pi-hole local DNS overrides ────────────────────────────────────────

@@ -28,7 +28,7 @@ in
     #   WOODPECKER_FORGEJO_CLIENT=<oauth app client id>
     #   WOODPECKER_FORGEJO_SECRET=<oauth app secret>
     #   WOODPECKER_AGENT_SECRET=<random string, shared with agent>
-    environmentFile = "/var/lib/woodpecker/server-secrets";
+    environmentFile = "/home/phv/secrets/woodpecker/server-secrets";
   };
 
   # Define the agent as a plain service bypassing the NixOS module
@@ -45,7 +45,7 @@ in
       ExecStart       = "${pkgs.woodpecker-agent}/bin/woodpecker-agent";
       Restart         = "always";
       RestartSec      = "15";
-      EnvironmentFile = "/var/lib/woodpecker/agent-secrets";
+      EnvironmentFile = "/home/phv/secrets/woodpecker/agent-secrets";
     };
     environment = {
       WOODPECKER_SERVER          = "localhost:9000";
