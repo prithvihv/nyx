@@ -25,11 +25,7 @@ in
       WOODPECKER_FORGEJO     = "true";
       WOODPECKER_FORGEJO_URL = "https://git.local.prithvihv.xyz";
     };
-    # Secrets: create this file with:
-    #   WOODPECKER_FORGEJO_CLIENT=<oauth app client id>
-    #   WOODPECKER_FORGEJO_SECRET=<oauth app secret>
-    #   WOODPECKER_AGENT_SECRET=<random string, shared with agent>
-    environmentFile = "/home/phv/secrets/woodpecker/server-secrets";
+    environmentFile = "/var/lib/woodpecker/server-secrets";
   };
 
   # Define the agent as a plain service bypassing the NixOS module
@@ -46,7 +42,7 @@ in
       ExecStart       = "${pkgs.woodpecker-agent}/bin/woodpecker-agent";
       Restart         = "always";
       RestartSec      = "15";
-      EnvironmentFile = "/home/phv/secrets/woodpecker/agent-secrets";
+      EnvironmentFile = "/var/lib/woodpecker/agent-secrets";
     };
     environment = {
       WOODPECKER_SERVER          = "localhost:9000";
