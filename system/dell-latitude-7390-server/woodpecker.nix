@@ -53,6 +53,7 @@ in
       WOODPECKER_MAX_WORKFLOWS   = "1";
       WOODPECKER_AGENT_CONFIG_FILE = "/var/lib/woodpecker-nixos-sync-agent/agent.conf";
       WOODPECKER_AGENT_LABELS      = "type=nixos-sync,host=dell-latitude-7390-server";
+      WOODPECKER_HOSTNAME          = "dell-latitude-7390-nixos-sync";
       PATH                     = lib.mkForce agentPath;
     };
   };
@@ -63,6 +64,7 @@ in
       WOODPECKER_SERVER        = "localhost:9000";
       WOODPECKER_BACKEND       = "local";
       WOODPECKER_MAX_WORKFLOWS = "1";
+      WOODPECKER_HOSTNAME      = "dell-latitude-7390-everything";
     };
     environmentFile = [ "/home/phv/secrets/woodpecker/agent-secrets" ];
     # Tools made available to pipeline steps (PATH inside the agent).
