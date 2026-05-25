@@ -13,4 +13,11 @@ steps:
   - name: nixos-rebuild-latitude-7390-server
     image: bash
     commands:
-      - sudo nixos-rebuild switch --flake .#dell-latitude-7390-server
+      # --print-build-logs streams per-derivation build output so CI shows
+      #   progress instead of sitting silent on "building the system
+      #   configuration..." for minutes/hours.
+      # --show-trace gives a real backtrace if a Nix eval fails.
+      - sudo nixos-rebuild switch \
+        --flake .#dell-latitude-7390-server \
+        --print-build-logs \
+        --show-trace
