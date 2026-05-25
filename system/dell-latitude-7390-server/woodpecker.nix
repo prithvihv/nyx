@@ -32,6 +32,12 @@ in
     environmentFile = "/home/phv/secrets/woodpecker/server-secrets";
   };
 
+  # Same reasoning as on the agent below: the env file lives on the LUKS
+  # /home/phv mount, so switch-to-configuration is prone to cascade-
+  # restart this unit during rebuilds. Restarting the server mid-build
+  # drops the agent's gRPC stream and makes CI flaky.
+  systemd.services.woodpecker-server.restartIfChanged = false;
+
   # Define the agent as a plain service bypassing the NixOS module
   # which hardcodes DynamicUser/NoNewPrivileges. Since we define it
   # from scratch, neither is set and sudo works normally.
