@@ -6,7 +6,11 @@
     ignoreShellProgramCheck = true;
   };
   system.primaryUser = "phv";
+  networking.computerName = "mbp-m4";
+  networking.hostName      = "mbp-m4";
+  networking.localHostName = "mbp-m4";
   environment.shells = [ pkgs.fish ];
+  programs.fish.enable = true;
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
