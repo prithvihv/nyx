@@ -29,14 +29,15 @@ in
     #   WOODPECKER_FORGEJO_CLIENT=<oauth app client id>
     #   WOODPECKER_FORGEJO_SECRET=<oauth app secret>
     #   WOODPECKER_AGENT_SECRET=<random string, shared with agent>
-    environmentFile = "/home/phv/secrets/woodpecker/server-secrets";
+    # NOTE: this path is a NixOS-managed symlink (see
+    # systemd.tmpfiles.rules at the bottom of this file) that points at
+    # the real secret on the LUKS-encrypted /home/phv volume. Keeping
+    # the unit's EnvironmentFile path under /var/lib means systemd's
+    # auto-generated RequiresMountsFor= dep resolves to the root mount
+    # instead of home-phv.mount. The root mount is never restarted by
+    # switch-to-configuration, so this unit isn't either.
+    environmentFile = "/var/lib/woodpecker/server-secrets";
   };
-
-  # Same reasoning as on the agent below: the env file lives on the LUKS
-  # /home/phv mount, so switch-to-configuration is prone to cascade-
-  # restart this unit during rebuilds. Restarting the server mid-build
-  # drops the agent's gRPC stream and makes CI flaky.
-  systemd.services.woodpecker-server.restartIfChanged = false;
 
   # Define the agent as a plain service bypassing the NixOS module
   # which hardcodes DynamicUser/NoNewPrivileges. Since we define it
@@ -52,7 +53,10 @@ in
       ExecStart       = "${pkgs.woodpecker-agent}/bin/woodpecker-agent";
       Restart         = "always";
       RestartSec      = "15";
-      EnvironmentFile = "/home/phv/secrets/woodpecker/agent-secrets";
+      # See note on services.woodpecker-server.environmentFile above:
+      # this is a /var/lib symlink to the real secret on /home/phv to
+      # avoid systemd auto-deriving RequiresMountsFor=/home/phv.
+      EnvironmentFile = "/var/lib/woodpecker/agent-secrets";
     };
     environment = {
       WOODPECKER_SERVER          = "localhost:9000";
@@ -67,4 +71,21 @@ in
 
   # Open Woodpecker UI port
   networking.firewall.allowedTCPPorts = [ 8000 ];
+
+  # ── Declarative symlinks to LUKS-backed secrets ──────────────────────
+  # Actual encrypted secrets live on the LUKS /home/phv mount. The unit
+  # files reference these stable /var/lib paths so systemd's auto-
+  # generated RequiresMountsFor= dep resolves to the root mount, not to
+  # home-phv.mount. Without this, switch-to-configuration cascade-
+  # restarts these units during every `nixos-rebuild switch`, which
+  # SIGTERMs the agent mid-build.
+  #
+  # `L+` = create symlink, overwriting any existing file/symlink at the
+  # target path. systemd-tmpfiles applies this on every boot (and on
+  # `systemd-tmpfiles --create`).
+  systemd.tmpfiles.rules = [
+    "d /var/lib/woodpecker 0750 root root - -"
+    "L+ /var/lib/woodpecker/server-secrets - - - - /home/phv/secrets/woodpecker/server-secrets"
+    "L+ /var/lib/woodpecker/agent-secrets  - - - - /home/phv/secrets/woodpecker/agent-secrets"
+  ];
 }
