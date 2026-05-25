@@ -58,28 +58,6 @@ in
     };
   };
 
-  services.woodpecker-agents.agents.everything = {
-    enable = true;
-    environment = {
-      WOODPECKER_SERVER        = "localhost:9000";
-      WOODPECKER_BACKEND       = "local";
-      WOODPECKER_MAX_WORKFLOWS = "1";
-      WOODPECKER_HOSTNAME      = "dell-latitude-7390-everything";
-    };
-    environmentFile = [ "/home/phv/secrets/woodpecker/agent-secrets" ];
-    # Tools made available to pipeline steps (PATH inside the agent).
-    # Mirrors what the local backend typically needs to clone & run jobs.
-    path = with pkgs; [
-      git
-      git-lfs
-      woodpecker-plugin-git
-      bash
-      coreutils
-      nix
-      restic
-    ];
-  };
-
   # Open Woodpecker UI port
   networking.firewall.allowedTCPPorts = [ 8000 ];
 }
