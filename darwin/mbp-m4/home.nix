@@ -16,6 +16,8 @@ in
     pass
     gnutar
     gnupg # does not show up in Application dir, currently openning it manually
+    nixd # nix language server
+    nil # nix language server
   ];
 
   # The state version is required and should stay at the version you
