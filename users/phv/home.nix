@@ -209,7 +209,7 @@ in {
     ] ++ [ # yubikey
       yubikey-manager # cli
       # yubikey-mana # gui
-    ] ++ xsessionPhv.extraPkgs ++ customPkgs.all; 
+    ] ++ xsessionPhv.extraPkgs ++ customPkgs.all;
     # ++ golangTools.extraPkgs
     # ++ haskellTools.extraPkgs ++ clojureTools.extraPkgs ++ nodeTools.extraPkgs
     # ++ rustTools.extraPkgs
@@ -306,9 +306,6 @@ in {
     pinentryPackage = pkgs.pinentry-qt;
     # pinentryFlavor = "qt";
   };
-
-  # TODO: figur out dropbox configuration
-  # services.dropbox = { enable = true; };
 
   programs.password-store = {
     enable = true;
