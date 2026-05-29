@@ -54,6 +54,14 @@
             "m4-mbp14"
           ];
         };
+        "resume-cuts" = {
+          id      = "phv-logs";
+          path    = "/home/server/resume-cuts";
+          devices = [
+            "mb-wooga"
+            "m4-mbp14"
+          ];
+        };
       };
     };
   };
