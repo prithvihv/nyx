@@ -55,7 +55,7 @@
           ];
         };
         "resume-cuts" = {
-          id      = "phv-logs";
+          id      = "resume-cuts";
           path    = "/home/server/resume-cuts";
           devices = [
             "mb-wooga"
