@@ -27,7 +27,8 @@ in
 
     # fzf_configure_bindings --help to learn more
       # fzf_configure_bindings
-    # ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
+    ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
+    set -gx OPENSPEC_TELEMETRY 0
   ''
   # Darwin: ensure fish sees nix and Apple/Homebrew bins (e.g. when launched from IDE or non-login)
   + lib.optionalString pkgs.stdenv.isDarwin ''
@@ -46,17 +47,21 @@ in
     export HEX_UNSAFE_HTTPS=1
     source "$HOME/.cargo/env.fish"
   '';
-  plugins = let
-    customPlugins = [{
-      name = "theme-batman";
-      src = pkgs.fetchFromGitHub {
-        owner = "oh-my-fish";
-        repo = "theme-batman";
-        rev = "2a76bd81f4805debd7f137cb98828bff34570562";
-        sha256 = "Ko4w9tMnIi17db174FzW44LgUdui/bUzPFEHEHv//t4=";
-      };
-    }];
-  in with pkgs.fishPlugins;
+  plugins =
+    let
+      customPlugins = [
+        {
+          name = "theme-batman";
+          src = pkgs.fetchFromGitHub {
+            owner = "oh-my-fish";
+            repo = "theme-batman";
+            rev = "2a76bd81f4805debd7f137cb98828bff34570562";
+            sha256 = "Ko4w9tMnIi17db174FzW44LgUdui/bUzPFEHEHv//t4=";
+          };
+        }
+      ];
+    in
+    with pkgs.fishPlugins;
     [
       # https://nixos.wiki/wiki/Fish
       {
@@ -75,7 +80,8 @@ in
         name = "z";
         src = z.src;
       }
-    ] ++ customPlugins;
+    ]
+    ++ customPlugins;
   shellAbbrs = {
     gco = "git checkout";
     gc = "git commit -m";
