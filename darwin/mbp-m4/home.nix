@@ -1,7 +1,10 @@
 { pkgs, lib, ... }:
 let
-fishConfig = import ../../pkgs/fish.nix { inherit pkgs lib; isWoogaMachine = false; };
-gitConfig = import ../../pkgs/git.nix { inherit pkgs; };
+  fishConfig = import ../../pkgs/fish.nix {
+    inherit pkgs lib;
+    isWoogaMachine = false;
+  };
+  gitConfig = import ../../pkgs/git.nix { inherit pkgs; };
 in
 {
   programs.bash.enable = true;
@@ -19,6 +22,11 @@ in
     nixd # nix language server
     nil # nix language server
   ];
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 
   # The state version is required and should stay at the version you
   # originally installed.
