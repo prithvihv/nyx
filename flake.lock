@@ -131,11 +131,11 @@
         "sbs-rbac": "sbs-rbac"
       },
       "locked": {
-        "lastModified": 1769174588,
-        "narHash": "sha256-pBl7cp8xhfLWz0SJyiZ/EWufMetiaIu+KscKnuLlelo=",
+        "lastModified": 1778588466,
+        "narHash": "sha256-yLNMFO/Go+y2UBlnHLt/p1UdNuHqykEG0+m8Mq+sU7o=",
         "ref": "refs/heads/master",
-        "rev": "ff311c6a237776a6384bde02a7ab819e01be5bda",
-        "revCount": 32,
+        "rev": "735707f1d87a3db80422c990216a2fd6148ed8db",
+        "revCount": 34,
         "type": "git",
         "url": "ssh://git@github.com/wooga/sbs-nix.git"
       },

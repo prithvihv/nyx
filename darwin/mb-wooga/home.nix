@@ -79,6 +79,7 @@ in
       # texliveTeTeX
       husky
       cmake
+      zola
 
       pass
       # gnused
@@ -114,6 +115,7 @@ in
       # flutter
       # openai-whisper
       # docker
+      customPkgs.rodney
     ]
     ++ golangTools.extraPkgs
     ++ nodeTools.extraPkgs

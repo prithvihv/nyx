@@ -58,6 +58,7 @@
           permittedInsecurePackages = insecurePakages;
         };
       };
+
       darwin-nixpkgs = {
         config = {
           allowUnfree = true;
@@ -68,6 +69,7 @@
           ];
         };
         overlays = [
+          (final: prev: { zola = darwin-unstable-nixpkgs.zola; })
           (final: prev: { openspec = darwin-unstable-nixpkgs.openspec; })
         ];
       };

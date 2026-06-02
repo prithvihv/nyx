@@ -5,6 +5,7 @@
 in rec {
   when = callPackage ./when.nix {};
   kubectl-iexec = callPackage ./kubectl-iexec.nix {};
+  rodney = callPackage ./rodney.nix {};
 
   all = [
     # when

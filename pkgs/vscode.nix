@@ -195,7 +195,7 @@ in {
     "workbench.colorTheme" = "One Dark Pro Darker";
     # "workbench.colorTheme" = "Vitesse Light";
     # "workbench.colorTheme" = "Dracula";
-    "workbench.editor.enablePreview" = false;
+    "workbench.editor.enablePreview" = true;
     "vetur.format.defaultFormatterOptions" = {
       "js-beautify-html" = { "wrap_attributes" = "aligned-multiple"; };
       "prettyhtml" = {
