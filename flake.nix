@@ -2,15 +2,15 @@
   description = "configuration and workflows";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs"; # ask hm to use pinned nixpkgs
 
     # darwin stuff
-    darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
+    darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     # extra
@@ -18,8 +18,8 @@
     elixir-extra.inputs.nixpkgs.follows = "nixpkgs";
 
     # sbs
-    sbs.url = "git+ssh://git@github.com/wooga/sbs-nix.git";
-    sbs.inputs.nixpkgs.follows = "nixpkgs";
+    # sbs.url = "git+ssh://git@github.com/wooga/sbs-nix.git";
+    # sbs.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -31,7 +31,7 @@
       darwin,
       elixir-extra,
       nixos-unstable,
-      sbs,
+      # sbs,
     }:
     let
       system = "x86_64-linux";
@@ -87,9 +87,9 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users."prithvi.virupaksha" = import ./darwin/mb-wooga/home.nix;
-              home-manager.extraSpecialArgs = {
-                sbs = sbs.packages.${darwinSystem};
-              };
+              # home-manager.extraSpecialArgs = {
+              #   sbs = sbs.packages.${darwinSystem};
+              # };
             }
           ];
         };
