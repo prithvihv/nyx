@@ -26,7 +26,7 @@ let
       icon = "gitea.png";
       description = "Git hosting";
       group = "Development";
-      protect = false;
+      protect = true;
     }
     {
       name = "Woodpecker CI";
@@ -35,7 +35,7 @@ let
       icon = "woodpecker-ci.png";
       description = "CI/CD pipelines";
       group = "Development";
-      protect = false;
+      protect = true;
     }
     {
       name = "Home Assistant";
@@ -44,7 +44,7 @@ let
       icon = "home-assistant.png";
       description = "Home automation";
       group = "Home";
-      protect = false;
+      protect = true;
     }
     {
       name = "Syncthing";
@@ -62,7 +62,7 @@ let
       icon = "pi-hole.png";
       description = "DNS & ad blocking";
       group = "Network";
-      protect = false;
+      protect = true;
     }
     {
       name = "Apps";
@@ -71,7 +71,7 @@ let
       icon = "homepage.png";
       description = "App dashboard";
       group = "System";
-      protect = false;
+      protect = true;
     }
     {
       name = "Login";
@@ -80,7 +80,7 @@ let
       icon = "mdi-shield-lock";
       description = "Google sign-in";
       group = "System";
-      protect = false;
+      protect = true;
     }
   ];
 
