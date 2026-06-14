@@ -38,7 +38,10 @@ let
       icon = "woodpecker-ci.png";
       description = "CI/CD pipelines";
       group = "Development";
-      protect = true;
+      # Ungated: Forgejo webhooks POST here, and Woodpecker has its own
+      # Forgejo-OAuth login (WOODPECKER_OPEN=false), so the Google gate would
+      # only block CI without adding real protection.
+      protect = false;
     }
     {
       name = "Home Assistant";

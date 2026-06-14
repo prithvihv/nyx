@@ -28,7 +28,9 @@ in
   services.woodpecker-server = {
     enable = true;
     environment = {
-      WOODPECKER_HOST = "https://ci.local.prithvihv.xyz";
+      # Public, browser/OAuth/webhook-facing URL (must stay the domain, not an
+      # IP). Sourced from the shared config.local.domain option.
+      WOODPECKER_HOST = "https://ci.${config.local.domain}";
       WOODPECKER_SERVER_ADDR = ":8000";
       WOODPECKER_OPEN = "false";
       WOODPECKER_ADMIN = "prithvihv";
