@@ -26,10 +26,9 @@ let
       icon = "gitea.png";
       description = "Git hosting";
       group = "Development";
-      # Browser access is gated. Woodpecker reaches Forgejo via the loopback URL
-      # (WOODPECKER_FORGEJO_URL in woodpecker.nix), so server-side CI is
-      # unaffected. Git-over-HTTPS clones still need to use SSH (:2222).
-      protect = true;
+      # Ungated: Forgejo has its own auth, and gating it breaks the API,
+      # Git-over-HTTPS, webhooks, and Woodpecker's OAuth login.
+      protect = false;
     }
     {
       name = "Woodpecker CI";

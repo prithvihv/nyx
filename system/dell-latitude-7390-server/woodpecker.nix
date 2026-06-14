@@ -35,12 +35,9 @@ in
       WOODPECKER_OPEN = "false";
       WOODPECKER_ADMIN = "prithvihv";
       WOODPECKER_FORGEJO = "true";
-      # Talk to Forgejo directly on loopback, bypassing Caddy + oauth2-proxy, so
-      # server-side API/config calls aren't caught by the Google gate.
-      # NOTE: this same URL is used for the browser OAuth login redirect, so
-      # logging into the Woodpecker UI via Forgejo will not work with a loopback
-      # URL (the browser can't reach 127.0.0.1:9753).
-      WOODPECKER_FORGEJO_URL = "http://127.0.0.1:9753";
+      # Public domain (Forgejo is ungated): used for both server-side API calls
+      # and the browser OAuth login redirect.
+      WOODPECKER_FORGEJO_URL = "https://git.${config.local.domain}";
     };
     environmentFile = "/var/lib/woodpecker/server-secrets";
   };
