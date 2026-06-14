@@ -26,6 +26,9 @@ let
       icon = "gitea.png";
       description = "Git hosting";
       group = "Development";
+      # Browser access is gated. Woodpecker reaches Forgejo via the loopback URL
+      # (WOODPECKER_FORGEJO_URL in woodpecker.nix), so server-side CI is
+      # unaffected. Git-over-HTTPS clones still need to use SSH (:2222).
       protect = true;
     }
     {
@@ -91,6 +94,8 @@ let
       icon = "mdi-shield-lock";
       description = "Google sign-in";
       group = "System";
+      # The flag is ignored for this subdomain by the guard below (it IS
+      # oauth2-proxy; gating it would loop sign-in forever).
       protect = true;
     }
   ];
@@ -99,7 +104,9 @@ let
   # (Google login) when `protect = true`.
   appExtraConfig =
     app:
-    if app.protect then
+    # Defensive: the auth endpoint (oauth2-proxy itself) must never be gated,
+    # regardless of its flag, or the sign-in flow redirects to itself forever.
+    if app.protect && app.subdomain != "auth" then
       ''
         forward_auth ${authProxy} {
           uri /oauth2/auth

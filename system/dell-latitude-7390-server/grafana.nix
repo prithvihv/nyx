@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   # ─── Grafana ──────────────────────────────────────────────────────────────
@@ -12,12 +12,40 @@
   #   openssl rand -hex 32 | sudo tee /var/lib/grafana-secrets/secret_key >/dev/null
   #   sudo chown grafana:grafana /var/lib/grafana-secrets/secret_key
   #   sudo chmod 0640 /var/lib/grafana-secrets/secret_key
+  #
+  # Toggl Track API token for the Infinity datasource (Profile → API Token),
+  # also kept out of git:
+  #   printf '%s' '<your toggl api token>' | sudo tee /var/lib/grafana-secrets/toggl_token >/dev/null
+  #   sudo chown grafana:grafana /var/lib/grafana-secrets/toggl_token
+  #   sudo chmod 0640 /var/lib/grafana-secrets/toggl_token
+  #   sudo systemctl restart grafana
   systemd.tmpfiles.rules = [
     "d /var/lib/grafana-secrets 0750 grafana grafana -"
   ];
 
   services.grafana = {
     enable = true;
+
+    # Infinity datasource lets Grafana query arbitrary REST/JSON APIs (here, the
+    # Toggl Track API) without needing a separate time-series database.
+    declarativePlugins = [ pkgs.grafanaPlugins.yesoreyeram-infinity-datasource ];
+
+    provision.datasources.settings.datasources = [
+      {
+        name = "Toggl Track";
+        uid = "toggl-track";
+        type = "yesoreyeram-infinity-datasource";
+        url = "https://api.track.toggl.com";
+        # Toggl uses HTTP Basic auth: username = your API token, password = the
+        # literal "api_token". Grafana builds base64(user:pass) for us. The
+        # token is read from a file so it stays out of git.
+        basicAuth = true;
+        basicAuthUser = "$__file{/var/lib/grafana-secrets/toggl_token}";
+        jsonData.auth_method = "basicAuth";
+        secureJsonData.basicAuthPassword = "api_token";
+      }
+    ];
+
     settings = {
       server = {
         http_addr = "127.0.0.1";
