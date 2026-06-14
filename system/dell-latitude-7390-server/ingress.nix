@@ -71,6 +71,17 @@ let
       icon = "homepage.png";
       description = "App dashboard";
       group = "System";
+      protect = false;
+    }
+    {
+      name = "Grafana";
+      subdomain = "grafana";
+      port = 3000;
+      icon = "grafana.png";
+      description = "Dashboards & metrics";
+      group = "System";
+      # Must stay true: Grafana's own login is disabled and it relies on the
+      # oauth2-proxy email header for sign-in.
       protect = true;
     }
     {

@@ -16,6 +16,7 @@
     ./syncthing.nix
     ./ingress.nix
     ./oauth2-proxy.nix
+    ./grafana.nix
   ];
 
   nix.package = pkgs.nixVersions.stable;
