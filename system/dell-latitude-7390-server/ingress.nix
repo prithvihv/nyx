@@ -53,7 +53,7 @@ let
       icon = "syncthing.png";
       description = "File sync";
       group = "System";
-      protect = false;
+      protect = true;
     }
     {
       name = "Pi-hole";
