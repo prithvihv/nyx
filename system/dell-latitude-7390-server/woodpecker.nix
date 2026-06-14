@@ -68,6 +68,9 @@ in
       WOODPECKER_AGENT_CONFIG_FILE = "/var/lib/woodpecker-nixos-sync-agent/agent.conf";
       WOODPECKER_AGENT_LABELS = "type=nixos-sync,host=dell-latitude-7390-server";
       WOODPECKER_HOSTNAME = "dell-latitude-7390-nixos-sync";
+      # Move the agent healthcheck off :3000 (default), which collides with
+      # Grafana.
+      WOODPECKER_HEALTHCHECK_ADDR = ":3001";
       PATH = lib.mkForce agentPath;
     };
   };
