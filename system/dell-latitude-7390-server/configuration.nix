@@ -15,6 +15,7 @@
     ./home-assistant.nix
     ./syncthing.nix
     ./ingress.nix
+    ./authentik.nix
   ];
 
   nix.package = pkgs.nixVersions.stable;
@@ -109,34 +110,32 @@
   };
 
   services.forgejo = {
-      enable = true;
+    enable = true;
 
-      lfs.enable = true;
+    lfs.enable = true;
 
-      settings = {
-        server = {
-          DOMAIN = "git.local.prithvihv.xyz";
-          ROOT_URL = "https://git.local.prithvihv.xyz/";
-          HTTP_ADDR = "0.0.0.0";
-          HTTP_PORT = 9753;
+    settings = {
+      server = {
+        DOMAIN = "git.local.prithvihv.xyz";
+        ROOT_URL = "https://git.local.prithvihv.xyz/";
+        HTTP_ADDR = "0.0.0.0";
+        HTTP_PORT = 9753;
 
-          SSH_DOMAIN = "192.168.0.51";
-          SSH_PORT = 2222;
+        SSH_DOMAIN = "192.168.0.51";
+        SSH_PORT = 2222;
 
-          LOCAL_ROOT_URL = "http://127.0.0.1:9753/";
+        LOCAL_ROOT_URL = "http://127.0.0.1:9753/";
 
-          START_SSH_SERVER = true;
-          SSH_LISTEN_HOST = "0.0.0.0";
-          SSH_LISTEN_PORT = 2222;
-        };
-
-        actions.ENABLED = false;
-
-        webhook.ALLOWED_HOST_LIST = "loopback,private";
+        START_SSH_SERVER = true;
+        SSH_LISTEN_HOST = "0.0.0.0";
+        SSH_LISTEN_PORT = 2222;
       };
+
+      actions.ENABLED = false;
+
+      webhook.ALLOWED_HOST_LIST = "loopback,private";
     };
-
-
+  };
 
   # Enable Pi-hole FTL (DNS server)
   services.pihole-ftl = {
@@ -153,11 +152,11 @@
         ];
       };
       #"webserver.paths" = {
-       # webroot = "${pkgs.pihole-web}/share";
+      # webroot = "${pkgs.pihole-web}/share";
       #};
       webserver = {
         port = "4938";
-      serve_all = true;
+        serve_all = true;
       };
       misc = {
         privacylevel = 0;
@@ -171,7 +170,7 @@
 
   services.pihole-web = {
     enable = true;
-    ports = [ 4938 ];         # match webserver.port above
+    ports = [ 4938 ]; # match webserver.port above
     # optional, default is "pi.hole"
     # hostName = "pi.hole";
   };
@@ -202,7 +201,10 @@
   };
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 9753 2222 ];
+  networking.firewall.allowedTCPPorts = [
+    9753
+    2222
+  ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;

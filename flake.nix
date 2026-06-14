@@ -17,6 +17,10 @@
     elixir-extra.url = "github:hauleth/nix-elixir/master";
     elixir-extra.inputs.nixpkgs.follows = "nixpkgs";
 
+    # authentik SSO / identity provider. Intentionally does NOT follow our
+    # nixpkgs: authentik is version-sensitive and pins its own nixpkgs.
+    authentik-nix.url = "github:nix-community/authentik-nix";
+
     # sbs
     # sbs.url = "git+ssh://git@github.com/wooga/sbs-nix.git";
     # sbs.inputs.nixpkgs.follows = "nixpkgs";
@@ -31,6 +35,7 @@
       darwin,
       elixir-extra,
       nixos-unstable,
+      authentik-nix,
       # sbs,
     }:
     let
@@ -146,6 +151,7 @@
           pkgs = linux-nixpkgs;
           modules = [
             ./system/dell-latitude-7390-server/configuration.nix
+            authentik-nix.nixosModules.default
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
