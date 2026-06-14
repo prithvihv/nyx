@@ -8,9 +8,16 @@
 let
   domain = config.local.domain;
 
-  # authentik's embedded outpost (runs inside the authentik server, see
-  # authentik.nix). Forward-auth requests for protected apps go here.
-  authOutpost = "127.0.0.1:9000";
+  # authentik's core + embedded outpost are served over HTTPS on :9443 with a
+  # self-signed cert (port 9000 is not usable plain HTTP in this build). Proxy
+  # to it with TLS verification disabled, mirroring authentik-nix's own nginx
+  # reference (which proxies to https://localhost:9443).
+  authUpstream = "https://127.0.0.1:9443";
+  authTlsTransport = ''
+    transport http {
+      tls_insecure_skip_verify
+    }
+  '';
 
   # ── Add a new app here and it appears in Caddy, DNS and Homepage ───────
   # `protect = true` gates the app behind authentik via Caddy forward-auth.
@@ -75,7 +82,8 @@ let
     {
       name = "Authentik";
       subdomain = "auth";
-      port = 9000;
+      port = 9443;
+      tls = true; # served over HTTPS (self-signed) on :9443
       icon = "authentik.png";
       description = "SSO / identity";
       group = "System";
@@ -90,15 +98,24 @@ let
     if app.protect then
       ''
         # authentik embedded outpost endpoints (sign-in, callback, etc.)
-        reverse_proxy /outpost.goauthentik.io/* ${authOutpost}
+        reverse_proxy /outpost.goauthentik.io/* ${authUpstream} {
+          ${authTlsTransport}
+        }
 
         route {
-          forward_auth ${authOutpost} {
+          forward_auth ${authUpstream} {
             uri /outpost.goauthentik.io/auth/caddy
             copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Email X-Authentik-Name X-Authentik-Uid
             trusted_proxies private_ranges
+            ${authTlsTransport}
           }
           reverse_proxy 127.0.0.1:${toString app.port}
+        }
+      ''
+    else if app.tls or false then
+      ''
+        reverse_proxy ${authUpstream} {
+          ${authTlsTransport}
         }
       ''
     else
