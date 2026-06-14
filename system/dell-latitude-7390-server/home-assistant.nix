@@ -3,7 +3,9 @@
 {
   services.home-assistant = {
     enable = true;
-    openFirewall = true;
+    # Loopback/Caddy only (home-assistant.<domain>). Point the HA mobile app at
+    # the Caddy URL rather than the raw :8123 port.
+    openFirewall = false;
 
     extraComponents = [
       "tplink"
@@ -13,12 +15,12 @@
 
     config = {
       homeassistant = {
-        name        = "Home";
+        name = "Home";
         unit_system = "metric";
-        time_zone   = "Europe/Berlin";
-        currency    = "EUR";
+        time_zone = "Europe/Berlin";
+        currency = "EUR";
       };
-      default_config = {};
+      default_config = { };
     };
   };
 }

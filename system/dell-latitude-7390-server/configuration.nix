@@ -15,7 +15,7 @@
     ./home-assistant.nix
     ./syncthing.nix
     ./ingress.nix
-    ./authentik.nix
+    ./oauth2-proxy.nix
   ];
 
   nix.package = pkgs.nixVersions.stable;
@@ -118,7 +118,8 @@
       server = {
         DOMAIN = "git.local.prithvihv.xyz";
         ROOT_URL = "https://git.local.prithvihv.xyz/";
-        HTTP_ADDR = "0.0.0.0";
+        # Loopback only; reached from the LAN through Caddy (git.<domain>).
+        HTTP_ADDR = "127.0.0.1";
         HTTP_PORT = 9753;
 
         SSH_DOMAIN = "192.168.0.51";
@@ -141,7 +142,9 @@
   services.pihole-ftl = {
     enable = true;
     openFirewallDNS = true;
-    openFirewallWebserver = true;
+    # Web UI stays on loopback; reach it through Caddy (pihole.<domain>), which
+    # gates it behind oauth2-proxy.
+    openFirewallWebserver = false;
     settings = {
       dns = {
         upstreams = [
@@ -200,10 +203,11 @@
     };
   };
 
-  # Open ports in the firewall.
+  # Open ports in the firewall. Only Git SSH is exposed directly; all web UIs
+  # are reached through Caddy (80/443) so oauth2-proxy/app auth can't be
+  # bypassed by hitting a backend port directly.
   networking.firewall.allowedTCPPorts = [
-    9753
-    2222
+    2222 # Forgejo Git over SSH
   ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
