@@ -49,7 +49,7 @@ let
       icon = "home-assistant.png";
       description = "Home automation";
       group = "Home";
-      protect = true;
+      protect = false;
     }
     {
       name = "Syncthing";
