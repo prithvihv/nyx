@@ -17,6 +17,11 @@
     elixir-extra.url = "github:hauleth/nix-elixir/master";
     elixir-extra.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixflix = {
+      url = "github:kiriwalawren/nixflix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # sbs
     # sbs.url = "git+ssh://git@github.com/wooga/sbs-nix.git";
     # sbs.inputs.nixpkgs.follows = "nixpkgs";
@@ -31,6 +36,7 @@
       darwin,
       elixir-extra,
       nixos-unstable,
+      nixflix
       # sbs,
     }:
     let
@@ -130,6 +136,7 @@
           inherit system;
           pkgs = linux-nixpkgs;
           modules = [
+            # nixflix.nixosModules.default
             ./system/dell-latitude-7390/configuration.nix
             home-manager.nixosModules.home-manager
             {

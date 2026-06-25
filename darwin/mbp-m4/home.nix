@@ -21,6 +21,7 @@ in
     gnupg # does not show up in Application dir, currently openning it manually
     nixd # nix language server
     nil # nix language server
+    nixfmt
     openspec # spec-driven dev CLI; bundles node privately, no global nodejs
   ];
 

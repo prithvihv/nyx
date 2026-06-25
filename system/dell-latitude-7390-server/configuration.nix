@@ -17,12 +17,21 @@
     ./ingress.nix
     ./oauth2-proxy.nix
     ./grafana.nix
+    ./forgejo.nix
+    ./pihole.nix
   ];
 
   nix.package = pkgs.nixVersions.stable;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+  nix.settings.auto-optimise-store = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -111,75 +120,6 @@
     settings.PasswordAuthentication = false;
   };
 
-  services.forgejo = {
-    enable = true;
-
-    lfs.enable = true;
-
-    settings = {
-      server = {
-        DOMAIN = "git.local.prithvihv.xyz";
-        ROOT_URL = "https://git.local.prithvihv.xyz/";
-        # Loopback only; reached from the LAN through Caddy (git.<domain>).
-        HTTP_ADDR = "127.0.0.1";
-        HTTP_PORT = 9753;
-
-        SSH_DOMAIN = "192.168.0.51";
-        SSH_PORT = 2222;
-
-        LOCAL_ROOT_URL = "http://127.0.0.1:9753/";
-
-        START_SSH_SERVER = true;
-        SSH_LISTEN_HOST = "0.0.0.0";
-        SSH_LISTEN_PORT = 2222;
-      };
-
-      actions.ENABLED = false;
-
-      webhook.ALLOWED_HOST_LIST = "loopback,private";
-    };
-  };
-
-  # Enable Pi-hole FTL (DNS server)
-  services.pihole-ftl = {
-    enable = true;
-    openFirewallDNS = true;
-    # Web UI stays on loopback; reach it through Caddy (pihole.<domain>), which
-    # gates it behind oauth2-proxy.
-    openFirewallWebserver = false;
-    settings = {
-      dns = {
-        upstreams = [
-          "1.1.1.1"
-          "1.0.0.1"
-          "8.8.8.8"
-          "8.8.4.4"
-        ];
-      };
-      #"webserver.paths" = {
-      # webroot = "${pkgs.pihole-web}/share";
-      #};
-      webserver = {
-        port = "4938";
-        serve_all = true;
-      };
-      misc = {
-        privacylevel = 0;
-      };
-      ntp.sync.server.active = false;
-    };
-    lists = [
-      { url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.txt"; }
-    ];
-  };
-
-  services.pihole-web = {
-    enable = true;
-    ports = [ 4938 ]; # match webserver.port above
-    # optional, default is "pi.hole"
-    # hostName = "pi.hole";
-  };
-
   # # for a WiFi printer
   # services.avahi.enable = true;
   # services.avahi.nssmdns = true;
@@ -205,12 +145,9 @@
     };
   };
 
-  # Open ports in the firewall. Only Git SSH is exposed directly; all web UIs
+  # Firewall: only Git SSH is exposed directly (see forgejo.nix); all web UIs
   # are reached through Caddy (80/443) so oauth2-proxy/app auth can't be
   # bypassed by hitting a backend port directly.
-  networking.firewall.allowedTCPPorts = [
-    2222 # Forgejo Git over SSH
-  ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
