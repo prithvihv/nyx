@@ -23,12 +23,15 @@
       fsType = "vfat";
     };
 
-  fileSystems."/home/phv" =
-    { device = "/dev/disk/by-uuid/25195a01-046e-418f-aadb-9c18fb4dea80";
+  # Dedicated Nix store partition, carved from the reclaimed Windows + old LUKS
+  # space that sits immediately to the LEFT of root on /dev/sda.
+  # `neededForBoot` forces stage-1 (initrd) to mount it before pivoting, since
+  # /nix/store contains init itself.
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/cbeec4b3-1edf-4c85-a60e-bc36cd0f3538";
       fsType = "ext4";
+      neededForBoot = true;
     };
-
-  boot.initrd.luks.devices."luks-99bd71d8-f513-40d7-85c8-fc911846681d".device = "/dev/disk/by-uuid/99bd71d8-f513-40d7-85c8-fc911846681d";
 
   swapDevices =
     [ { device = "/dev/disk/by-uuid/1c4bbd9b-8537-4e44-8461-86b2ba7b31a6"; }
