@@ -8,107 +8,23 @@
 let
   domain = config.local.domain;
 
-  # oauth2-proxy forward-auth endpoint (loopback). The public https://auth.<domain>
-  # vhost proxies to it so Google sign-in / callback work; protected vhosts ask
-  # it whether the request is authenticated.
   authProxy = "127.0.0.1:4180";
   authDomain = "auth.${domain}";
 
-  # ── Add a new app here and it appears in Caddy, DNS and Homepage ───────
-  # `protect = true` gates the app behind oauth2-proxy (Google login). Only
-  # worthwhile for apps reachable solely via Caddy (loopback / firewalled) and
-  # without their own API/webhook/mobile clients.
   apps = [
-    {
-      name = "Forgejo";
-      subdomain = "git";
-      port = 9753;
-      icon = "gitea.png";
-      description = "Git hosting";
-      group = "Development";
-      # Ungated: Forgejo has its own auth, and gating it breaks the API,
-      # Git-over-HTTPS, webhooks, and Woodpecker's OAuth login.
-      protect = false;
-    }
-    {
-      name = "Woodpecker CI";
-      subdomain = "ci";
-      port = 8000;
-      icon = "woodpecker-ci.png";
-      description = "CI/CD pipelines";
-      group = "Development";
-      # Ungated: Forgejo webhooks POST here, and Woodpecker has its own
-      # Forgejo-OAuth login (WOODPECKER_OPEN=false), so the Google gate would
-      # only block CI without adding real protection.
-      protect = false;
-    }
-    {
-      name = "Home Assistant";
-      subdomain = "home-assistant";
-      port = 8123;
-      icon = "home-assistant.png";
-      description = "Home automation";
-      group = "Home";
-      protect = false;
-    }
-    {
-      name = "Syncthing";
-      subdomain = "syncthing";
-      port = 8384;
-      icon = "syncthing.png";
-      description = "File sync";
-      group = "System";
-      protect = true;
-    }
-    {
-      name = "Pi-hole";
-      subdomain = "pihole";
-      port = 4938;
-      icon = "pi-hole.png";
-      description = "DNS & ad blocking";
-      group = "Network";
-      protect = true;
-    }
-    {
-      name = "Apps";
-      subdomain = "apps";
-      port = 8082;
-      icon = "homepage.png";
-      description = "App dashboard";
-      group = "System";
-      protect = false;
-    }
-    {
-      name = "Grafana";
-      subdomain = "grafana";
-      port = 3000;
-      icon = "grafana.png";
-      description = "Dashboards & metrics";
-      group = "System";
-      # Must stay true: Grafana's own login is disabled and it relies on the
-      # oauth2-proxy email header for sign-in.
-      protect = true;
-    }
-    {
-      name = "Login";
-      subdomain = "auth";
-      port = 4180; # oauth2-proxy
-      icon = "mdi-shield-lock";
-      description = "Google sign-in";
-      group = "System";
-      # The flag is ignored for this subdomain by the guard below (it IS
-      # oauth2-proxy; gating it would loop sign-in forever).
-      protect = true;
-    }
+    { name = "Forgejo"; subdomain = "git"; port = 9753; icon = "gitea.png"; description = "Git hosting"; group = "Development"; }
+    { name = "Woodpecker CI"; subdomain = "ci"; port = 8000; icon = "woodpecker-ci.png"; description = "CI/CD pipelines"; group = "Development"; }
+    { name = "Home Assistant"; subdomain = "home-assistant"; port = 8123; icon = "home-assistant.png"; description = "Home automation"; group = "Home"; }
+    { name = "Syncthing"; subdomain = "syncthing"; port = 8384; icon = "syncthing.png"; description = "File sync"; group = "System"; protect = true; }
+    { name = "Pi-hole"; subdomain = "pihole"; port = 4938; icon = "pi-hole.png"; description = "DNS & ad blocking"; group = "Network"; protect = true; }
+    { name = "Apps"; subdomain = "apps"; port = 8082; icon = "homepage.png"; description = "App dashboard"; group = "System"; }
+    { name = "Grafana"; subdomain = "grafana"; port = 3000; icon = "grafana.png"; description = "Dashboards & metrics"; group = "System"; protect = true; }
+    { name = "Login"; subdomain = "auth"; port = 4180; icon = "mdi-shield-lock"; description = "Google sign-in"; group = "System"; }
   ];
 
-  # Caddy config for one app: plain reverse proxy, or gated behind oauth2-proxy
-  # (Google login) when `protect = true`.
   appExtraConfig =
     app:
-    # Defensive: the auth endpoint (oauth2-proxy itself) must never be gated,
-    # regardless of its flag, or the sign-in flow redirects to itself forever.
-    if app.protect && app.subdomain != "auth" then
+    if (app.protect or false) && app.subdomain != "auth" then
       ''
         forward_auth ${authProxy} {
           uri /oauth2/auth
@@ -127,7 +43,6 @@ let
       '';
 in
 {
-  # ── Caddy reverse proxy ────────────────────────────────────────────────
   services.caddy = {
     enable = true;
 
@@ -154,7 +69,6 @@ in
     443
   ];
 
-  # ── Pi-hole local DNS overrides ────────────────────────────────────────
   services.pihole-ftl.settings.dns.hosts = map (
     app: "${config.local.serverIP} ${app.subdomain}.${domain}"
   ) apps;
@@ -163,10 +77,8 @@ in
     "9.9.9.9"
   ];
 
-  # ── Homepage dashboard ─────────────────────────────────────────────────
   services.homepage-dashboard =
     let
-      # Static items that appear in Homepage only (no Caddy/DNS entry)
       staticItems = [
         {
           group = "Network";

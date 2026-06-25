@@ -1,23 +1,6 @@
 { pkgs, ... }:
 
 {
-  # ─── Grafana ──────────────────────────────────────────────────────────────
-  # No Grafana login of its own. It sits behind Caddy + oauth2-proxy (Google);
-  # the authenticated user is auto-signed-in from the email header oauth2-proxy
-  # injects via Caddy forward-auth (X-Auth-Request-Email). Loopback only —
-  # reached at https://grafana.<domain> with `protect = true` in ingress.nix.
-  #
-  # Secrets are injected as environment variables from a plain file. systemd
-  # reads it as root before sandboxing, so there are no grafana-user permission
-  # or $__file access problems. Create it once on the server:
-  #
-  #   sudo install -d -m 0750 /var/lib/grafana-secrets
-  #   sudo tee /var/lib/grafana-secrets/grafana.env >/dev/null <<EOF
-  #   GRAFANA_SECRET_KEY=$(openssl rand -hex 32)
-  #   TOGGL_API_TOKEN=<your toggl api token>
-  #   EOF
-  #   sudo chmod 0640 /var/lib/grafana-secrets/grafana.env
-  #   sudo systemctl restart grafana
   systemd.tmpfiles.rules = [
     "d /var/lib/grafana-secrets 0750 root root -"
   ];
@@ -25,9 +8,6 @@
 
   services.grafana = {
     enable = true;
-
-    # Infinity datasource: query arbitrary REST/JSON APIs (Toggl Track here)
-    # without needing a separate time-series database.
     declarativePlugins = [ pkgs.grafanaPlugins.yesoreyeram-infinity-datasource ];
 
     provision.datasources.settings.datasources = [
@@ -36,8 +16,6 @@
         uid = "toggl-track";
         type = "yesoreyeram-infinity-datasource";
         url = "https://api.track.toggl.com";
-        # Toggl Basic auth: username = API token (from the env file), password =
-        # the literal "api_token".
         basicAuth = true;
         basicAuthUser = "$__env{TOGGL_API_TOKEN}";
         jsonData.auth_method = "basicAuth";
