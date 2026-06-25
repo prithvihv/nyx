@@ -37,6 +37,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Disable WiFi entirely: blacklist the Intel WiFi driver so the radio never
+  # comes up (this is a headless server on wired ethernet).
+  boot.blacklistedKernelModules = [ "iwlwifi" ];
+
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.hostName = "Dell-Latitude-7390"; # Define your hostname.
