@@ -20,6 +20,12 @@ let
     { name = "Apps"; subdomain = "apps"; port = 8082; icon = "homepage.png"; description = "App dashboard"; group = "System"; }
     { name = "Grafana"; subdomain = "grafana"; port = 3000; icon = "grafana.png"; description = "Dashboards & metrics"; group = "System"; protect = true; }
     { name = "Login"; subdomain = "auth"; port = 4180; icon = "mdi-shield-lock"; description = "Google sign-in"; group = "System"; }
+
+    # nixflix
+    { name = "Jellyfin"; subdomain = "jellyfin"; port = 8096; icon = "jellyfin.png"; description = "Media server"; group = "Media"; }
+    { name = "Radarr"; subdomain = "radarr"; port = 7878; icon = "radarr.png"; description = "Movies"; group = "Media"; protect = true; }
+    { name = "Prowlarr"; subdomain = "prowlarr"; port = 9696; icon = "prowlarr.png"; description = "Indexer manager"; group = "Media"; protect = true; }
+    { name = "qBittorrent"; subdomain = "qbittorrent"; port = 8282; icon = "qbittorrent.png"; description = "Torrents (VPN)"; group = "Media"; protect = true; }
   ];
 
   appExtraConfig =

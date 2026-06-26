@@ -19,6 +19,8 @@
     ./grafana.nix
     ./forgejo.nix
     ./pihole.nix
+    ./arr_stack.nix
+    ./jellyfin.nix
   ];
 
   nix.package = pkgs.nixVersions.stable;

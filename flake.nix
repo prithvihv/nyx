@@ -152,6 +152,7 @@
           inherit system;
           pkgs = linux-nixpkgs;
           modules = [
+            nixflix.nixosModules.default
             ./system/dell-latitude-7390-server/configuration.nix
             home-manager.nixosModules.home-manager
             {
