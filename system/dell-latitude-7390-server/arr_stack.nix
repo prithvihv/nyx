@@ -73,9 +73,8 @@
         LegalNotice.Accepted = true;
         Preferences.WebUI = {
           Username = "admin";
-          # Force auth even for localhost so the Caddy upstream can't be used to
-          # bypass the login, and accept the proxied (subdomain) Host header.
-          LocalHostAuth = false;
+          AuthSubnetWhitelistEnabled = true;
+          AuthSubnetWhitelist = "${config.vpnNamespaces.wg.bridgeAddress}/32";
           HostHeaderValidation = false;
           CSRFProtection = false;
         };
