@@ -22,6 +22,15 @@
 # First-run, set-in-UI items (nothing stored in this repo):
 #   - qBittorrent password (random temp password printed to its journal)
 {
+  # qBittorrent otherwise writes downloads with systemd's default UMask=0022 (files
+  # 0644 / dirs 0755), so group `media` gets no write bit. Radarr (also in `media`)
+  # imports by hardlinking from /data/downloads to /data/media (same filesystem),
+  # but fs.protected_hardlinks=1 refuses to let it hardlink a file it neither owns
+  # nor can write — so every import failed with UnauthorizedAccessException ("Access
+  # to the path ... is denied"). UMask=0002 makes downloads group-writable (0664 /
+  # 0775), letting Radarr hardlink them.
+  systemd.services.qbittorrent.serviceConfig.UMask = "0002";
+
   nixflix = {
     enable = true;
 
