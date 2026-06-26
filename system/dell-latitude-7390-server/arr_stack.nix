@@ -54,6 +54,7 @@
       config = {
         apiKey._secret = "/var/lib/nixflix/radarr-apikey";
         hostConfig = {
+          bindAddress = "127.0.0.1";
           username = "admin";
           password._secret = "/var/lib/nixflix/radarr-webui-pass";
           authenticationMethod = "external";
@@ -66,6 +67,7 @@
       config = {
         apiKey._secret = "/var/lib/nixflix/prowlarr-apikey";
         hostConfig = {
+          bindAddress = "127.0.0.1";
           username = "admin";
           password._secret = "/var/lib/nixflix/prowlarr-webui-pass";
           authenticationMethod = "external";
