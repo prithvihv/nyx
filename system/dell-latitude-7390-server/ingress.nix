@@ -25,11 +25,14 @@ let
     { name = "Jellyfin"; subdomain = "jellyfin"; port = 8096; icon = "jellyfin.png"; description = "Media server"; group = "Media"; }
     { name = "Radarr"; subdomain = "radarr"; port = 7878; icon = "radarr.png"; description = "Movies"; group = "Media"; protect = true; }
     { name = "Prowlarr"; subdomain = "prowlarr"; port = 9696; icon = "prowlarr.png"; description = "Indexer manager"; group = "Media"; protect = true; }
-    { name = "qBittorrent"; subdomain = "qbittorrent"; port = 8282; icon = "qbittorrent.png"; description = "Torrents (VPN)"; group = "Media"; protect = true; }
+    { name = "qBittorrent"; subdomain = "qbittorrent"; port = 8282; icon = "qbittorrent.png"; description = "Torrents (VPN)"; group = "Media"; protect = true; host = config.vpnNamespaces.wg.namespaceAddress; }
   ];
 
   appExtraConfig =
     app:
+    let
+      upstreamHost = app.host or "127.0.0.1";
+    in
     if (app.protect or false) && app.subdomain != "auth" then
       ''
         forward_auth ${authProxy} {
@@ -41,11 +44,11 @@ let
             redir * https://${authDomain}/oauth2/start?rd={scheme}://{host}{uri}
           }
         }
-        reverse_proxy 127.0.0.1:${toString app.port}
+        reverse_proxy ${upstreamHost}:${toString app.port}
       ''
     else
       ''
-        reverse_proxy 127.0.0.1:${toString app.port}
+        reverse_proxy ${upstreamHost}:${toString app.port}
       '';
 in
 {
@@ -104,7 +107,7 @@ in
               icon = app.icon;
               href = "https://${app.subdomain}.${domain}";
               description = app.description;
-              siteMonitor = "http://127.0.0.1:${toString app.port}";
+              siteMonitor = "http://${app.host or "127.0.0.1"}:${toString app.port}";
             };
           }) (builtins.filter (a: a.group == group) apps))
           ++ (map (item: {
