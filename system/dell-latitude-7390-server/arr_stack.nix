@@ -89,6 +89,11 @@
       vpn.enable = true;
       serverConfig = {
         LegalNotice.Accepted = true;
+        # Disable seeding: stop each torrent as soon as it finishes downloading
+        BitTorrent.Session = {
+          GlobalMaxRatio = 0;
+          MaxRatioAction = 0;
+        };
         Preferences.WebUI = {
           Username = "admin";
           AuthSubnetWhitelistEnabled = true;
