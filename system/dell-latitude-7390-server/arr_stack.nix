@@ -84,6 +84,8 @@
       };
     };
 
+    flaresolverr.enable = true;
+
     torrentClients.qbittorrent = {
       enable = true;
       vpn.enable = true;
