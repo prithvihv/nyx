@@ -13,12 +13,13 @@
 # files provisioned on the host out-of-band (never values in the store). Create
 # these files before the first rebuild (root-owned, chmod 600):
 #
-#   /var/lib/nixflix/wireguard.conf   wg-quick config for the VPN namespace
-#   /var/lib/nixflix/radarr-apikey    e.g. `openssl rand -hex 16 > ...`
-#   /var/lib/nixflix/prowlarr-apikey  e.g. `openssl rand -hex 16 > ...`
+#   /var/lib/nixflix/wireguard.conf      wg-quick config for the VPN namespace
+#   /var/lib/nixflix/radarr-apikey       e.g. `openssl rand -hex 16 > ...`
+#   /var/lib/nixflix/prowlarr-apikey     e.g. `openssl rand -hex 16 > ...`
+#   /var/lib/nixflix/radarr-webui-pass   throwaway; unused under "external" auth
+#   /var/lib/nixflix/prowlarr-webui-pass throwaway; unused under "external" auth
 #
 # First-run, set-in-UI items (nothing stored in this repo):
-#   - Radarr / Prowlarr accounts (account-creation screen on first visit)
 #   - qBittorrent password (random temp password printed to its journal)
 {
   nixflix = {
@@ -52,9 +53,11 @@
       enable = true;
       config = {
         apiKey._secret = "/var/lib/nixflix/radarr-apikey";
-        # Leave web-UI auth undeclared (username defaults non-null, so null it to
-        # satisfy the both-or-neither assertion); create the account in the UI.
-        hostConfig.username = null;
+        hostConfig = {
+          username = "admin";
+          password._secret = "/var/lib/nixflix/radarr-webui-pass";
+          authenticationMethod = "external";
+        };
       };
     };
 
@@ -62,7 +65,11 @@
       enable = true;
       config = {
         apiKey._secret = "/var/lib/nixflix/prowlarr-apikey";
-        hostConfig.username = null;
+        hostConfig = {
+          username = "admin";
+          password._secret = "/var/lib/nixflix/prowlarr-webui-pass";
+          authenticationMethod = "external";
+        };
       };
     };
 
