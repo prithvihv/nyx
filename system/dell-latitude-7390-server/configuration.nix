@@ -21,6 +21,7 @@
     ./pihole.nix
     ./arr_stack.nix
     ./jellyfin.nix
+    ./vpn-guard.nix
   ];
 
   nix.package = pkgs.nixVersions.stable;
