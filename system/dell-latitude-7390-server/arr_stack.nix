@@ -54,10 +54,18 @@
       config = {
         apiKey._secret = "/var/lib/nixflix/radarr-apikey";
         hostConfig = {
+          # Bind to localhost only (defaults to 0.0.0.0 without nixflix's own
+          # reverse proxy, which would expose it on the LAN past Caddy/OAuth).
+          # disabledForLocalAddresses makes the app skip its own login for the
+          # localhost Caddy upstream; Google OAuth at Caddy is the real gate.
+          # Credentials are only a fallback for non-local requests (none once
+          # localhost-bound). AuthenticationRequired's default is "Enabled", so
+          # it must be set non-default here to actually take effect.
           bindAddress = "127.0.0.1";
           username = "admin";
           password._secret = "/var/lib/nixflix/radarr-webui-pass";
           authenticationMethod = "external";
+          authenticationRequired = "disabledForLocalAddresses";
         };
       };
     };
@@ -71,6 +79,7 @@
           username = "admin";
           password._secret = "/var/lib/nixflix/prowlarr-webui-pass";
           authenticationMethod = "external";
+          authenticationRequired = "disabledForLocalAddresses";
         };
       };
     };
