@@ -99,6 +99,7 @@ let
         expected="__no_namespace__"
       fi
 
+      # shellcheck disable=SC2043  # list may have one entry today, more later
       for svc in ${lib.concatStringsSep " " guardedServices}; do
         pid="$(systemctl show -p MainPID --value "$svc" || true)"
         # Not running -> can't be leaking.
