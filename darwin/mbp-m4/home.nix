@@ -23,6 +23,7 @@ in
     nil # nix language server
     nixfmt
     openspec # spec-driven dev CLI; bundles node privately, no global nodejs
+    ripgrep
   ];
 
   programs.direnv = {
