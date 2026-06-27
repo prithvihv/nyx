@@ -19,7 +19,7 @@
     ./grafana.nix
     ./forgejo.nix
     ./pihole.nix
-    ./arr_stack.nix
+    ./nixflix.nix
     ./jellyfin.nix
     ./vpn-guard.nix
   ];

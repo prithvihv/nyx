@@ -4,10 +4,9 @@
 # nixflix flake input. The module is wired in via flake.nix
 # (nixflix.nixosModules.default), which also pulls in VPN-Confinement.
 #
-# Jellyfin is intentionally NOT managed by nixflix here — it runs from the stock
-# nixpkgs `services.jellyfin` module in ./jellyfin.nix (simpler/robust, and
-# first-class Intel HW transcoding). nixflix still provides the shared `media`
-# group that ./jellyfin.nix joins for library access.
+# Jellyfin is also managed by nixflix, configured separately in ./jellyfin.nix
+# (declarative users, plugins, and a per-user transcoding-off policy). It shares
+# the same `media` group as the *arr stack for library access.
 #
 # Secrets are kept out of Nix: the options below only ever reference *paths* to
 # files provisioned on the host out-of-band (never values in the store). Create
