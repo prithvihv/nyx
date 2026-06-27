@@ -1,33 +1,25 @@
-{ config, lib, ... }:
+{ config, ... }:
 
-# Movie *arr stack (Radarr + Prowlarr + qBittorrent + Recyclarr) provided by the
-# nixflix flake input. The module is wired in via flake.nix
-# (nixflix.nixosModules.default), which also pulls in VPN-Confinement.
+# Full media stack from the nixflix flake input (wired in via flake.nix /
+# nixflix.nixosModules.default, which also pulls in VPN-Confinement): Radarr,
+# Prowlarr, qBittorrent, FlareSolverr, Recyclarr, and Jellyfin. All share the
+# `media` group for library access.
 #
-# Jellyfin is also managed by nixflix, configured separately in ./jellyfin.nix
-# (declarative users, plugins, and a per-user transcoding-off policy). It shares
-# the same `media` group as the *arr stack for library access.
+# Secrets never live in the Nix store — the options below only reference *paths*
+# to files provisioned out-of-band (root-owned, chmod 600). Create before the
+# first rebuild:
 #
-# Secrets are kept out of Nix: the options below only ever reference *paths* to
-# files provisioned on the host out-of-band (never values in the store). Create
-# these files before the first rebuild (root-owned, chmod 600):
-#
-#   /var/lib/nixflix/wireguard.conf      wg-quick config for the VPN namespace
-#   /var/lib/nixflix/radarr-apikey       e.g. `openssl rand -hex 16 > ...`
-#   /var/lib/nixflix/prowlarr-apikey     e.g. `openssl rand -hex 16 > ...`
-#   /var/lib/nixflix/radarr-webui-pass   throwaway; unused under "external" auth
-#   /var/lib/nixflix/prowlarr-webui-pass throwaway; unused under "external" auth
-#
-# First-run, set-in-UI items (nothing stored in this repo):
-#   - qBittorrent password (random temp password printed to its journal)
+#   /var/lib/nixflix/wireguard.conf        wg-quick config for the VPN namespace
+#   /var/lib/nixflix/radarr-apikey         openssl rand -hex 16 > ...
+#   /var/lib/nixflix/prowlarr-apikey       openssl rand -hex 16 > ...
+#   /var/lib/nixflix/radarr-webui-pass     throwaway; unused under "external" auth
+#   /var/lib/nixflix/prowlarr-webui-pass   throwaway; unused under "external" auth
+#   /var/lib/nixflix/jellyfin-apikey       openssl rand -hex 16 > ...
+#   /var/lib/nixflix/jellyfin-admin-pass   password for the `admin` Jellyfin user
 {
-  # qBittorrent otherwise writes downloads with systemd's default UMask=0022 (files
-  # 0644 / dirs 0755), so group `media` gets no write bit. Radarr (also in `media`)
-  # imports by hardlinking from /data/downloads to /data/media (same filesystem),
-  # but fs.protected_hardlinks=1 refuses to let it hardlink a file it neither owns
-  # nor can write — so every import failed with UnauthorizedAccessException ("Access
-  # to the path ... is denied"). UMask=0002 makes downloads group-writable (0664 /
-  # 0775), letting Radarr hardlink them.
+  # qBittorrent writes downloads 0644/0755 under systemd's default UMask, leaving
+  # group `media` no write bit — so Radarr's hardlink import trips
+  # fs.protected_hardlinks and fails. 0002 makes downloads group-writable.
   systemd.services.qbittorrent.serviceConfig.UMask = "0002";
 
   nixflix = {
@@ -38,8 +30,7 @@
 
     postgres.enable = true;
 
-    # WireGuard namespace confining qBittorrent. accessibleFrom must include the
-    # LAN so the port-mapped WebUI is reachable, plus localhost for Caddy.
+    # accessibleFrom must include the LAN (port-mapped WebUI) and localhost (Caddy).
     vpn = {
       enable = true;
       wgConfFile = "/var/lib/nixflix/wireguard.conf";
@@ -49,26 +40,15 @@
       ];
     };
 
-    # apiKey is mandatory; reference an out-of-band file so it never lands in the
-    # Nix store. Login accounts are still created in each UI on first visit.
-    #
-    # Both are VPN-confined (same wg namespace as qBittorrent). nixflix requires
-    # all interconnected services to share the namespace, so radarr + prowlarr +
-    # qbittorrent must all set vpn.enable together. Note: TRaSH guides advise
-    # against VPN for the *arr apps (indexer/Cloudflare blocks) — flip an
-    # individual vpn.enable to false here if an indexer misbehaves.
+    # Bind to localhost so the apps are only reachable via Caddy (Google OAuth is
+    # the real gate); "external" auth + disabledForLocalAddresses skips their own
+    # login for the localhost upstream. Not VPN-confined (TRaSH advises against it
+    # for *arr apps) — only qBittorrent runs in the wg namespace.
     radarr = {
       enable = true;
       config = {
         apiKey._secret = "/var/lib/nixflix/radarr-apikey";
         hostConfig = {
-          # Bind to localhost only (defaults to 0.0.0.0 without nixflix's own
-          # reverse proxy, which would expose it on the LAN past Caddy/OAuth).
-          # disabledForLocalAddresses makes the app skip its own login for the
-          # localhost Caddy upstream; Google OAuth at Caddy is the real gate.
-          # Credentials are only a fallback for non-local requests (none once
-          # localhost-bound). AuthenticationRequired's default is "Enabled", so
-          # it must be set non-default here to actually take effect.
           bindAddress = "127.0.0.1";
           username = "admin";
           password._secret = "/var/lib/nixflix/radarr-webui-pass";
@@ -92,6 +72,8 @@
       };
     };
 
+    # Auto-wired into Prowlarr as a "FlareSolverr" indexer proxy (tagged
+    # "flaresolverr"); tag the indexers that need challenge-solving in the UI.
     flaresolverr.enable = true;
 
     torrentClients.qbittorrent = {
@@ -99,7 +81,7 @@
       vpn.enable = true;
       serverConfig = {
         LegalNotice.Accepted = true;
-        # Disable seeding: stop each torrent as soon as it finishes downloading
+        # Stop each torrent as soon as it finishes downloading (no seeding).
         BitTorrent.Session = {
           GlobalMaxRatio = 0;
           MaxRatioAction = 0;
@@ -114,16 +96,35 @@
       };
     };
 
-    # Recyclarr syncs TRaSH-guide quality profiles + custom formats into Radarr
-    # on a daily schedule. The Radarr instance config (base_url, api_key, the
-    # "[SQP] SQP-1 (1080p)" profile and its custom formats) is auto-generated
-    # from nixflix.radarr above — no manual config needed. Switch to "4K" for
-    # the 2160p profile instead. Set cleanupUnmanagedProfiles.enable = true to
-    # also delete quality profiles you didn't declare.
+    # Daily TRaSH-guide profile/custom-format sync into Radarr; "4K" creates the
+    # "[SQP] SQP-1 (2160p)" profile as the managed default.
     recyclarr = {
       enable = true;
-      # "4K" -> creates the "[SQP] SQP-1 (2160p)" profile as the managed default.
       radarrQuality = "4K";
+    };
+
+    # Published via the external Caddy ingress (./ingress.nix), so nixflix's own
+    # vhost is disabled and it binds to loopback. Hardware transcoding off
+    # (direct-play only); the admin user is created by the setup wizard on first
+    # run (wipe /var/lib/jellyfin once when switching instances).
+    jellyfin = {
+      enable = true;
+      apiKey._secret = "/var/lib/nixflix/jellyfin-apikey";
+      reverseProxy.expose = false;
+      encoding.enableHardwareEncoding = false;
+      encoding.hardwareAccelerationType = "none";
+      network = {
+        localNetworkAddresses = [ "127.0.0.1" ];
+        knownProxies = [ "127.0.0.1" ];
+      };
+      users.admin = {
+        password._secret = "/var/lib/nixflix/jellyfin-admin-pass";
+        policy = {
+          isAdministrator = true;
+          enableVideoPlaybackTranscoding = false;
+          enableAudioPlaybackTranscoding = false;
+        };
+      };
     };
   };
 }

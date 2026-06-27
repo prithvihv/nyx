@@ -20,7 +20,6 @@
     ./forgejo.nix
     ./pihole.nix
     ./nixflix.nix
-    ./jellyfin.nix
     ./vpn-guard.nix
   ];
 
