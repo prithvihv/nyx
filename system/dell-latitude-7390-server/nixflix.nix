@@ -16,6 +16,7 @@
 #   /var/lib/nixflix/prowlarr-webui-pass   throwaway; unused under "external" auth
 #   /var/lib/nixflix/jellyfin-apikey       openssl rand -hex 16 > ...
 #   /var/lib/nixflix/jellyfin-admin-pass   password for the `admin` Jellyfin user
+#   /var/lib/nixflix/opensubtitles-pass    OpenSubtitles.com account password
 {
   # qBittorrent writes downloads 0644/0755 under systemd's default UMask, leaving
   # group `media` no write bit — so Radarr's hardlink import trips
@@ -117,6 +118,28 @@
         localNetworkAddresses = [ "127.0.0.1" ];
         knownProxies = [ "127.0.0.1" ];
       };
+      plugins = {
+        "Open Subtitles" = {
+          enable = true;
+          config = {
+            Username = "server_phv_de";
+            Password._secret = "/var/lib/nixflix/opensubtitles-pass";
+          };
+        };
+
+        "Subtitle Extract" = {
+          enable = true;
+          config.ExtractionDuringLibraryScan = true;
+        };
+      };
+
+      libraries.Movies = {
+        subtitleDownloadLanguages = [ "eng" ];
+        saveSubtitlesWithMedia = true;
+        requirePerfectSubtitleMatch = false;
+        skipSubtitlesIfEmbeddedSubtitlesPresent = true;
+      };
+
       users.admin = {
         password._secret = "/var/lib/nixflix/jellyfin-admin-pass";
         policy = {
