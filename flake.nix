@@ -13,6 +13,9 @@
     darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
+    # makes nix-installed GUI apps show up in Spotlight/Launchpad
+    mac-app-util.url = "github:hraban/mac-app-util";
+
     # extra
     elixir-extra.url = "github:hauleth/nix-elixir/master";
     elixir-extra.inputs.nixpkgs.follows = "nixpkgs";
@@ -36,7 +39,8 @@
       darwin,
       elixir-extra,
       nixos-unstable,
-      nixflix
+      nixflix,
+      mac-app-util
       # sbs,
     }:
     let
@@ -87,11 +91,13 @@
           modules = [
             ./darwin/mb-wooga/configuration.nix
             ./darwin/mb-wooga/homebrew.nix
+            mac-app-util.darwinModules.default
             home-manager.darwinModules.home-manager
             {
               nixpkgs = darwin-nixpkgs;
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.sharedModules = [ mac-app-util.homeManagerModules.default ];
               home-manager.users."prithvi.virupaksha" = import ./darwin/mb-wooga/home.nix;
               # home-manager.extraSpecialArgs = {
               #   sbs = sbs.packages.${darwinSystem};
@@ -106,11 +112,13 @@
             ./darwin/mbp-m4/configuration.nix
             { system.configurationRevision = self.rev or self.dirtyRev or null; }
             # ./darwin/mbp-m4/homebrew.nix
+            mac-app-util.darwinModules.default
             home-manager.darwinModules.home-manager
             {
               nixpkgs = darwin-nixpkgs;
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.sharedModules = [ mac-app-util.homeManagerModules.default ];
               home-manager.users."phv" = import ./darwin/mbp-m4/home.nix;
             }
           ];

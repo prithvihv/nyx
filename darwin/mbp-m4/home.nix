@@ -5,12 +5,19 @@ let
     isWoogaMachine = false;
   };
   gitConfig = import ../../pkgs/git.nix { inherit pkgs; };
+  alacrittyConfig = import ../../pkgs/alacritty.nix { };
 in
 {
   programs.bash.enable = true;
   programs.zsh.enable = true;
   programs.fish = fishConfig;
   programs.git = gitConfig;
+  programs.alacritty = alacrittyConfig;
+
+  services.emacs = {
+    enable = true;
+    client = { enable = true; };
+  };
 
   programs.home-manager.enable = true;
 
