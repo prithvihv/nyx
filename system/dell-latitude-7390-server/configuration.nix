@@ -20,6 +20,7 @@
     ./forgejo.nix
     ./pihole.nix
     ./nixflix.nix
+    ./samba.nix
     ./vpn-guard.nix
   ];
 
