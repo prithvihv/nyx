@@ -14,6 +14,9 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     # makes nix-installed GUI apps show up in Spotlight/Launchpad
+    # NOTE: do not make nixpkgs follow ours - mac-app-util is a Common Lisp
+    # app (cl-nix-lite/SBCL) that only builds against its own pinned nixpkgs.
+    # Forcing follows breaks fare-quasiquote/sbcl on newer nixpkgs.
     mac-app-util.url = "github:hraban/mac-app-util";
 
     # extra

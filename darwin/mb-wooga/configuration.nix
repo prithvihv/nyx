@@ -23,10 +23,11 @@
   };
   system.primaryUser = "prithvi.virupaksha";
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    meslo-lgs-nf
-  ];
+  fonts.packages = import ../../pkgs/fonts.nix { inherit pkgs; }
+    ++ (with pkgs; [
+      nerd-fonts.jetbrains-mono
+      meslo-lgs-nf
+    ]);
 
   programs.fish.enable = true;
 

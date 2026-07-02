@@ -46,7 +46,6 @@ in {
         cyan = "0x59dffc";
         white = "0xe6e6d1";
       };
-      indexed_color = [ ];
     };
     font = {
       normal = {
@@ -54,8 +53,8 @@ in {
         style = "Regular";
       };
       bold = {
-        family = "JetBrains Mono Extra Bold";
-        style = "Bold";
+        family = "JetBrains Mono";
+        style = "ExtraBold";
       };
       italic = { family = "JetBrains Mono"; };
       size = 12.0;

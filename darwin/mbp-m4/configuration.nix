@@ -17,6 +17,8 @@
   environment.systemPackages =
     with pkgs; [ vim ];
 
+  fonts.packages = import ../../pkgs/fonts.nix { inherit pkgs; };
+
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
 

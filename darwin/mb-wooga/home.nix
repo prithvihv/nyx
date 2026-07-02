@@ -91,7 +91,6 @@ in
 
       when
 
-      # needed for asdf erlang
       # openjdk17
       # unixODBC
       # mise

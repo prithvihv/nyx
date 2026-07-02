@@ -14,6 +14,13 @@ in
   programs.git = gitConfig;
   programs.alacritty = alacrittyConfig;
 
+  # enable puts emacs + emacsclient on PATH; the daemon (services.emacs) uses
+  # this same package. emacs30-macport is the native macOS GUI build.
+  programs.emacs = {
+    enable = true;
+    package = pkgs.emacs30-macport;
+  };
+
   services.emacs = {
     enable = true;
     client = { enable = true; };

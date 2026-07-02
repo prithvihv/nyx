@@ -44,10 +44,8 @@
   environment.sessionVariables = { MOZ_USE_XINPUT2 = "1"; };
 
   fonts = {
-    packages = with pkgs; [
-      # consider looking into: https://github.com/cideM/dotfiles/blob/1dc395a83846ccfe2afd59f10706050863a5eb13/hosts/nixos/home.nix#L41-L46
-      iosevka
-      jetbrains-mono
+    # consider looking into: https://github.com/cideM/dotfiles/blob/1dc395a83846ccfe2afd59f10706050863a5eb13/hosts/nixos/home.nix#L41-L46
+    packages = import ../pkgs/fonts.nix { inherit pkgs; } ++ (with pkgs; [
       nerd-fonts.jetbrains-mono
       meslo-lgs-nf
 
@@ -63,7 +61,7 @@
       # japanese
       ipafont
       kochi-substitute
-    ];
+    ]);
     fontconfig = {
       enable = true;
 
