@@ -13,7 +13,10 @@ let
   };
   elixirTools = import ../../pkgs/languages/elixir.nix { inherit pkgs; };
   haskellTools = import ../../pkgs/languages/haskell.nix { inherit pkgs; };
-  gitConfig = import ../../pkgs/git.nix { inherit pkgs; };
+  gitConfig = import ../../pkgs/git.nix {
+    inherit pkgs;
+    extraIgnores = [ "openspec/" "AGENTS.md" "CLAUDE.md" ];
+  };
   vimConfig = import ../../pkgs/vim.nix { inherit pkgs; };
 
   tex =
@@ -52,10 +55,12 @@ in
     with pkgs;
     [
       go-migrate
+      claude-code
       # msgpack-tools
       nix-diff
       nixd
       git
+      typescript
 
       fd
       jq
@@ -66,7 +71,7 @@ in
       pgsync
       unzip
       nixfmt
-      nodePackages.serve
+      ripgrep
       awscli2
       wakatime-cli
       unp

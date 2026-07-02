@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, extraIgnores ? [ ] }:
 let
   global-gitignore = pkgs.writeTextFile {
     name = ".global-gitignore";
@@ -9,10 +9,8 @@ let
       *.ignorefile.*
       .nvimlog
       .cursor
-      AGENTS.md
       .claude
-      CLAUDE.md
-    '';
+    '' + pkgs.lib.concatMapStrings (x: x + "\n") extraIgnores;
     executable = false;
   };
 in {
