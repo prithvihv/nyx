@@ -7,7 +7,7 @@
 ;; Reload after editing (pick one):
 ;;   C-x C-e     eval the expression before the cursor
 ;;   M-x eval-buffer                 apply this whole file
-;;   M-x restart-emacs   (or restart the daemon: see notes at bottom)
+;;   M-x restart-emacs              restart Emacs entirely
 ;;
 ;; Packages are installed at runtime by Emacs itself, so adding one is just a
 ;; new `use-package' block + reload. No Nix rebuild.
@@ -50,5 +50,29 @@
 
 (use-package which-key
   :config (which-key-mode 1))
+
+;;; macOS: keyboard + GUI appearance -------------------------------------------
+;; These only affect GRAPHICAL (GUI) frames. In a terminal frame (emacs -nw,
+;; e.g. Alacritty) the terminal decides what Command/Option send, not Emacs.
+
+;; Use Command (⌘) as Meta. Option is left as Meta too so old muscle memory
+;; still works; set `mac-option-modifier' to 'none if you'd rather free Option
+;; for typing accented characters (é, π, …).
+(when (boundp 'mac-command-modifier)
+  (setq mac-command-modifier 'meta
+        mac-option-modifier  'meta))
+
+;; Kill chrome on EVERY new frame, not just the first. `default-frame-alist'
+;; applies to every frame Emacs makes; the plain mode toggles only touch the
+;; current frame, which is why the toolbar kept coming back.
+(add-to-list 'default-frame-alist '(tool-bar-lines . 0))
+(add-to-list 'default-frame-alist '(vertical-scroll-bars))
+(add-to-list 'default-frame-alist '(internal-border-width . 14))
+(add-to-list 'default-frame-alist '(font . "JetBrains Mono 15"))
+
+(setq-default line-spacing 0.15)
+
+;; Built-in, high-quality dark theme (ships with Emacs 28+, no download).
+(load-theme 'modus-vivendi t)
 
 ;;; init.el ends here

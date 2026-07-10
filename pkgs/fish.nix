@@ -43,7 +43,7 @@ in
     fish_add_path /opt/homebrew/bin
     set -gx AWS_PROFILE wooga-sbs
     export SBS_PROJECT_TOOLS_DOCKERLESS=true
-    # EDITOR is set to emacsclient via darwin/common/emacs.nix (home.sessionVariables)
+    # EDITOR is set to 'emacs -nw' via darwin/common/emacs.nix (home.sessionVariables)
     export HEX_UNSAFE_HTTPS=1
     export HEX_NO_CERT_CHECK=1
     source "$HOME/.cargo/env.fish"

@@ -16,7 +16,7 @@ let
   gitConfig = import ../../pkgs/git.nix {
     inherit pkgs;
     extraIgnores = [ "openspec/" "AGENTS.md" "CLAUDE.md" ];
-    editor = "emacsclient -t -a ''";
+    editor = "emacs -nw";
   };
   # nvim disabled in favor of emacs
   # vimConfig = import ../../pkgs/vim.nix { inherit pkgs; };

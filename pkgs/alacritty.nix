@@ -65,7 +65,7 @@ in {
     };
     keyboard.bindings = [
       # Terminals can't transmit Ctrl+/ as a distinct key, so terminal Emacs
-      # (emacsclient -t) never receives `C-/` (undo). Send US (0x1f) instead,
+      # (emacs -nw) never receives `C-/` (undo). Send US (0x1f) instead,
       # which Emacs reads as `C-_` — also bound to `undo` by default.
       {
         key = "/";

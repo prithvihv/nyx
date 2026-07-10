@@ -5,16 +5,10 @@
     package = pkgs.emacs30-macport;
   };
 
-  services.emacs = {
-    enable = true;
-    client = { enable = true; };
-  };
-
-  # Use emacsclient as the default editor. -t opens a terminal frame in the
-  # current terminal (ideal for git commits); -a '' auto-starts the daemon if
-  # it isn't already running via services.emacs. home-manager exposes this to
-  # fish/zsh/bash through its generated session-variables files.
-  home.sessionVariables.EDITOR = "emacsclient -t -a ''";
+  # Plain terminal Emacs as the default editor (e.g. git commit messages).
+  # No daemon/server: each call starts its own short-lived Emacs. home-manager
+  # exposes this to fish/zsh/bash through its generated session-variables files.
+  home.sessionVariables.EDITOR = "emacs -nw";
 
   # Nix manages the Emacs *binary*; the Emacs Lisp config lives in the repo as
   # a live-editable file. This symlinks ~/.config/emacs/init.el straight to the

@@ -6,7 +6,7 @@ let
   };
   gitConfig = import ../../pkgs/git.nix {
     inherit pkgs;
-    editor = "emacsclient -t -a ''";
+    editor = "emacs -nw";
   };
   alacrittyConfig = import ../../pkgs/alacritty.nix { };
   tmuxConfig = import ../../pkgs/tmux.nix { inherit pkgs; };
