@@ -9,6 +9,7 @@ let
     editor = "emacsclient -t -a ''";
   };
   alacrittyConfig = import ../../pkgs/alacritty.nix { };
+  tmuxConfig = import ../../pkgs/tmux.nix { inherit pkgs; };
 in
 {
   imports = [ ../common/emacs.nix ];
@@ -18,6 +19,7 @@ in
   programs.fish = fishConfig;
   programs.git = gitConfig;
   programs.alacritty = alacrittyConfig;
+  programs.tmux = tmuxConfig;
 
   programs.home-manager.enable = true;
 
