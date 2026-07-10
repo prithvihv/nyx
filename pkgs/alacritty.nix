@@ -60,5 +60,18 @@ in {
       size = 12.0;
     };
     selection = { save_to_clipboard = true; };
+    window = {
+      option_as_alt = "OnlyLeft";
+    };
+    keyboard.bindings = [
+      # Terminals can't transmit Ctrl+/ as a distinct key, so terminal Emacs
+      # (emacsclient -t) never receives `C-/` (undo). Send US (0x1f) instead,
+      # which Emacs reads as `C-_` — also bound to `undo` by default.
+      {
+        key = "/";
+        mods = "Control";
+        chars = builtins.fromJSON ''"\u001f"'';
+      }
+    ];
   };
 }

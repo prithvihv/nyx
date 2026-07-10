@@ -4,27 +4,20 @@ let
     inherit pkgs lib;
     isWoogaMachine = false;
   };
-  gitConfig = import ../../pkgs/git.nix { inherit pkgs; };
+  gitConfig = import ../../pkgs/git.nix {
+    inherit pkgs;
+    editor = "emacsclient -t -a ''";
+  };
   alacrittyConfig = import ../../pkgs/alacritty.nix { };
 in
 {
+  imports = [ ../common/emacs.nix ];
+
   programs.bash.enable = true;
   programs.zsh.enable = true;
   programs.fish = fishConfig;
   programs.git = gitConfig;
   programs.alacritty = alacrittyConfig;
-
-  # enable puts emacs + emacsclient on PATH; the daemon (services.emacs) uses
-  # this same package. emacs30-macport is the native macOS GUI build.
-  programs.emacs = {
-    enable = true;
-    package = pkgs.emacs30-macport;
-  };
-
-  services.emacs = {
-    enable = true;
-    client = { enable = true; };
-  };
 
   programs.home-manager.enable = true;
 

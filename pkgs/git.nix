@@ -1,4 +1,4 @@
-{ pkgs, extraIgnores ? [ ] }:
+{ pkgs, extraIgnores ? [ ], editor ? "vim" }:
 let
   global-gitignore = pkgs.writeTextFile {
     name = ".global-gitignore";
@@ -23,7 +23,7 @@ in {
     push = { autoSetupRemote = true; };
     core = {
       excludesfile = "${global-gitignore}";
-      editor = "vim";
+      inherit editor;
     };
     # url = { "ssh://git@github" = { insteadOf = "https://github.com/"; }; };
   };

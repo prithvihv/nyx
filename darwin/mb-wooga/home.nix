@@ -16,8 +16,10 @@ let
   gitConfig = import ../../pkgs/git.nix {
     inherit pkgs;
     extraIgnores = [ "openspec/" "AGENTS.md" "CLAUDE.md" ];
+    editor = "emacsclient -t -a ''";
   };
-  vimConfig = import ../../pkgs/vim.nix { inherit pkgs; };
+  # nvim disabled in favor of emacs
+  # vimConfig = import ../../pkgs/vim.nix { inherit pkgs; };
 
   tex =
     with pkgs;
@@ -46,6 +48,8 @@ let
   customPkgs = import ../../pkgs/nixpkgs { inherit pkgs; };
 in
 {
+  imports = [ ../common/emacs.nix ];
+
   home.stateVersion = "23.05";
   # home.enableNixpkgsReleaseCheck = false;
   home.username = "prithvi.virupaksha";
@@ -54,6 +58,7 @@ in
   home.packages =
     with pkgs;
     [
+      jira-cli-go
       go-migrate
       claude-code
       # msgpack-tools
@@ -153,7 +158,8 @@ in
   #   userName = "prithvihv-wooga";
   #   userEmail = "prithvi.virupaksha@wooga.net";
   # };
-  programs.neovim = vimConfig;
+  # nvim disabled: using emacs instead
+  # programs.neovim = vimConfig;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

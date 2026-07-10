@@ -43,9 +43,18 @@ in
     fish_add_path /opt/homebrew/bin
     set -gx AWS_PROFILE wooga-sbs
     export SBS_PROJECT_TOOLS_DOCKERLESS=true
-    export EDITOR=vim
+    # EDITOR is set to emacsclient via darwin/common/emacs.nix (home.sessionVariables)
     export HEX_UNSAFE_HTTPS=1
+    export HEX_NO_CERT_CHECK=1
     source "$HOME/.cargo/env.fish"
+  ''
+  # Secret / machine-local env vars. Sourced at runtime from OUTSIDE the nix
+  # store (and outside git) so secrets never land in a world-readable
+  # /nix/store path. Create the file yourself, e.g.: set -gx SOME_TOKEN xxxx
+  + ''
+    if test -f "$HOME/.config/fish/secrets.fish"
+      source "$HOME/.config/fish/secrets.fish"
+    end
   '';
   plugins =
     let
