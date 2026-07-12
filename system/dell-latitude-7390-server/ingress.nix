@@ -1,16 +1,15 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }:
 
 let
   domain = config.local.domain;
+  tailscaleDomain = config.local.tailscaleDomain;
 
-  authProxy = "127.0.0.1:4180";
-  authDomain = "auth.${domain}";
-
+  # Service catalog — single source of truth. Consumed by Caddy (vhosts, see
+  # ./ingress/caddy.nix), Pi-hole (LAN DNS), and the homepage dashboard below.
   apps = [
     { name = "Forgejo"; subdomain = "git"; port = 9753; icon = "gitea.png"; description = "Git hosting"; group = "Development"; }
     { name = "Woodpecker CI"; subdomain = "ci"; port = 8000; icon = "woodpecker-ci.png"; description = "CI/CD pipelines"; group = "Development"; }
@@ -27,56 +26,9 @@ let
     { name = "Prowlarr"; subdomain = "prowlarr"; port = 9696; icon = "prowlarr.png"; description = "Indexer manager"; group = "Media"; protect = true; }
     { name = "qBittorrent"; subdomain = "qbittorrent"; port = 8282; icon = "qbittorrent.png"; description = "Torrents (VPN)"; group = "Media"; protect = true; host = config.vpnNamespaces.wg.namespaceAddress; }
   ];
-
-  appExtraConfig =
-    app:
-    let
-      upstreamHost = app.host or "127.0.0.1";
-    in
-    if (app.protect or false) && app.subdomain != "auth" then
-      ''
-        forward_auth ${authProxy} {
-          uri /oauth2/auth
-          copy_headers X-Auth-Request-User X-Auth-Request-Email
-
-          @error status 401
-          handle_response @error {
-            redir * https://${authDomain}/oauth2/start?rd={scheme}://{host}{uri}
-          }
-        }
-        reverse_proxy ${upstreamHost}:${toString app.port}
-      ''
-    else
-      ''
-        reverse_proxy ${upstreamHost}:${toString app.port}
-      '';
 in
 {
-  services.caddy = {
-    enable = true;
-
-    package = pkgs.caddy.withPlugins {
-      plugins = [ "github.com/caddy-dns/cloudflare@v0.2.4" ];
-      hash = "sha256-8yZDrejNKsaUnUaTUFYbarWNmxafqp2z2rWo+XRsxV8=";
-    };
-
-    globalConfig = ''
-      acme_dns cloudflare {$CLOUDFLARE_API_TOKEN}
-    '';
-
-    virtualHosts = builtins.listToAttrs (
-      map (app: {
-        name = "${app.subdomain}.${domain}";
-        value.extraConfig = appExtraConfig app;
-      }) apps
-    );
-  };
-
-  systemd.services.caddy.serviceConfig.EnvironmentFile = [ "/var/lib/caddy/secrets" ];
-  networking.firewall.allowedTCPPorts = [
-    80
-    443
-  ];
+  imports = [ (import ./ingress/caddy.nix { inherit apps; }) ];
 
   services.pihole-ftl.settings.dns.hosts = map (
     app: "${config.local.serverIP} ${app.subdomain}.${domain}"
@@ -121,7 +73,7 @@ in
     in
     {
       enable = true;
-      allowedHosts = "apps.${domain}";
+      allowedHosts = "apps.${domain},apps.${tailscaleDomain}";
 
       settings = {
         title = "prithvihv";

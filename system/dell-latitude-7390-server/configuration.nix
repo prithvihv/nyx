@@ -16,6 +16,7 @@
     ./syncthing.nix
     ./ingress.nix
     ./oauth2-proxy.nix
+    ./tailscale.nix
     ./grafana.nix
     ./forgejo.nix
     ./pihole.nix
