@@ -9,7 +9,9 @@ in
 {
   services.garage = {
     enable = true;
-    package = pkgs.garage;
+    # garage-webui speaks the Garage 2.x admin API (/v2/...); the daemon must
+    # match, otherwise the UI gets "Unknown API endpoint" on every call.
+    package = pkgs.garage_2;
     environmentFile = "/var/lib/garage-secrets/garage.env";
 
     settings = {
