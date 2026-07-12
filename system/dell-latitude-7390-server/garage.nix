@@ -7,7 +7,6 @@ let
   # module) and `mc`.
   apiPort = 9900;
   rpcPort = 3901;
-  webPort = 3902;
   adminPort = 3903;
 in
 {
@@ -27,11 +26,6 @@ in
       s3_api = {
         api_bind_addr = "127.0.0.1:${toString apiPort}";
         s3_region = "eu-west-1";
-      };
-
-      s3_web = {
-        bind_addr = "127.0.0.1:${toString webPort}";
-        index = "index.html";
       };
 
       admin = {
