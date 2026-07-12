@@ -1,10 +1,6 @@
 { lib, pkgs, ... }:
 
 let
-  # S3 API on :9900 (loopback), reached from the LAN through Caddy
-  # (s3.<domain>). RPC/admin stay on loopback and aren't proxied. Garage has no
-  # web console; administration is via the `garage` CLI (installed by the
-  # module) and `mc`.
   apiPort = 9900;
   rpcPort = 3901;
   adminPort = 3903;
@@ -35,16 +31,20 @@ in
     };
   };
 
-  # `mc` CLI available system-wide (its binary is `mc`).
-  environment.systemPackages = [ pkgs.minio-client ];
+  # `rclone` CLI available system-wide.
+  environment.systemPackages = [ pkgs.rclone ];
 
-   # set up mc client, saves state to /home/server/.mc/config.json (0600).
-  systemd.services.garage-mc-setup = {
-    description = "Configure mc alias for local Garage";
+  # Configure an rclone remote named `garage` for the server user, pointing at
+  # the loopback S3 API. Uses the S3 key from the secrets file (which must
+  # match a key created in Garage during bootstrap). systemd (as root) reads
+  # the secrets file and injects the vars, so the server user never needs read
+  # access; the remote is written to /home/server/.config/rclone/rclone.conf.
+  systemd.services.garage-rclone-setup = {
+    description = "Configure rclone remote for local Garage";
     after = [ "garage.service" ];
     wants = [ "garage.service" ];
     wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.minio-client ];
+    path = [ pkgs.rclone ];
     serviceConfig = {
       Type = "oneshot";
       User = "server";
@@ -56,15 +56,14 @@ in
         echo "S3_ACCESS_KEY_ID/S3_SECRET_ACCESS_KEY not set; skipping (run Garage bootstrap first)" >&2
         exit 0
       fi
-      for _ in $(seq 1 30); do
-        if mc alias set local http://127.0.0.1:${toString apiPort} \
-             "$S3_ACCESS_KEY_ID" "$S3_SECRET_ACCESS_KEY"; then
-          exit 0
-        fi
-        sleep 2
-      done
-      echo "timed out waiting for Garage at 127.0.0.1:${toString apiPort}" >&2
-      exit 1
+      # Recreate to stay idempotent (create errors if the remote exists).
+      rclone config delete garage || true
+      rclone config create garage s3 \
+        provider Other \
+        access_key_id "$S3_ACCESS_KEY_ID" \
+        secret_access_key "$S3_SECRET_ACCESS_KEY" \
+        endpoint "http://127.0.0.1:${toString apiPort}" \
+        region eu-west-1
     '';
   };
 
