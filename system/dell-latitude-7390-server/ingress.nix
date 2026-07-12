@@ -18,6 +18,8 @@ let
     { name = "Pi-hole"; subdomain = "pihole"; port = 4938; icon = "pi-hole.png"; description = "DNS & ad blocking"; group = "Network"; protect = true; }
     { name = "Apps"; subdomain = "apps"; port = 8082; icon = "homepage.png"; description = "App dashboard"; group = "System"; }
     { name = "Grafana"; subdomain = "grafana"; port = 3000; icon = "grafana.png"; description = "Dashboards & metrics"; group = "System"; protect = true; }
+    { name = "MinIO"; subdomain = "minio"; port = 9901; icon = "minio.png"; description = "S3 object storage console"; group = "System"; protect = true; }
+    { name = "MinIO S3 API"; subdomain = "s3"; port = 9900; icon = "minio.png"; description = "S3 API endpoint"; group = "System"; }
     { name = "Login"; subdomain = "auth"; port = 4180; icon = "mdi-shield-lock"; description = "Google sign-in"; group = "System"; }
 
     # nixflix

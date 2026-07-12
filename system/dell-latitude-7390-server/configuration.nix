@@ -23,6 +23,7 @@
     ./nixflix.nix
     ./samba.nix
     ./vpn-guard.nix
+    ./minio.nix
   ];
 
   nix.package = pkgs.nixVersions.stable;
