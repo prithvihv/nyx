@@ -20,6 +20,7 @@
     ./grafana.nix
     ./forgejo.nix
     ./pihole.nix
+    ./postgres.nix
     ./nixflix.nix
     ./samba.nix
     ./vpn-guard.nix
