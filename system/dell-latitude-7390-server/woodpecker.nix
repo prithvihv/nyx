@@ -21,7 +21,7 @@ let
         systemd
         config.system.build.nixos-rebuild
         restic
-        rclone
+        awscli2
       ]
     );
 in
