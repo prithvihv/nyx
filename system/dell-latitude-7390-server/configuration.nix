@@ -21,6 +21,7 @@
     ./forgejo.nix
     ./pihole.nix
     ./postgres.nix
+    ./phv-internal-apps.nix
     ./nixflix.nix
     ./samba.nix
     ./vpn-guard.nix

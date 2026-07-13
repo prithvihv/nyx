@@ -18,6 +18,7 @@ let
     { name = "Pi-hole"; subdomain = "pihole"; port = 4938; icon = "pi-hole.png"; description = "DNS & ad blocking"; group = "Network"; protect = true; }
     { name = "Apps"; subdomain = "apps"; port = 8082; icon = "homepage.png"; description = "App dashboard"; group = "System"; }
     { name = "Grafana"; subdomain = "grafana"; port = 3000; icon = "grafana.png"; description = "Dashboards & metrics"; group = "System"; protect = true; }
+    { name = "Internal Apps"; subdomain = "internal-apps"; port = 4000; icon = "mdi-application-braces"; description = "Elixir/Phoenix internal apps"; group = "Development"; }
     { name = "Garage Admin"; subdomain = "s3-admin"; port = 3909; icon = "garage.png"; description = "Object storage admin UI"; group = "System"; protect = true; }
     { name = "Garage API"; subdomain = "s3"; port = 9900; icon = "garage.png"; description = "S3 object storage endpoint"; group = "System"; }
     { name = "Login"; subdomain = "auth"; port = 4180; icon = "mdi-shield-lock"; description = "Google sign-in"; group = "System"; }

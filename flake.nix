@@ -28,6 +28,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    phv-internal-apps = {
+      url = "git+ssh://git@192.168.0.51:2222/prithvihv/phv-apps.git?ref=main";
+    };
+
     # sbs
     # sbs.url = "git+ssh://git@github.com/wooga/sbs-nix.git";
     # sbs.inputs.nixpkgs.follows = "nixpkgs";
@@ -43,7 +47,8 @@
       elixir-extra,
       nixos-unstable,
       nixflix,
-      mac-app-util
+      mac-app-util,
+      phv-internal-apps,
       # sbs,
     }:
     let
@@ -164,6 +169,7 @@
           pkgs = linux-nixpkgs;
           modules = [
             nixflix.nixosModules.default
+            phv-internal-apps.nixosModules.default
             ./system/dell-latitude-7390-server/configuration.nix
             home-manager.nixosModules.home-manager
             {
