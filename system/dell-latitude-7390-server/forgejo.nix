@@ -22,6 +22,10 @@
         START_SSH_SERVER = true;
         SSH_LISTEN_HOST = "0.0.0.0";
         SSH_LISTEN_PORT = 2222;
+
+        # Disable registration and require login to view any page
+        DISABLE_REGISTRATION = true;
+        REQUIRE_SIGNIN_VIEW = true;
       };
 
       actions.ENABLED = false;
