@@ -3,7 +3,7 @@
 # The phv-apps Elixir/Phoenix umbrella release, wired in via the
 # `phv-internal-apps` flake input (flake.nix -> phv-internal-apps.nixosModules.default,
 # which injects the per-system `phv` release package). Published through the
-# Caddy ingress as internal-apps.<domain>; the app binds to loopback:4000 and is
+# Caddy ingress as internal-apps.<domain>; the app binds to loopback:4321 and is
 # only reachable via Caddy (80/443).
 #
 # Database: local PostgreSQL over the Unix socket with peer auth — the service
@@ -44,7 +44,7 @@ in
   services.phv-internal-apps = {
     enable = true;
     host = "internal-apps.${config.local.domain}";
-    port = 4000;
+    port = 4321;
 
     # Peer auth over the local socket: the OS user must match the Postgres role
     # name, so `user` and `database.user` are both the `phv-internal-apps` role
@@ -54,7 +54,6 @@ in
     database.socketDir = "/run/postgresql";
     database.name = dbName;
 
-    # Only SECRET_KEY_BASE is secret under peer auth.
     environmentFile = "/var/lib/phv-internal-apps/secrets";
   };
 }
