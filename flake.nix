@@ -24,7 +24,7 @@
     elixir-extra.inputs.nixpkgs.follows = "nixpkgs";
 
     nixflix = {
-      url = "github:kiriwalawren/nixflix";
+      url = "github:kiriwalawren/nixflix/v3.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
