@@ -22,6 +22,7 @@ let
         config.system.build.nixos-rebuild
         restic
         awscli2
+        gnutar
       ]
     );
 in
