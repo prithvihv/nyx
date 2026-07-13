@@ -99,6 +99,24 @@
         "type": "github"
       }
     },
+    "flake-parts_2": {
+      "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib_2"
+      },
+      "locked": {
+        "lastModified": 1782949081,
+        "narHash": "sha256-vp6Y/Grm98ESt6ceOkWiHWyZRDV3J1RID4w+6NWK9yA=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "17c9d6cdfc60c64f4ee8d306f9bc0b4ccb51481e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1667395993,
@@ -265,6 +283,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-lib_2": {
+      "locked": {
+        "lastModified": 1782614948,
+        "narHash": "sha256-ePjCwr1sNm9NYUqywL7QfK3JnlS015msC+eBu2zKlp8=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "db3f255737b94216eb71cce308e2912cf6bc2d7c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1761236834,
@@ -329,6 +362,59 @@
         "type": "github"
       }
     },
+    "nixpkgs_6": {
+      "locked": {
+        "lastModified": 1783703440,
+        "narHash": "sha256-O3/YajjWo001VUIgD8BwaRdSNLUFe7nZ1qV5TwhRBcw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8f0500b9660505dc3cb647775fe9a978a74b5283",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-26.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "phv-internal-apps": {
+      "inputs": {
+        "flake-parts": "flake-parts_2",
+        "nixpkgs": "nixpkgs_6",
+        "process-compose-flake": "process-compose-flake",
+        "services-flake": "services-flake"
+      },
+      "locked": {
+        "lastModified": 1783963047,
+        "narHash": "sha256-sstB0+fE1rtdE/Q56lo67kMWZbUdMkNlZAeKJJZ2vGs=",
+        "ref": "main",
+        "rev": "73ff289f7c6adb12d2f9ccc361bedc539194b58e",
+        "revCount": 24,
+        "type": "git",
+        "url": "ssh://forgejo@192.168.0.51:2222/prithvihv/phv-apps.git"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://forgejo@192.168.0.51:2222/prithvihv/phv-apps.git"
+      }
+    },
+    "process-compose-flake": {
+      "locked": {
+        "lastModified": 1782060835,
+        "narHash": "sha256-Q8HH2t1l3MITtWCWY4ytcH5F/Q7aAHo3Iq/QTMAKTe0=",
+        "owner": "Platonic-Systems",
+        "repo": "process-compose-flake",
+        "rev": "464ff6880737f063c3f0d3d2c7781fda9190868f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Platonic-Systems",
+        "repo": "process-compose-flake",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "darwin": "darwin",
@@ -338,7 +424,23 @@
         "nixflix": "nixflix",
         "nixos-unstable": "nixos-unstable",
         "nixpkgs": "nixpkgs_5",
+        "phv-internal-apps": "phv-internal-apps",
         "sops-nix": "sops-nix"
+      }
+    },
+    "services-flake": {
+      "locked": {
+        "lastModified": 1783213527,
+        "narHash": "sha256-yIVKacNpTvEY+xQf2MzNn6jerRrazrkXxTwmwTK4N7M=",
+        "owner": "juspay",
+        "repo": "services-flake",
+        "rev": "1c9142a3d74abc53aed62687106ee15e873dc3ff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "juspay",
+        "repo": "services-flake",
+        "type": "github"
       }
     },
     "sops-nix": {

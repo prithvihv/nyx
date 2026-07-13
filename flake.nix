@@ -29,7 +29,7 @@
     };
 
     phv-internal-apps = {
-      url = "git+ssh://git@192.168.0.51:2222/prithvihv/phv-apps.git?ref=main";
+      url = "git+ssh://forgejo@192.168.0.51:2222/prithvihv/phv-apps.git?ref=main";
     };
 
     # sbs
