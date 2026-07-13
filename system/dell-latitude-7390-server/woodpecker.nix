@@ -21,6 +21,7 @@ let
         systemd
         config.system.build.nixos-rebuild
         restic
+        rclone
       ]
     );
 in
