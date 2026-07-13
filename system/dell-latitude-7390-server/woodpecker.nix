@@ -23,6 +23,7 @@ let
         restic
         awscli2
         gnutar
+        gzip
       ]
     );
 in
