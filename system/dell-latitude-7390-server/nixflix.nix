@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 # Full media stack from the nixflix flake input (wired in via flake.nix /
 # nixflix.nixosModules.default, which also pulls in VPN-Confinement): Radarr,
@@ -45,8 +45,20 @@
     # the real gate); "external" auth + disabledForLocalAddresses skips their own
     # login for the localhost upstream. Not VPN-confined (TRaSH advises against it
     # for *arr apps) — only qBittorrent runs in the wg namespace.
+    #
+    # NOTE: `hostConfig.authentication*` is only applied via the /config/host API
+    # (i.e. written to config.xml). nixflix ALSO hardcodes `settings.auth = {
+    # required = "Enabled"; method = "Forms"; }`, which becomes the env vars
+    # RADARR__AUTH__{METHOD,REQUIRED} — and Servarr env vars OVERRIDE config.xml.
+    # So without the `settings.auth` override below the app silently runs in Forms
+    # mode (its own login page) despite config.xml saying External. Force the env
+    # vars to match. Values are PascalCase (the Servarr enum names).
     radarr = {
       enable = true;
+      settings.auth = lib.mkForce {
+        method = "External";
+        required = "DisabledForLocalAddresses";
+      };
       config = {
         apiKey._secret = "/var/lib/nixflix/radarr-apikey";
         hostConfig = {
@@ -61,6 +73,10 @@
 
     prowlarr = {
       enable = true;
+      settings.auth = lib.mkForce {
+        method = "External";
+        required = "DisabledForLocalAddresses";
+      };
       config = {
         apiKey._secret = "/var/lib/nixflix/prowlarr-apikey";
         hostConfig = {
