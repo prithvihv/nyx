@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 let
   # `finalPackage` is the actual server build in use (incl. any extensions);
@@ -8,6 +8,8 @@ in
 {
   services.postgresql = {
     enable = true;
+
+    package = pkgs.postgresql_17;
 
     # Local-only: apps on this host reach it over the Unix socket (peer auth),
     # so no TCP listener is exposed.
