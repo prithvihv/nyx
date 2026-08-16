@@ -386,11 +386,11 @@
         "services-flake": "services-flake"
       },
       "locked": {
-        "lastModified": 1785662874,
-        "narHash": "sha256-xBjAGOlGsdcNLbyuPa4qAr91iAxuWyI9pMUlKuTegjg=",
+        "lastModified": 1786299740,
+        "narHash": "sha256-odMJNZYgll/WXoAnOIBx3Fv6OOQmz1JcNt+dDIVHJgk=",
         "ref": "main",
-        "rev": "bfd3adf8bc27190aacd1bc2a4f312ea2ed26468f",
-        "revCount": 48,
+        "rev": "99bd4ce80a738f850ffb0779b9bc72bab06482b0",
+        "revCount": 51,
         "type": "git",
         "url": "ssh://forgejo@192.168.0.51:2222/prithvihv/phv-apps.git"
       },
