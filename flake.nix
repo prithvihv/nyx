@@ -55,6 +55,7 @@
       system = "x86_64-linux";
       insecurePakages = [
         "electron-27.3.11"
+        "pnpm-9.15.9" # garage-webui build dep; nixpkgs marks it insecure
         # "yubikey-manager-qt-1.2.5"
       ];
       lib = nixpkgs.lib;
