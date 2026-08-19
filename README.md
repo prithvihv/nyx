@@ -1,48 +1,37 @@
-## Issues:
-- [ ] after unlocking from lock screen / hibernation keyboard stops working. Only Mouse is working.
-- [ ] when to auto hibernate? (for work-station atleast)
-- [ ] tmux resurrect continuum not restoring automatically 
-- [X] GC for nix
-- [X] i3 multi lock screen
-- [ ] toggling notifications
+# nyx
 
+NixOS and nix-darwin flake configuring all my machines.
 
-## Docs management linux
-- use convert to convert images into pdfs
-- pandoc to convert from other formats to pdfs like markdown
+## Hosts
 
-# XPS hardware config references:
-https://gist.github.com/matthewbauer/68775d50d371eafb0de41a49f81f9cca
+| Host | Flake target | Apply with |
+| --- | --- | --- |
+| Home server (Dell Latitude 7390) | `dell-latitude-7390-server` | `./apply-latitude-7390-server.sh` |
+| Laptop (Dell Latitude 7390) | `dell-latitude-7390` | `./apply-latitude-7390.sh` |
+| Workstation (LUKS-encrypted) | `work-station` | `./apply-work-station.sh` |
+| Work MacBook | `mw-pvirupa-GK4K` | `./apply-mb-wooga.sh` |
+| Personal MacBook (M4) | `mbp-m4` | `./apply-mbp-m4.sh` |
 
-## Secret management
-- using a sops to modules that accepts file params
+Each script is a thin wrapper around `nixos-rebuild switch --flake .#<target>`
+(`darwin-rebuild` on macOS). They run `git add .` first, since flakes ignore
+untracked files.
 
-## Sops adding secrets
-- run `make editSopsSecret` with secrets in env
-- need to add key in configuration.nix
+The server also rebuilds itself: `.woodpecker.yml` runs `nixos-rebuild switch` on
+every push to `main` or `server-*`.
 
+## Layout
 
-## Scanner
-https://nixos.wiki/wiki/Scanners
+| Path | Contents |
+| --- | --- |
+| `system/` | NixOS host configs; `common.nix` is shared by the laptop and workstation |
+| `darwin/` | macOS host configs |
+| `users/` | home-manager configs |
+| `pkgs/` | per-program modules and custom packages |
+| `sops/` | encrypted secrets |
 
+## Server services
 
-## Random
-- https://www.reddit.com/r/programming/comments/q0oqai/what_is_wrong_with_geeksforgeeks_why_forcing_to/ <- add this to ublock origin
-
-
-### LUKS:
-- https://scs.community/2023/02/24/impact-of-disk-encryption/
-- overview: https://infosecwriteups.com/how-luks-works-with-full-disk-encryption-in-linux-6452ad1a42e8
-- broke pendrive: https://ubuntuforums.org/showthread.php?t=2472411
-    `cryptsetup -y -v luksFormat /dev/sdb1` failed then pendrive was write protected
-
-## wipe
-- fastest way to wipe whole disk might be to use in build feature: https://unix.stackexchange.com/questions/553143/how-can-i-speed-up-secure-erasing-of-a-disk, might now be applicable to your harddisk
-- https://superuser.com/questions/831486/complete-wiping-of-hard-drive-shred-wipe-or-dd
-- https://manpages.ubuntu.com/manpages/impish/en/man1/srm.1.html
-
-### YUBIKEY:
-https://github.com/drduh/YubiKey-Guide#nixos
-
-## General notes on darwin:
--  need to install homebrew, gpg suite manually
+Everything is fronted by Caddy on 80/443 and published under two domain trees:
+`local.prithvihv.xyz` (LAN, resolved by Pi-hole) and `tailscale.prithvihv.xyz`
+(tailnet). Backends bind to loopback. 
+`system/dell-latitude-7390-server/ingress.nix` is an interesting file. 
