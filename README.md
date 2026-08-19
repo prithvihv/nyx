@@ -16,7 +16,6 @@ https://gist.github.com/matthewbauer/68775d50d371eafb0de41a49f81f9cca
 
 ## Secret management
 - using a sops to modules that accepts file params
-- if other items need to be secured then we move to git-crypt
 
 ## Sops adding secrets
 - run `make editSopsSecret` with secrets in env
