@@ -115,6 +115,7 @@ in
 
       sbs.sbs-docker-compose
       sbs.sbs-env
+      fluxcd
     ]
     ++ [
       sbt
