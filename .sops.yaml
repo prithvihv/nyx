@@ -1,0 +1,51 @@
+# sops recipients and per-file access rules.
+#
+#   common.yaml                 every machine
+#   common_server.yaml          at home server fleet
+#   common_cloud.yaml           in cloud fleet
+#   latitude_7390_server.yaml   <specific host>
+#
+# Derive a recipient:
+#   ssh <host> 'cat /etc/ssh/ssh_host_ed25519_key.pub' | ssh-to-age
+#   ssh-to-age -i ~/.ssh/id_ed25519.pub
+#
+# After adding a recipient here and to the rules below, re-encrypt:
+#   make updateSopsKeys
+
+keys:
+  # Admin: user key on mbp-m4 (~/.ssh/id_ed25519). Recipient of everything so
+  # secrets stay editable from the machine they are authored on.
+  - &mbp_m4 age1crqz4an2esctqfs0k849ux9559npz735m9sr2kelaxgsyc40rvqsdpj8e7
+  - &latitude_7390_server age17j7kh8zqvpnj8jq5ghzqlknkz3zms7cxqd4tce5lsezv3gpezccqpwqajy
+  - &mb_wooga age1y6rpnu0xrd8htqrs7s78wl83gfjpsc8jkhm5fhwetef0s6u0r3rs28j5ds
+
+creation_rules:
+  - path_regex: secrets/latitude_7390_server\.yaml$
+    key_groups:
+      - age:
+          - *mbp_m4
+          - *latitude_7390_server
+
+  - path_regex: secrets/mb_wooga\.yaml$
+    key_groups:
+      - age:
+          - *mbp_m4
+          - *mb_wooga
+
+  - path_regex: secrets/common_server\.yaml$
+    key_groups:
+      - age:
+          - *mbp_m4
+          - *latitude_7390_server
+
+  - path_regex: secrets/common_cloud\.yaml$
+    key_groups:
+      - age:
+          - *mbp_m4
+
+  - path_regex: secrets/common\.yaml$
+    key_groups:
+      - age:
+          - *mbp_m4
+          - *mb_wooga
+          - *latitude_7390_server

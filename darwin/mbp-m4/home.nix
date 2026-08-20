@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   fishConfig = import ../../pkgs/fish.nix {
     inherit pkgs lib;
@@ -13,6 +13,7 @@ let
 in
 {
   imports = [ ../common/emacs.nix ];
+  home.sessionVariables.EDITOR = "vim";
 
   programs.bash.enable = true;
   programs.zsh.enable = true;
@@ -33,7 +34,13 @@ in
     nixfmt
     openspec # spec-driven dev CLI; bundles node privately, no global nodejs
     ripgrep
+    sops
+    age
+    ssh-to-age
   ];
+
+  home.sessionVariables.SOPS_AGE_KEY_FILE =
+    "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 
   programs.direnv = {
     enable = true;

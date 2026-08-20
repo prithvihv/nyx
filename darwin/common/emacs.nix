@@ -8,7 +8,7 @@
   # Plain terminal Emacs as the default editor (e.g. git commit messages).
   # No daemon/server: each call starts its own short-lived Emacs. home-manager
   # exposes this to fish/zsh/bash through its generated session-variables files.
-  home.sessionVariables.EDITOR = "emacs -nw";
+  # home.sessionVariables.EDITOR = "vim";
 
   # Nix manages the Emacs *binary*; the Emacs Lisp config lives in the repo as
   # a live-editable file. This symlinks ~/.config/emacs/init.el straight to the

@@ -122,6 +122,7 @@
             { system.configurationRevision = self.rev or self.dirtyRev or null; }
             # ./darwin/mbp-m4/homebrew.nix
             mac-app-util.darwinModules.default
+            sops-nix.darwinModules.sops
             home-manager.darwinModules.home-manager
             {
               nixpkgs = darwin-nixpkgs;
